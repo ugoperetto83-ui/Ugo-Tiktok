@@ -5,54 +5,69 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
-      "key": "d0086c5ad7918fff",
-      "duration": 5.592,
+      "text": "Baskets, console, veste, écouteurs, resto… Tout en 4 fois. Résultat : 150 € par mois.",
+      "key": "24fe919a2c6ce6a0",
+      "duration": 8.112,
       "words": [
         {
-          "text": "1 million",
-          "start": 0.0487,
-          "end": 0.6402
+          "text": "Baskets",
+          "start": 0.05,
+          "end": 0.7196
         },
         {
-          "text": "à",
-          "start": 0.6402,
-          "end": 0.7406
+          "text": "console",
+          "start": 0.9652,
+          "end": 1.4785
         },
         {
-          "text": "55 ans",
-          "start": 0.7406,
-          "end": 1.5442
+          "text": "veste",
+          "start": 1.858,
+          "end": 2.2822
         },
         {
-          "text": "C’est",
-          "start": 1.875,
-          "end": 2.0648
+          "text": "écouteurs",
+          "start": 2.5946,
+          "end": 3.2308
         },
         {
-          "text": "484 €",
-          "start": 2.0648,
-          "end": 3.2255
+          "text": "resto",
+          "start": 3.4987,
+          "end": 3.9897
+        },
+        {
+          "text": "Tout",
+          "start": 4.3192,
+          "end": 4.442
+        },
+        {
+          "text": "en",
+          "start": 4.442,
+          "end": 4.6094
+        },
+        {
+          "text": "4 fois",
+          "start": 4.6094,
+          "end": 5.3125
+        },
+        {
+          "text": "Résultat",
+          "start": 5.6585,
+          "end": 6.2723
+        },
+        {
+          "text": "150 €",
+          "start": 6.596,
+          "end": 7.3102
         },
         {
           "text": "par",
-          "start": 3.2255,
-          "end": 3.404
+          "start": 7.3102,
+          "end": 7.4888
         },
         {
           "text": "mois",
-          "start": 3.404,
-          "end": 3.6495
-        },
-        {
-          "text": "ou",
-          "start": 4.2411,
-          "end": 4.308
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.308,
-          "end": 5.2679
+          "start": 7.4888,
+          "end": 7.7902
         }
       ]
     },
@@ -60,274 +75,264 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
-      "key": "e65ad5201c379cca",
-      "duration": 6.024,
+      "text": "Dans ta tête, c’est 30 € par mois. En vrai, c’est 150 €, pendant 4 mois.",
+      "key": "d885927bf9cbfb80",
+      "duration": 5.472,
       "words": [
         {
-          "text": "Dès",
+          "text": "Dans",
           "start": 0.0781,
           "end": 0.2455
         },
         {
-          "text": "20 ans",
+          "text": "ta",
           "start": 0.2455,
-          "end": 0.7143
+          "end": 0.3683
         },
         {
-          "text": "484 €",
-          "start": 1.0156,
-          "end": 2.221
+          "text": "tête",
+          "start": 0.3683,
+          "end": 0.7366
+        },
+        {
+          "text": "c’est",
+          "start": 1.038,
+          "end": 1.1719
+        },
+        {
+          "text": "30 €",
+          "start": 1.1719,
+          "end": 1.5848
         },
         {
           "text": "par",
-          "start": 2.221,
-          "end": 2.3773
+          "start": 1.5848,
+          "end": 1.7522
         },
         {
           "text": "mois",
-          "start": 2.3773,
-          "end": 2.4888
+          "start": 1.7523,
+          "end": 2.0648
         },
         {
-          "text": "suffisent",
-          "start": 2.4888,
-          "end": 3.125
+          "text": "En",
+          "start": 2.3995,
+          "end": 2.5
         },
         {
-          "text": "Dès",
-          "start": 3.4598,
-          "end": 3.6161
+          "text": "vrai",
+          "start": 2.5,
+          "end": 2.7902
         },
         {
-          "text": "30 ans",
-          "start": 3.6161,
-          "end": 4.1072
+          "text": "c’est",
+          "start": 3.0804,
+          "end": 3.2143
+        },
+        {
+          "text": "150 €",
+          "start": 3.2143,
+          "end": 4.0848
+        },
+        {
+          "text": "pendant",
+          "start": 4.3527,
+          "end": 4.587
+        },
+        {
+          "text": "4 mois",
+          "start": 4.587,
+          "end": 5.1674
+        }
+      ]
+    },
+    "budget": {
+      "file": "voice/budget.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Avec 600 € par mois, il te reste 450 €… avant même les courses et les sorties.",
+      "key": "4a159a8b038166e1",
+      "duration": 5.28,
+      "words": [
+        {
+          "text": "Avec",
+          "start": 0.0893,
+          "end": 0.346
+        },
+        {
+          "text": "600 €",
+          "start": 0.346,
+          "end": 0.837
+        },
+        {
+          "text": "par",
+          "start": 0.837,
+          "end": 1.0045
+        },
+        {
+          "text": "mois",
+          "start": 1.0045,
+          "end": 1.2612
         },
         {
           "text": "il",
-          "start": 4.4643,
-          "end": 4.5759
-        },
-        {
-          "text": "faut",
-          "start": 4.5759,
-          "end": 4.7321
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.7321,
-          "end": 5.7142
-        }
-      ]
-    },
-    "chart": {
-      "file": "voice/chart.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
-      "key": "bb1d740a32ac104d",
-      "duration": 4.464,
-      "words": [
-        {
-          "text": "Même",
-          "start": 0.0781,
-          "end": 0.3125
-        },
-        {
-          "text": "million",
-          "start": 0.3125,
-          "end": 0.6585
-        },
-        {
-          "text": "au",
-          "start": 0.6585,
-          "end": 0.7589
-        },
-        {
-          "text": "bout",
-          "start": 0.7589,
-          "end": 1.0491
-        },
-        {
-          "text": "Commencer",
-          "start": 1.3727,
-          "end": 1.741
-        },
-        {
-          "text": "tôt",
-          "start": 1.7411,
-          "end": 2.0201
-        },
-        {
-          "text": "c’est",
-          "start": 2.4107,
-          "end": 2.5446
-        },
-        {
-          "text": "laisser",
-          "start": 2.5446,
-          "end": 2.8013
-        },
-        {
-          "text": "les",
-          "start": 2.8013,
-          "end": 2.8906
-        },
-        {
-          "text": "intérêts",
-          "start": 2.8906,
-          "end": 3.2701
-        },
-        {
-          "text": "composés",
-          "start": 3.2701,
-          "end": 3.6719
-        },
-        {
-          "text": "bosser",
-          "start": 3.6719,
-          "end": 4.1518
-        }
-      ]
-    },
-    "extra": {
-      "file": "voice/extra.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
-      "key": "bed107f5ec29328b",
-      "duration": 4.272,
-      "words": [
-        {
-          "text": "Attendre",
-          "start": 0.0893,
-          "end": 0.4911
-        },
-        {
-          "text": "10 ans",
-          "start": 0.4911,
-          "end": 0.8929
-        },
-        {
-          "text": "c’est",
-          "start": 1.25,
-          "end": 1.3505
-        },
-        {
-          "text": "verser",
-          "start": 1.3505,
-          "end": 1.6183
-        },
-        {
-          "text": "près",
-          "start": 1.6183,
-          "end": 1.7857
-        },
-        {
-          "text": "de",
-          "start": 1.7857,
-          "end": 1.8973
-        },
-        {
-          "text": "140 000 €",
-          "start": 1.8973,
-          "end": 2.6227
-        },
-        {
-          "text": "de",
-          "start": 2.6227,
-          "end": 2.7232
-        },
-        {
-          "text": "plus",
-          "start": 2.7232,
-          "end": 3.0692
-        },
-        {
-          "text": "pour",
-          "start": 3.0692,
-          "end": 3.2031
-        },
-        {
-          "text": "le",
-          "start": 3.2031,
-          "end": 3.2701
-        },
-        {
-          "text": "même",
-          "start": 3.2701,
-          "end": 3.4152
-        },
-        {
-          "text": "résultat",
-          "start": 3.4152,
-          "end": 3.962
-        }
-      ]
-    },
-    "cta": {
-      "file": "voice/cta.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
-      "key": "78e5495b49d42298",
-      "duration": 4.104,
-      "words": [
-        {
-          "text": "Alors",
-          "start": 0.0893,
-          "end": 0.3237
-        },
-        {
-          "text": "commence",
-          "start": 0.3237,
-          "end": 0.6696
-        },
-        {
-          "text": "tôt",
-          "start": 0.6696,
-          "end": 0.9263
-        },
-        {
-          "text": "même",
-          "start": 1.2165,
-          "end": 1.3839
-        },
-        {
-          "text": "petit",
-          "start": 1.3839,
-          "end": 1.8192
-        },
-        {
-          "text": "Ton",
-          "start": 2.1245,
-          "end": 2.292
-        },
-        {
-          "text": "futur",
-          "start": 2.292,
-          "end": 2.7384
-        },
-        {
-          "text": "toi",
-          "start": 2.7384,
-          "end": 2.9616
+          "start": 1.5513,
+          "end": 1.6295
         },
         {
           "text": "te",
-          "start": 2.9616,
-          "end": 3.0732
+          "start": 1.6295,
+          "end": 1.7411
         },
         {
-          "text": "dira",
-          "start": 3.0732,
-          "end": 3.2852
+          "text": "reste",
+          "start": 1.7411,
+          "end": 2.0312
         },
         {
-          "text": "merci",
-          "start": 3.2853,
-          "end": 3.7875
+          "text": "450 €",
+          "start": 2.0312,
+          "end": 3.0134
+        },
+        {
+          "text": "avant",
+          "start": 3.5714,
+          "end": 3.7835
+        },
+        {
+          "text": "même",
+          "start": 3.7835,
+          "end": 3.9398
+        },
+        {
+          "text": "les",
+          "start": 3.9398,
+          "end": 4.029
+        },
+        {
+          "text": "courses",
+          "start": 4.029,
+          "end": 4.3527
+        },
+        {
+          "text": "et",
+          "start": 4.3527,
+          "end": 4.3862
+        },
+        {
+          "text": "les",
+          "start": 4.3862,
+          "end": 4.4755
+        },
+        {
+          "text": "sorties",
+          "start": 4.4755,
+          "end": 4.9554
+        }
+      ]
+    },
+    "rule": {
+      "file": "voice/rule.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "La règle de Léo : si tu peux pas le payer cash, tu peux pas te le payer en 4 fois.",
+      "key": "0b90217939c12b94",
+      "duration": 4.344,
+      "words": [
+        {
+          "text": "La",
+          "start": 0.0893,
+          "end": 0.2344
+        },
+        {
+          "text": "règle",
+          "start": 0.2344,
+          "end": 0.5245
+        },
+        {
+          "text": "de",
+          "start": 0.5245,
+          "end": 0.6138
+        },
+        {
+          "text": "Léo",
+          "start": 0.6138,
+          "end": 0.9263
+        },
+        {
+          "text": "si",
+          "start": 1.2277,
+          "end": 1.3281
+        },
+        {
+          "text": "tu",
+          "start": 1.3281,
+          "end": 1.4286
+        },
+        {
+          "text": "peux",
+          "start": 1.4286,
+          "end": 1.529
+        },
+        {
+          "text": "pas",
+          "start": 1.529,
+          "end": 1.6406
+        },
+        {
+          "text": "le",
+          "start": 1.6406,
+          "end": 1.7299
+        },
+        {
+          "text": "payer",
+          "start": 1.7299,
+          "end": 1.9643
+        },
+        {
+          "text": "cash",
+          "start": 1.9643,
+          "end": 2.3884
+        },
+        {
+          "text": "tu",
+          "start": 2.6339,
+          "end": 2.7344
+        },
+        {
+          "text": "peux",
+          "start": 2.7344,
+          "end": 2.8348
+        },
+        {
+          "text": "pas",
+          "start": 2.8348,
+          "end": 2.9464
+        },
+        {
+          "text": "te",
+          "start": 2.9464,
+          "end": 3.0357
+        },
+        {
+          "text": "le",
+          "start": 3.0357,
+          "end": 3.1138
+        },
+        {
+          "text": "payer",
+          "start": 3.1138,
+          "end": 3.3705
+        },
+        {
+          "text": "en",
+          "start": 3.3705,
+          "end": 3.4375
+        },
+        {
+          "text": "4 fois",
+          "start": 3.4375,
+          "end": 4.029
         }
       ]
     },

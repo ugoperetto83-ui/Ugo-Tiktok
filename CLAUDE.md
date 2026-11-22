@@ -24,9 +24,9 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
   l'accroche) avec des options et une recommandation ; l'utilisateur aime être consulté.
 - Chaque nouvel épisode archive d'abord le précédent dans `scripts/videos/<slug>.ts`.
 - Épisodes réalisés (archives dans `scripts/videos/`, MP4 dans `out/`, non versionnés) :
-  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` (actuel
-  `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
-- Idées en réserve : crédit conso / paiement en 4 fois, règle de 72, livret vs inflation.
+  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` ·
+  `paiement-4-fois-leo` (actuel `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
+- Idées en réserve : crédit conso (taux, coût total), règle de 72, livret vs inflation.
 - Logo / avatar : `brand/` (PNG finaux), `scripts/brand.ts` (nom, pseudo, couleur jaune).
 - Toujours finir par : planche de `remotion still`, `ffprobe`, `silencedetect`, commit + push,
   envoi du MP4.
@@ -225,7 +225,7 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
 - Mascotte : **Léo** (`VIDEO_CONFIG.mascot.name`). Script à la 2e personne (« tu »), le nom
   apparaît à l'écran (pastilles, titres) ; pas de pronom attribué à Léo.
 - Scène `visual: 'notify'` : téléphone, notifications `items: SubItem[]` (`label`, `amount`,
-  `icon: play|music|gym|star`) à `itemsAt` + `i × itemGap` (caler sur les mots de la voix), puis
+  `icon: play|music|gym|star|euro|shoe|game|shirt|headphones|food`) à `itemsAt` + `i × itemGap` (caler sur les mots de la voix), puis
   compteur `from → to` + `suffix`. Pose `phone` + `holdsPhone`.
 - Scène `visual: 'checklist'` : lignes barrées une à une (`strikeAt`, `strikeGap`, tampon `stamp`),
   puis pastille `savedLabel`. Sons : « ding » par notification, coup de tampon par rature.

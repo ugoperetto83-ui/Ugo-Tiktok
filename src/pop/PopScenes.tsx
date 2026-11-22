@@ -604,7 +604,18 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
 // Abonnements : icônes, notifications, liste à barrer
 // ---------------------------------------------------------------------------
 
-const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint};
+const ICON_BG: Record<SubItem['icon'], string> = {
+  play: POP.coral,
+  music: POP.mint,
+  gym: POP.yellow,
+  star: POP.violet,
+  euro: POP.mint,
+  shoe: POP.coral,
+  game: POP.violet,
+  shirt: POP.yellow,
+  headphones: POP.mint,
+  food: POP.coral,
+};
 
 const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
   <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
@@ -628,6 +639,44 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
       <text x={32} y={45} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={38} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
         €
       </text>
+    )}
+    {icon === 'shoe' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <path d="M12,40 L14,22 L24,22 Q27,30 36,31 L48,34 Q53,36 53,42 L53,44 L12,44 Z" />
+        <line x1={12} y1={38} x2={53} y2={38} />
+      </g>
+    )}
+    {icon === 'game' && (
+      <g stroke={POP.ink} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
+        <path d="M18,22 L46,22 Q54,22 55,32 L56,42 Q56,48 50,47 L43,40 L21,40 L14,47 Q8,48 8,42 L9,32 Q10,22 18,22 Z" fill={POP.white} />
+        <line x1={20} y1={27} x2={20} y2={35} />
+        <line x1={16} y1={31} x2={24} y2={31} />
+        <circle cx={42} cy={29} r={2} fill={POP.ink} />
+        <circle cx={46} cy={34} r={2} fill={POP.ink} />
+      </g>
+    )}
+    {icon === 'shirt' && (
+      <path
+        d="M24,14 Q32,20 40,14 L52,20 L48,30 L43,28 L43,50 L21,50 L21,28 L16,30 L12,20 Z"
+        fill={POP.white}
+        stroke={POP.ink}
+        strokeWidth={4}
+        strokeLinejoin="round"
+      />
+    )}
+    {icon === 'headphones' && (
+      <g stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <path d="M15,38 L15,32 Q15,15 32,15 Q49,15 49,32 L49,38" fill="none" strokeLinecap="round" />
+        <rect x={11} y={34} width={11} height={16} rx={4} fill={POP.white} />
+        <rect x={42} y={34} width={11} height={16} rx={4} fill={POP.white} />
+      </g>
+    )}
+    {icon === 'food' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <path d="M13,30 Q13,16 32,16 Q51,16 51,30 Z" />
+        <rect x={12} y={33} width={40} height={6} rx={3} fill={POP.yellow} />
+        <path d="M13,42 L51,42 Q51,50 44,50 L20,50 Q13,50 13,42 Z" />
+      </g>
     )}
     {icon === 'star' && (
       <path
@@ -721,7 +770,7 @@ export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
         style={{
           position: 'absolute',
           left: PHONE.x + PHONE.w / 2,
-          top: Math.min(1000, PHONE.y + phoneHeight(scene.items.length) - 30),
+          top: Math.min(1050, PHONE.y + phoneHeight(scene.items.length) - 30),
           transform: `translateX(-50%) scale(${interpolate(totalIn, [0, 1], [0.3, 1])})`,
           opacity: Math.min(1, totalIn * 2),
         }}

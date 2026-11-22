@@ -268,6 +268,14 @@ export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[]
       events.push({type: 'whoosh', frame: Math.max(0, from - toFrames(WHOOSH_PEAK_SECONDS, fps)), gain: 0.55, pitch: 1});
     }
     switch (scene.visual) {
+      case 'order':
+        // « Pop » aigu quand le gobelet se pose sur le comptoir.
+        events.push({type: 'tick', frame: from + toFrames(scene.cupAt, fps), gain: 0.9, pitch: 1.7});
+        events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
+        if (scene.impactAtEnd) {
+          events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
+        }
+        break;
       case 'counter':
         events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
         if (scene.impactAtEnd) {

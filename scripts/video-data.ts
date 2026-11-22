@@ -51,27 +51,40 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  savings: 10_000, // € d'épargne
-  inflation: 0.03, // inflation annuelle
-  years: 24,
-  investRate: 0.05, // placement alternatif (rendement nominal)
-  basket: 100, // caddie de courses (€ aujourd'hui)
-  startYear: 2026,
+  coffee: 4, // € par café
+  daysPerMonth: 30,
+  marketRate: 0.08, // rendement annuel moyen supposé
+  startAge: 20,
+  endAge: 50,
 } as const;
 
 const A = ASSUMPTIONS;
-const SLEEPING = Math.round(realValue(A.savings, 0, A.inflation, A.years)); // ≈ 4 919 € → « moins de 5 000 € »
-const LOSS = A.savings - SLEEPING; // ≈ 5 081 €
-const INVESTED = Math.round(realValue(A.savings, A.investRate, A.inflation, A.years)); // ≈ 15 8xx € (euros constants)
-const BASKET = Math.round(A.basket * Math.pow(1 + A.inflation, A.years)); // ≈ 203 € → « plus de 200 € »
+const YEARS_N = A.endAge - A.startAge; // 30 ans
+const MONTHLY = A.coffee * A.daysPerMonth; // 120 €/mois
+const INVESTED_VALUE = Math.round(futureValue(MONTHLY, A.marketRate, YEARS_N)); // ≈ 163 127 € → « plus de 160 000 € »
+const PAID = MONTHLY * 12 * YEARS_N; // 43 200 €
+const CUPS = PAID / A.coffee; // 10 800 cafés
+const TRUE_PRICE = INVESTED_VALUE / CUPS; // ≈ 15,1 € par café → « environ 15 € »
 
-export const COMPUTED = {SLEEPING, LOSS, INVESTED, BASKET};
+export const COMPUTED = {MONTHLY, INVESTED_VALUE, PAID, CUPS, TRUE_PRICE};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
 // ---------------------------------------------------------------------------
 
 export type Accent = 'emerald' | 'gold';
+
+/** Poses du personnage (style « pop »). */
+export type CharacterPose = 'idle' | 'order' | 'shock' | 'think' | 'happy' | 'point';
+
+export type CharacterCue = {
+  /** Pose au début de la scène. */
+  pose: CharacterPose;
+  /** Pose prise à la fin de l'animation principale (compteur, barres, courbe, impact). */
+  then?: CharacterPose;
+  /** Tient un gobelet de café. */
+  holdsCup?: boolean;
+};
 
 export type AnimationTiming = {
   /** Délai avant le début de l'animation (s, relatif au début de la scène). */
@@ -94,6 +107,8 @@ type SceneBase = {
   accent: Accent;
   /** Joue un « whoosh » à l'entrée de la scène (défaut : true sauf 1re scène). */
   whooshIn?: boolean;
+  /** Personnage fil rouge (style « pop » uniquement). */
+  character?: CharacterCue;
 };
 
 export type CounterScene = SceneBase & {
@@ -136,6 +151,8 @@ export type SplitSide = {
   from: number;
   to: number;
   invested: number;
+  /** Libellé du montant `invested` (défaut : « Versé »). */
+  investedLabel?: string;
   style: 'winner' | 'loser';
 };
 
@@ -158,7 +175,24 @@ export type StatementScene = SceneBase & {
   impactAt?: number;
 };
 
-export type Scene = CounterScene | ChartScene | SplitScene | StatementScene;
+/** Le personnage commande au comptoir ; le prix affiché explose ensuite en compteur. */
+export type OrderScene = SceneBase & {
+  visual: 'order';
+  eyebrow: string;
+  /** Bulle de dialogue du personnage. */
+  bubble: string;
+  /** Étiquette collée sur le gobelet (ex : « 4 € »). */
+  priceLabel: string;
+  /** Arrivée du gobelet sur le comptoir (s). */
+  cupAt: number;
+  from: number;
+  to: number;
+  caption?: string;
+  animation: AnimationTiming;
+  impactAtEnd?: boolean;
+};
+
+export type Scene = CounterScene | ChartScene | SplitScene | StatementScene | OrderScene;
 
 // ---------------------------------------------------------------------------
 // Configuration globale
@@ -166,6 +200,8 @@ export type Scene = CounterScene | ChartScene | SplitScene | StatementScene;
 
 export const VIDEO_CONFIG = {
   id: 'FinanceViral',
+  /** Identité visuelle : 'dark' (Dark Finance Minimalist) ou 'pop' (sticker coloré + personnage). */
+  style: 'pop' as 'dark' | 'pop',
   width: 1080,
   height: 1920,
   fps: 60,
@@ -193,113 +229,119 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
+  '4\u00A0€',
+  '160\u00A0000\u00A0€',
+  '8\u00A0%',
+  'rien',
   'intérêts composés',
-  'liberté',
-  'inflation',
-  'S&P 500',
-  '240 000 €',
-  '10 ans',
-  '8 %',
-  'aujourd’hui',
-  '10 premières années',
-  'temps',
+  '15\u00A0€',
+  'investis',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « L'inflation à 3 % divise ton épargne par 2 en 24 ans » (~25 s)
+// Scénario : « Ton café à 4 € par jour te coûte 160 000 € » (~25 s, style pop)
 // ---------------------------------------------------------------------------
 
-const YEARS = Array.from({length: A.years + 1}, (_, i) => i);
+const AGES = Array.from({length: YEARS_N + 1}, (_, i) => A.startAge + i);
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'counter',
-    durationInSeconds: 4,
-    subtitle: 'L’inflation à 3\u00A0% divise ton épargne par 2 en seulement 24\u00A0ans.',
+    visual: 'order',
+    durationInSeconds: 5,
+    subtitle: 'Ton petit café à 4\u00A0€ par jour\u00A0? En vrai, il te coûte plus de 160\u00A0000\u00A0€.',
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Pouvoir d’achat de ${fmt(A.savings)}\u00A0€`,
-    caption: `Inflation 3\u00A0%/an · ${A.startYear} → ${A.startYear + A.years}`,
-    from: A.savings,
-    to: SLEEPING,
-    trend: 'down',
-    animation: {delay: 0.25, duration: 2.6, endAtWord: 'ans'},
+    eyebrow: 'Ton café quotidien',
+    bubble: 'Un latte, svp\u00A0!',
+    priceLabel: `${A.coffee}\u00A0€`,
+    cupAt: 0.8,
+    caption: `${MONTHLY}\u00A0€/mois · 8\u00A0%/an · ${YEARS_N}\u00A0ans`,
+    from: A.coffee,
+    to: INVESTED_VALUE,
+    animation: {delay: 2.1, duration: 2.0, endAtWord: '160\u00A0000\u00A0€'},
     impactAtEnd: true,
+    character: {pose: 'order', then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 5.5,
-    subtitle: 'Sur ton compte, tu vois toujours 10\u00A0000\u00A0€. Mais en vrai, ils valent moins de 5\u00A0000\u00A0€.',
-    accent: 'gold',
+    durationInSeconds: 6,
+    subtitle: 'Bu chaque jour, il ne reste rien. Investi à 8\u00A0% par an, il devient plus de 160\u00A0000\u00A0€.',
+    accent: 'emerald',
     left: {
-      title: 'Ton compte',
-      detail: `en ${A.startYear + A.years}`,
+      title: 'Bu',
+      detail: `${YEARS_N} ans de cafés`,
       from: 0,
-      to: A.savings,
-      invested: A.savings,
-      style: 'winner',
-    },
-    right: {
-      title: 'En vrai',
-      detail: 'pouvoir d’achat',
-      from: 0,
-      to: SLEEPING,
-      invested: A.savings,
+      to: 0,
+      invested: PAID,
+      investedLabel: 'Dépensé',
       style: 'loser',
     },
-    gapLabel: 'Perte invisible',
-    gapValue: -LOSS,
+    right: {
+      title: 'Investi',
+      detail: 'à 8\u00A0%/an',
+      from: 0,
+      to: INVESTED_VALUE,
+      invested: PAID,
+      investedLabel: 'Versé',
+      style: 'winner',
+    },
+    gapLabel: 'Différence',
+    gapValue: INVESTED_VALUE,
     animation: {delay: 0.35, duration: 2.8},
+    character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'chart',
     visual: 'chart',
-    durationInSeconds: 5.5,
-    subtitle: 'L’argent qui dort fond chaque année. Placé à 5\u00A0%, il garde une longueur d’avance sur les prix.',
+    durationInSeconds: 5,
+    subtitle: 'Au début, ça monte doucement. Puis les intérêts composés font décoller la courbe.',
     accent: 'emerald',
-    title: `Pouvoir d’achat de ${fmt(A.savings)}\u00A0€`,
-    xValues: YEARS,
+    title: `${A.coffee}\u00A0€/jour de ${A.startAge} à ${A.endAge} ans`,
+    xValues: AGES,
     xLabelSuffix: ' ans',
-    xTicks: [0, 8, 16, 24],
+    xTicks: [20, 30, 40, 50],
     series: [
       {
-        label: 'Argent qui dort · 0\u00A0%',
+        label: `Versé · ${MONTHLY}\u00A0€/mois`,
         style: 'muted',
-        values: realSeries(A.savings, 0, A.inflation, A.years),
+        values: AGES.map((age) => MONTHLY * 12 * (age - A.startAge)),
       },
       {
-        label: 'Placé à 5\u00A0%/an',
+        label: 'Investi à 8\u00A0%/an',
         style: 'neon',
-        values: realSeries(A.savings, A.investRate, A.inflation, A.years),
+        values: growthSeries(MONTHLY, A.marketRate, A.startAge, A.startAge, A.endAge),
       },
     ],
-    animation: {delay: 0.3, duration: 3.8},
+    animation: {delay: 0.3, duration: 3.6},
+    character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'basket',
+    id: 'true-price',
     visual: 'counter',
-    durationInSeconds: 3.5,
-    subtitle: `Et ton caddie de 100\u00A0€ coûtera plus de 200\u00A0€ en ${A.startYear + A.years}.`,
+    durationInSeconds: 4,
+    subtitle: 'Au final, chaque café à 4\u00A0€ te coûte en vrai environ 15\u00A0€.',
     accent: 'gold',
-    eyebrow: `Ton caddie de ${A.basket}\u00A0€ en ${A.startYear + A.years}`,
-    caption: 'Mêmes courses · inflation 3\u00A0%/an',
-    from: A.basket,
-    to: BASKET,
-    animation: {delay: 0.25, duration: 2.2, endAtWord: '200\u00A0€'},
+    eyebrow: 'Le vrai prix d’un café',
+    caption: `${fmt(INVESTED_VALUE)}\u00A0€ ÷ ${fmt(CUPS)} cafés`,
+    from: A.coffee,
+    to: Math.round(TRUE_PRICE),
+    animation: {delay: 0.4, duration: 2.4, endAtWord: '15\u00A0€'},
     impactAtEnd: true,
+    character: {pose: 'idle', then: 'shock', holdsCup: true},
   },
   {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 4,
-    subtitle: 'Alors ne laisse pas dormir ton épargne. Fais-la travailler plus vite que l’inflation, dès aujourd’hui.',
+    durationInSeconds: 4.5,
+    subtitle: 'Pas besoin d’arrêter le café. Investis aussi un peu chaque mois, dès aujourd’hui.',
     accent: 'emerald',
-    lines: [{text: 'Fais-la'}, {text: 'travailler.', highlight: true}],
-    caption: 'Plus vite que l’inflation.',
-    disclaimer: 'Exemple illustratif · inflation et rendement constants supposés · pas un conseil en investissement',
+    lines: [{text: 'Bois ton café,'}, {text: 'investis aussi.', highlight: true}],
+    caption: 'Un peu chaque mois, dès aujourd’hui.',
+    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
+    character: {pose: 'idle', then: 'happy', holdsCup: true},
   },
 ];

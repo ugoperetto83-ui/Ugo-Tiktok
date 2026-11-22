@@ -37,6 +37,10 @@ const withTimings = (scene: Scene, duration: number, voice?: VoiceClip): Resolve
     case 'split':
     case 'chart':
       return {...base, animation: fitTiming(scene.animation, duration, voice)} as ResolvedScene;
+    case 'order': {
+      const animation = fitTiming(scene.animation, duration, voice);
+      return {...base, animation, cupAt: Math.min(scene.cupAt, animation.delay * 0.8)} as ResolvedScene;
+    }
     case 'statement':
       return {
         ...base,

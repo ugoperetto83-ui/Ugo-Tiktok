@@ -8,11 +8,34 @@ import {buildSubtitles, layoutScenes, toFrames, type ResolvedScene} from './lib/
 import {resolveScenes} from './lib/resolve';
 import {loadFonts} from './lib/fonts';
 import {ChartSceneView, CounterSceneView, SplitSceneView, StatementSceneView} from './Scenes';
+import * as Pop from './pop/PopScenes';
+import {POP, POP_FONT} from './pop/theme';
 
 loadFonts();
 
-const renderScene = (scene: ResolvedScene) => {
+const POP_STYLE = VIDEO_CONFIG.style === 'pop';
+
+const renderPopScene = (scene: ResolvedScene) => {
   switch (scene.visual) {
+    case 'order':
+      return <Pop.OrderSceneView scene={scene} />;
+    case 'counter':
+      return <Pop.CounterSceneView scene={scene} />;
+    case 'split':
+      return <Pop.SplitSceneView scene={scene} />;
+    case 'chart':
+      return <Pop.ChartSceneView scene={scene} />;
+    case 'statement':
+      return <Pop.StatementSceneView scene={scene} />;
+  }
+};
+
+const renderScene = (scene: ResolvedScene) => {
+  if (POP_STYLE) return renderPopScene(scene);
+  switch (scene.visual) {
+    case 'order':
+      // Pas de vue « comptoir » en style sombre : compteur classique.
+      return <CounterSceneView scene={{...scene, visual: 'counter'}} />;
     case 'counter':
       return <CounterSceneView scene={scene} />;
     case 'split':
@@ -33,11 +56,11 @@ export const FinanceVideo: React.FC = () => {
   const hasSoundtrack = staticFiles.includes(VIDEO_CONFIG.soundtrack);
 
   return (
-    <AbsoluteFill style={{backgroundColor: '#0A0A0C'}}>
-      <Background />
+    <AbsoluteFill style={{backgroundColor: POP_STYLE ? POP.bg : '#0A0A0C'}}>
+      {POP_STYLE ? <Pop.PopBackground /> : <Background />}
       {slots.map((slot) => (
         <Sequence key={slot.scene.id} from={slot.from} durationInFrames={slot.durationInFrames} name={slot.scene.id}>
-          <SceneContainer durationInFrames={slot.durationInFrames}>{renderScene(slot.scene)}</SceneContainer>
+          <SceneContainer durationInFrames={slot.durationInFrames} variant={POP_STYLE ? 'pop' : 'dark'}>{renderScene(slot.scene)}</SceneContainer>
           {/* Voix off de la scène (la durée de la scène est calée dessus) */}
           {slot.scene.voice && staticFiles.includes(slot.scene.voice.file) && (
             <Sequence from={toFrames(slot.scene.voice.offset, fps)} name={`voix · ${slot.scene.id}`}>
@@ -46,7 +69,11 @@ export const FinanceVideo: React.FC = () => {
           )}
         </Sequence>
       ))}
-      <Subtitles words={words} />
+      {POP_STYLE ? (
+        <Subtitles words={words} fontFamily={POP_FONT} fontWeight={700} fontSize={90} keywordColor={POP.yellow} glow={false} shadow={`0 9px 0 ${POP.ink}`} strokeRatio={0.13} />
+      ) : (
+        <Subtitles words={words} />
+      )}
       {hasSoundtrack && <Audio src={staticFile(VIDEO_CONFIG.soundtrack)} volume={VIDEO_CONFIG.sfxVolume} />}
     </AbsoluteFill>
   );

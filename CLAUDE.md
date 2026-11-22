@@ -47,6 +47,7 @@ ugo-tiktok/ (racine du dépôt)
 ├── remotion.config.ts      h264, CRF 16, yuv420p, jpeg 95, navigateur préinstallé
 ├── tsconfig.json           resolveJsonModule (import du manifeste voix)
 ├── scripts/
+│   ├── videos/             archives des vidéos précédentes (copier sur video-data.ts pour re-rendre)
 │   ├── video-data.ts       ★ LES DONNÉES : config, hypothèses, mots-clés, SCENES (seul fichier à éditer)
 │   ├── voice-input.ts      exporte {voice, scenes:[{id,text}]} en JSON sur stdout → lu par Python
 │   ├── generate_voice.py   edge-tts → public/voice/<id>.mp3 + scripts/voice-manifest.json
@@ -190,6 +191,20 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
 5. Vérifier : quelques `remotion still` à `--scale=0.5` (milieu/fin de chaque scène) assemblés en
    planche ; `ffprobe` (1080×1920, 60 fps, h264 + aac) ; `silencedetect` pour confirmer la voix.
 6. Envoyer le MP4 à l'utilisateur.
+
+### Style « pop » (sticker + personnage) — `VIDEO_CONFIG.style: 'pop'`
+- Vues dans `src/pop/` : `PopScenes.tsx` (fond crème à pois, cartes sticker à contour noir 6 px
+  et ombre décalée, rayons de soleil sur les chiffres clés), `Character.tsx` (personnage SVG :
+  bonnet, sweat violet, respiration, clignements), `theme.ts` (palette `POP`, police **Fredoka**).
+- `style: 'dark'` garde l'identité « Dark Finance Minimalist » d'origine.
+- Personnage fil rouge par scène : `character: {pose, then?, holdsCup?}`, poses
+  `idle | order | shock | think | happy | point` ; `then` est pris (ressort + petit saut) à la fin
+  de l'animation principale.
+- Scène `visual: 'order'` (accroche au comptoir) : `bubble`, `priceLabel`, `cupAt`, puis compteur
+  `from → to` (champs d'un `counter`). En style sombre, elle s'affiche comme un `counter`.
+- `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
+- Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
+- `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).
 
 ### Contraintes de mise en page (vérifiées)
 - Zones sûres (`theme.ts › SAFE`) : visuels entre y=230 et y=1220 ; sous-titres centrés y=1395 ;

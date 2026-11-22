@@ -23,9 +23,12 @@ npm run setup:voice         # crée .venv/ + pip install -r requirements.txt (ed
 Prérequis : Node ≥ 18, Python ≥ 3.9, accès réseau HTTPS à `speech.platform.bing.com` (edge-tts).
 
 **Environnement cloud Claude Code :**
-- `speech.platform.bing.com` doit être dans les hôtes autorisés de l'environnement (sinon 403 du
-  proxy). Il a été ajouté à l'environnement « Default » ; si une autre session est bloquée, utiliser
-  `get_environment` puis `update_environment` (`add_allowed_hosts`).
+- Démarrer les sessions sur l'environnement personnel **« ugo-tiktok »** : il autorise
+  `speech.platform.bing.com` et son script d'installation lance automatiquement
+  `npm ci` + `.venv` + `pip install -r requirements.txt`. Vérifier en début de session que
+  `node_modules/` et `.venv/` existent ; sinon lancer les deux commandes ci-dessus.
+- Sur un autre environnement, edge-tts échoue en 403 tant que `speech.platform.bing.com` n'est pas
+  dans les hôtes autorisés (`get_environment` puis `update_environment` / `switch_environment`).
 - `generate_voice.py` passe automatiquement `HTTPS_PROXY` à edge-tts (aiohttp ignore le proxy sinon).
 - `remotion.config.ts` utilise le Chromium headless préinstallé
   (`/opt/pw-browsers/chromium_headless_shell-1243/...`) s'il existe ; ailleurs, Remotion télécharge

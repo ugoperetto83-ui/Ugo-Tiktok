@@ -5,69 +5,74 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Baskets, console, veste, écouteurs, resto… Tout en 4 fois. Résultat : 150 € par mois.",
-      "key": "24fe919a2c6ce6a0",
-      "duration": 8.112,
+      "text": "Des baskets, une console, une veste… tout en 4 fois ? Résultat : 150 € par mois.",
+      "key": "75fd0a45880c1fb5",
+      "duration": 6.24,
       "words": [
         {
-          "text": "Baskets",
-          "start": 0.05,
-          "end": 0.7196
+          "text": "Des",
+          "start": 0.0781,
+          "end": 0.212
+        },
+        {
+          "text": "baskets",
+          "start": 0.212,
+          "end": 0.7366
+        },
+        {
+          "text": "une",
+          "start": 0.9375,
+          "end": 1.0156
         },
         {
           "text": "console",
-          "start": 0.9652,
-          "end": 1.4785
+          "start": 1.0156,
+          "end": 1.5067
+        },
+        {
+          "text": "une",
+          "start": 1.7634,
+          "end": 1.8638
         },
         {
           "text": "veste",
-          "start": 1.858,
-          "end": 2.2822
+          "start": 1.8638,
+          "end": 2.3102
         },
         {
-          "text": "écouteurs",
-          "start": 2.5946,
-          "end": 3.2308
-        },
-        {
-          "text": "resto",
-          "start": 3.4987,
-          "end": 3.9897
-        },
-        {
-          "text": "Tout",
-          "start": 4.3192,
-          "end": 4.442
+          "text": "tout",
+          "start": 2.6898,
+          "end": 2.7902
         },
         {
           "text": "en",
-          "start": 4.442,
-          "end": 4.6094
+          "start": 2.7902,
+          "end": 2.9018
         },
         {
           "text": "4 fois",
-          "start": 4.6094,
-          "end": 5.3125
+          "start": 2.9018,
+          "end": 3.4598
         },
         {
           "text": "Résultat",
-          "start": 5.6585,
-          "end": 6.2723
+          "start": 3.8058,
+          "end": 4.4196
         },
         {
           "text": "150 €",
-          "start": 6.596,
-          "end": 7.3102
+          "start": 4.7433,
+          "end": 5.4576
         },
         {
           "text": "par",
-          "start": 7.3102,
-          "end": 7.4888
+          "start": 5.4576,
+          "end": 5.6362
         },
         {
           "text": "mois",
-          "start": 7.4888,
-          "end": 7.7902
+          "start": 5.6362,
+          "end": 5.9375
         }
       ]
     },

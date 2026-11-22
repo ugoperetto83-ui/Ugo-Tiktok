@@ -5,179 +5,119 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Léo met 320 € de côté chaque mois, dès son premier salaire. À 52 ans : plus de 430 000 €.",
-      "key": "6057186ee4c88d3a",
-      "duration": 6.6,
+      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
+      "key": "d0086c5ad7918fff",
+      "duration": 5.592,
       "words": [
         {
-          "text": "Léo",
-          "start": 0.0893,
-          "end": 0.4576
+          "text": "1 million",
+          "start": 0.0487,
+          "end": 0.6402
         },
         {
-          "text": "met",
-          "start": 0.4576,
-          "end": 0.5803
+          "text": "à",
+          "start": 0.6402,
+          "end": 0.7406
         },
         {
-          "text": "320 €",
-          "start": 0.5804,
-          "end": 1.2835
+          "text": "55 ans",
+          "start": 0.7406,
+          "end": 1.5442
         },
         {
-          "text": "de",
-          "start": 1.2835,
-          "end": 1.3728
+          "text": "C’est",
+          "start": 1.875,
+          "end": 2.0648
         },
         {
-          "text": "côté",
-          "start": 1.3727,
-          "end": 1.6071
+          "text": "484 €",
+          "start": 2.0648,
+          "end": 3.2255
         },
         {
-          "text": "chaque",
-          "start": 1.6071,
-          "end": 1.8192
-        },
-        {
-          "text": "mois",
-          "start": 1.8192,
-          "end": 2.0871
-        },
-        {
-          "text": "dès",
-          "start": 2.3773,
-          "end": 2.4554
-        },
-        {
-          "text": "son",
-          "start": 2.4554,
-          "end": 2.5781
-        },
-        {
-          "text": "premier",
-          "start": 2.5781,
-          "end": 2.846
-        },
-        {
-          "text": "salaire",
-          "start": 2.846,
+          "text": "par",
+          "start": 3.2255,
           "end": 3.404
         },
         {
-          "text": "À",
-          "start": 3.75,
-          "end": 3.8281
+          "text": "mois",
+          "start": 3.404,
+          "end": 3.6495
         },
         {
-          "text": "52 ans",
-          "start": 3.8281,
-          "end": 4.5982
+          "text": "ou",
+          "start": 4.2411,
+          "end": 4.308
         },
         {
-          "text": "plus",
-          "start": 4.933,
-          "end": 5.0893
-        },
-        {
-          "text": "de",
-          "start": 5.0893,
-          "end": 5.2009
-        },
-        {
-          "text": "430 000 €",
-          "start": 5.2009,
-          "end": 6.2946
+          "text": "1 140 €",
+          "start": 4.308,
+          "end": 5.2679
         }
       ]
     },
-    "jars": {
-      "file": "voice/jars.mp3",
+    "split": {
+      "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "La règle de Léo : 50 % pour les besoins, 30 % pour les envies, 20 % pour le futur.",
-      "key": "6a4123fe906629ec",
-      "duration": 5.688,
+      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
+      "key": "e65ad5201c379cca",
+      "duration": 6.024,
       "words": [
         {
-          "text": "La",
-          "start": 0.0893,
-          "end": 0.2232
+          "text": "Dès",
+          "start": 0.0781,
+          "end": 0.2455
         },
         {
-          "text": "règle",
-          "start": 0.2232,
-          "end": 0.5134
+          "text": "20 ans",
+          "start": 0.2455,
+          "end": 0.7143
         },
         {
-          "text": "de",
-          "start": 0.5134,
-          "end": 0.6027
+          "text": "484 €",
+          "start": 1.0156,
+          "end": 2.221
         },
         {
-          "text": "Léo",
-          "start": 0.6027,
-          "end": 0.9263
+          "text": "par",
+          "start": 2.221,
+          "end": 2.3773
         },
         {
-          "text": "50 %",
-          "start": 1.2388,
-          "end": 1.9085
+          "text": "mois",
+          "start": 2.3773,
+          "end": 2.4888
         },
         {
-          "text": "pour",
-          "start": 1.9085,
-          "end": 2.0312
+          "text": "suffisent",
+          "start": 2.4888,
+          "end": 3.125
         },
         {
-          "text": "les",
-          "start": 2.0312,
-          "end": 2.0982
+          "text": "Dès",
+          "start": 3.4598,
+          "end": 3.6161
         },
         {
-          "text": "besoins",
-          "start": 2.0982,
-          "end": 2.5335
+          "text": "30 ans",
+          "start": 3.6161,
+          "end": 4.1072
         },
         {
-          "text": "30 %",
-          "start": 2.8013,
-          "end": 3.3035
+          "text": "il",
+          "start": 4.4643,
+          "end": 4.5759
         },
         {
-          "text": "pour",
-          "start": 3.3036,
-          "end": 3.4263
+          "text": "faut",
+          "start": 4.5759,
+          "end": 4.7321
         },
         {
-          "text": "les",
-          "start": 3.4263,
-          "end": 3.4933
-        },
-        {
-          "text": "envies",
-          "start": 3.4933,
-          "end": 3.8839
-        },
-        {
-          "text": "20 %",
-          "start": 4.1741,
-          "end": 4.6205
-        },
-        {
-          "text": "pour",
-          "start": 4.6205,
-          "end": 4.7433
-        },
-        {
-          "text": "le",
-          "start": 4.7433,
-          "end": 4.8102
-        },
-        {
-          "text": "futur",
-          "start": 4.8102,
-          "end": 5.3683
+          "text": "1 140 €",
+          "start": 4.7321,
+          "end": 5.7142
         }
       ]
     },
@@ -185,139 +125,144 @@
       "file": "voice/chart.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Grâce aux intérêts composés, 115 000 € versés deviennent plus de 430 000 €.",
-      "key": "adcf30b5599508ae",
-      "duration": 4.704,
+      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
+      "key": "bb1d740a32ac104d",
+      "duration": 4.464,
       "words": [
         {
-          "text": "Grâce",
-          "start": 0.067,
-          "end": 0.3571
+          "text": "Même",
+          "start": 0.0781,
+          "end": 0.3125
         },
         {
-          "text": "aux",
-          "start": 0.3571,
-          "end": 0.4018
+          "text": "million",
+          "start": 0.3125,
+          "end": 0.6585
+        },
+        {
+          "text": "au",
+          "start": 0.6585,
+          "end": 0.7589
+        },
+        {
+          "text": "bout",
+          "start": 0.7589,
+          "end": 1.0491
+        },
+        {
+          "text": "Commencer",
+          "start": 1.3727,
+          "end": 1.741
+        },
+        {
+          "text": "tôt",
+          "start": 1.7411,
+          "end": 2.0201
+        },
+        {
+          "text": "c’est",
+          "start": 2.4107,
+          "end": 2.5446
+        },
+        {
+          "text": "laisser",
+          "start": 2.5446,
+          "end": 2.8013
+        },
+        {
+          "text": "les",
+          "start": 2.8013,
+          "end": 2.8906
         },
         {
           "text": "intérêts",
-          "start": 0.4018,
-          "end": 0.7477
+          "start": 2.8906,
+          "end": 3.2701
         },
         {
           "text": "composés",
-          "start": 0.7478,
-          "end": 1.3058
+          "start": 3.2701,
+          "end": 3.6719
         },
         {
-          "text": "115 000 €",
-          "start": 1.663,
-          "end": 2.3326
-        },
-        {
-          "text": "versés",
-          "start": 2.3326,
-          "end": 2.7567
-        },
-        {
-          "text": "deviennent",
-          "start": 2.7679,
-          "end": 3.0692
-        },
-        {
-          "text": "plus",
-          "start": 3.0692,
-          "end": 3.2255
-        },
-        {
-          "text": "de",
-          "start": 3.2255,
-          "end": 3.3259
-        },
-        {
-          "text": "430 000 €",
-          "start": 3.3259,
-          "end": 4.3973
+          "text": "bosser",
+          "start": 3.6719,
+          "end": 4.1518
         }
       ]
     },
-    "left": {
-      "file": "voice/left.mp3",
+    "extra": {
+      "file": "voice/extra.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Et il reste quand même 1 280 € par mois pour vivre et se faire plaisir.",
-      "key": "7a48b1e72d70f17f",
-      "duration": 4.08,
+      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
+      "key": "bed107f5ec29328b",
+      "duration": 4.272,
       "words": [
         {
-          "text": "Et",
+          "text": "Attendre",
           "start": 0.0893,
-          "end": 0.1451
+          "end": 0.4911
         },
         {
-          "text": "il",
-          "start": 0.1451,
-          "end": 0.2567
+          "text": "10 ans",
+          "start": 0.4911,
+          "end": 0.8929
         },
         {
-          "text": "reste",
-          "start": 0.2567,
-          "end": 0.5469
+          "text": "c’est",
+          "start": 1.25,
+          "end": 1.3505
         },
         {
-          "text": "quand",
-          "start": 0.5469,
-          "end": 0.692
+          "text": "verser",
+          "start": 1.3505,
+          "end": 1.6183
         },
         {
-          "text": "même",
-          "start": 0.692,
-          "end": 0.8705
+          "text": "près",
+          "start": 1.6183,
+          "end": 1.7857
         },
         {
-          "text": "1 280 €",
-          "start": 0.8705,
-          "end": 1.9308
+          "text": "de",
+          "start": 1.7857,
+          "end": 1.8973
         },
         {
-          "text": "par",
-          "start": 1.9308,
-          "end": 2.1205
+          "text": "140 000 €",
+          "start": 1.8973,
+          "end": 2.6227
         },
         {
-          "text": "mois",
-          "start": 2.1205,
-          "end": 2.3437
+          "text": "de",
+          "start": 2.6227,
+          "end": 2.7232
+        },
+        {
+          "text": "plus",
+          "start": 2.7232,
+          "end": 3.0692
         },
         {
           "text": "pour",
-          "start": 2.3438,
-          "end": 2.5223
+          "start": 3.0692,
+          "end": 3.2031
         },
         {
-          "text": "vivre",
-          "start": 2.5223,
-          "end": 2.8237
+          "text": "le",
+          "start": 3.2031,
+          "end": 3.2701
         },
         {
-          "text": "et",
-          "start": 2.913,
-          "end": 2.9464
+          "text": "même",
+          "start": 3.2701,
+          "end": 3.4152
         },
         {
-          "text": "se",
-          "start": 2.9464,
-          "end": 3.0469
-        },
-        {
-          "text": "faire",
-          "start": 3.0469,
-          "end": 3.1808
-        },
-        {
-          "text": "plaisir",
-          "start": 3.1808,
-          "end": 3.7612
+          "text": "résultat",
+          "start": 3.4152,
+          "end": 3.962
         }
       ]
     },
@@ -325,64 +270,119 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Ton premier salaire ? Paie-toi en premier, avant de dépenser le reste.",
-      "key": "8c7b821b12c28111",
-      "duration": 4.272,
+      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
+      "key": "78e5495b49d42298",
+      "duration": 4.104,
       "words": [
         {
+          "text": "Alors",
+          "start": 0.0893,
+          "end": 0.3237
+        },
+        {
+          "text": "commence",
+          "start": 0.3237,
+          "end": 0.6696
+        },
+        {
+          "text": "tôt",
+          "start": 0.6696,
+          "end": 0.9263
+        },
+        {
+          "text": "même",
+          "start": 1.2165,
+          "end": 1.3839
+        },
+        {
+          "text": "petit",
+          "start": 1.3839,
+          "end": 1.8192
+        },
+        {
           "text": "Ton",
-          "start": 0.0487,
-          "end": 0.2495
+          "start": 2.1245,
+          "end": 2.292
         },
         {
-          "text": "premier",
-          "start": 0.2495,
-          "end": 0.5509
+          "text": "futur",
+          "start": 2.292,
+          "end": 2.7384
         },
         {
-          "text": "salaire",
-          "start": 0.5509,
-          "end": 1.1759
+          "text": "toi",
+          "start": 2.7384,
+          "end": 2.9616
         },
         {
-          "text": "Paie-toi",
-          "start": 1.5067,
-          "end": 1.7745
+          "text": "te",
+          "start": 2.9616,
+          "end": 3.0732
         },
         {
-          "text": "en",
-          "start": 1.7745,
-          "end": 1.8415
+          "text": "dira",
+          "start": 3.0732,
+          "end": 3.2852
         },
         {
-          "text": "premier",
-          "start": 1.8415,
-          "end": 2.3214
+          "text": "merci",
+          "start": 3.2853,
+          "end": 3.7875
+        }
+      ]
+    },
+    "endcard": {
+      "file": "voice/endcard.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Abonne-toi à Léo et la Thune pour la suite !",
+      "key": "ce695af86d2287ab",
+      "duration": 2.544,
+      "words": [
+        {
+          "text": "Abonne-toi",
+          "start": 0.0893,
+          "end": 0.558
         },
         {
-          "text": "avant",
-          "start": 2.6339,
-          "end": 2.8795
+          "text": "à",
+          "start": 0.558,
+          "end": 0.625
         },
         {
-          "text": "de",
-          "start": 2.8795,
-          "end": 2.9799
+          "text": "Léo",
+          "start": 0.625,
+          "end": 1.038
         },
         {
-          "text": "dépenser",
-          "start": 2.9799,
-          "end": 3.3482
+          "text": "et",
+          "start": 1.1273,
+          "end": 1.183
         },
         {
-          "text": "le",
-          "start": 3.3482,
-          "end": 3.4263
+          "text": "la",
+          "start": 1.183,
+          "end": 1.2946
         },
         {
-          "text": "reste",
-          "start": 3.4263,
-          "end": 3.962
+          "text": "Thune",
+          "start": 1.2946,
+          "end": 1.5402
+        },
+        {
+          "text": "pour",
+          "start": 1.5402,
+          "end": 1.6518
+        },
+        {
+          "text": "la",
+          "start": 1.6518,
+          "end": 1.7299
+        },
+        {
+          "text": "suite",
+          "start": 1.7299,
+          "end": 2.221
         }
       ]
     }

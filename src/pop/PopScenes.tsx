@@ -1,12 +1,14 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import type {ChartScene, ChecklistScene, CounterScene, JarsScene, NotifyScene, OrderScene, SplitScene, SplitSide, StatementScene, SubItem} from '../../scripts/video-data';
+import type {ChartScene, ChecklistScene, CounterScene, EndCardScene, JarsScene, NotifyScene, OrderScene, SplitScene, SplitSide, StatementScene, SubItem} from '../../scripts/video-data';
 import {useCounter} from '../components/AnimatedCounter';
 import {CompoundChart, type ChartPalette} from '../components/CompoundChart';
 import {formatEuro, formatEuroCents} from '../lib/format';
 import {COIN_FALL, JAR_COINS, animationEndFrame, toFrames} from '../lib/timeline';
 import {TABULAR} from '../theme';
 import {Character, Cup} from './Character';
+import {BG, LeoBust, Rays} from '../Brand';
+import {BRAND} from '../../scripts/brand';
 import {OUTLINE, POP, POP_FONT, popAccent, sticker} from './theme';
 
 // ---------------------------------------------------------------------------
@@ -338,7 +340,7 @@ const SplitCard: React.FC<{side: SplitSide; timing: SplitScene['animation']; max
           overflow: 'hidden',
         }}
       >
-        {winner ? (
+        {winner || side.to > 0 ? (
           <div
             style={{
               position: 'absolute',
@@ -346,7 +348,9 @@ const SplitCard: React.FC<{side: SplitSide; timing: SplitScene['animation']; max
               right: 0,
               bottom: 0,
               height: h,
-              background: `repeating-linear-gradient(-45deg, ${POP.mint} 0 22px, #1DB58A 22px 44px)`,
+              background: winner
+                ? `repeating-linear-gradient(-45deg, ${POP.mint} 0 22px, #1DB58A 22px 44px)`
+                : `repeating-linear-gradient(-45deg, ${POP.grey} 0 22px, #A39C90 22px 44px)`,
               borderTop: h > 2 ? `${OUTLINE}px solid ${POP.ink}` : undefined,
             }}
           />
@@ -511,7 +515,7 @@ export const CounterSceneView: React.FC<{scene: CounterScene}> = ({scene}) => {
         <Pill text={scene.eyebrow} />
       </Abs>
       <Abs y={360}>
-        <BigNumber value={formatEuro(value)} fontSize={230} bg={progress >= 1 ? accent : POP.white} endFrame={endFrame} rotate={-2.5} />
+        <BigNumber value={formatEuro(value)} fontSize={Math.min(230, 1500 / formatEuro(scene.to).length)} bg={progress >= 1 ? accent : POP.white} endFrame={endFrame} rotate={-2.5} />
       </Abs>
       {scene.caption && (
         <Abs y={680}>
@@ -982,6 +986,86 @@ export const JarsSceneView: React.FC<{scene: JarsScene}> = ({scene}) => {
           <Character cue={scene.character} switchAt={lastFull} width={160} enterAt={8} />
         </div>
       )}
+    </AbsoluteFill>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Carte de fin (logo du compte + abonnement)
+// ---------------------------------------------------------------------------
+
+export const EndCardSceneView: React.FC<{scene: EndCardScene}> = ({scene}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const pop = (at: number) => spring({frame: frame - at, fps, config: {damping: 10, stiffness: 190, mass: 0.7}});
+  const avatar = pop(0);
+  const name = pop(8);
+  const cta = pop(18);
+  const btn = pop(28);
+  const pulse = 1 + 0.05 * Math.max(0, Math.sin(((frame - 40) / fps) * Math.PI * 2.2)) * (frame > 40 ? 1 : 0);
+  const D = 460;
+  const c = BG[BRAND.avatar.bg];
+  return (
+    <AbsoluteFill>
+      <Sunburst x={540} y={560} size={1150} color={POP.yellow} intensity={avatar} />
+      <div
+        style={{
+          position: 'absolute',
+          left: 540 - D / 2,
+          top: 300,
+          width: D,
+          height: D,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          background: c.fill,
+          border: `${OUTLINE * 2}px solid ${POP.ink}`,
+          boxShadow: `14px 14px 0 ${POP.ink}`,
+          transform: `scale(${avatar}) rotate(${(1 - avatar) * -20}deg)`,
+        }}
+      >
+        <Rays size={D} color={c.ray} />
+        <LeoBust size={D} pose={BRAND.avatar.pose} />
+      </div>
+      <Abs y={810}>
+        <div
+          style={{
+            ...sticker(POP.white, 14, 40),
+            padding: '12px 44px 20px',
+            fontFamily: POP_FONT,
+            fontWeight: 700,
+            fontSize: 104,
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            transform: `rotate(-3deg) scale(${interpolate(name, [0, 1], [0.3, 1])})`,
+            opacity: Math.min(1, name * 2),
+          }}
+        >
+          <span style={{color: POP.violet}}>{BRAND.name[0]}</span> <span style={{color: POP.ink}}>{BRAND.name[1]}</span>
+        </div>
+        <div style={{marginTop: 26, fontFamily: POP_FONT, fontWeight: 600, fontSize: 44, color: POP.textDim, opacity: name}}>{BRAND.handle}</div>
+      </Abs>
+      <Abs y={1050}>
+        <div style={{display: 'flex', alignItems: 'center', gap: 26}}>
+          <div style={{fontFamily: POP_FONT, fontWeight: 700, fontSize: 44, color: POP.ink, opacity: cta, transform: `translateY(${(1 - cta) * 20}px)`}}>
+            {scene.cta}
+          </div>
+          <div
+            style={{
+              ...sticker(POP.coral, 8, 999),
+              padding: '14px 36px',
+              fontFamily: POP_FONT,
+              fontWeight: 700,
+              fontSize: 44,
+              color: POP.white,
+              whiteSpace: 'nowrap',
+              transform: `scale(${interpolate(btn, [0, 1], [0.3, 1]) * pulse})`,
+              opacity: Math.min(1, btn * 2),
+            }}
+          >
+            + {scene.button}
+          </div>
+        </div>
+      </Abs>
     </AbsoluteFill>
   );
 };

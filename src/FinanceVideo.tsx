@@ -25,6 +25,8 @@ const renderPopScene = (scene: ResolvedScene) => {
       return <Pop.ChecklistSceneView scene={scene} />;
     case 'jars':
       return <Pop.JarsSceneView scene={scene} />;
+    case 'endcard':
+      return <Pop.EndCardSceneView scene={scene} />;
     case 'counter':
       return <Pop.CounterSceneView scene={scene} />;
     case 'split':
@@ -45,6 +47,8 @@ const renderScene = (scene: ResolvedScene) => {
       return <CounterSceneView scene={{...scene, visual: 'counter'}} />;
     case 'checklist':
       return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.title}], caption: scene.savedLabel}} />;
+    case 'endcard':
+      return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.button}], caption: scene.cta}} />;
     case 'jars':
       return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.title}], caption: scene.totalLabel}} />;
     case 'counter':

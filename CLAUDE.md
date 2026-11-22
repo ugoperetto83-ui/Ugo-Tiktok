@@ -212,6 +212,12 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
 - Scène `visual: 'jars'` : `total` réparti en pièces dans des bocaux `jars[{label, share, color}]`,
   remplissage à `fillAt[i]` (caler sur « 50 % », « 30 % »…) pendant `fillDuration`.
   Notification entrante : `SubItem.incoming: true` + `icon: 'euro'` (« +1 600,00 € » en vert).
+- Scène `visual: 'endcard'` (à mettre en dernier) : avatar de Léo, nom, pseudo et bouton
+  « S'abonner » lus dans `scripts/brand.ts` ; champs `cta`, `button`. Mettre le disclaimer sur la
+  scène précédente. Voix : `voiceText` avec « et » à la place de « & ».
+- Identité du compte « Léo & la Thune » (`scripts/brand.ts`) : compositions `Avatar` (1080×1080)
+  et `Wordmark` ; fichiers finaux dans `brand/`.
+- Helper `requiredMonthly(target, rate, years)` : versement mensuel pour atteindre un objectif.
 - `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
 - Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
 - `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).

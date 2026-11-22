@@ -23,6 +23,10 @@ export const futureValue = (monthly: number, annualRate: number, years: number):
   return yearly * ((Math.pow(1 + annualRate, years) - 1) / annualRate);
 };
 
+/** Versement mensuel nécessaire pour atteindre `target` en `years` ans (inverse de futureValue). */
+export const requiredMonthly = (target: number, annualRate: number, years: number): number =>
+  target / futureValue(1, annualRate, years);
+
 /** Valeur du portefeuille à chaque âge, de `fromAge` à `toAge` (inclus). 0 avant `startAge`. */
 export const growthSeries = (
   monthly: number,
@@ -51,23 +55,23 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  salary: 1600, // € net par mois
-  needs: 0.5, // règle 50/30/20
-  wants: 0.3,
-  future: 0.2,
+  target: 1_000_000, // objectif (€)
   marketRate: 0.08, // rendement annuel moyen supposé
-  startAge: 22,
-  endAge: 52,
+  earlyStart: 20,
+  lateStart: 30,
+  endAge: 55,
 } as const;
 
 const A = ASSUMPTIONS;
-const YEARS_N = A.endAge - A.startAge; // 30 ans
-const SAVED = A.salary * A.future; // 320 €/mois
-const LEFT = A.salary - SAVED; // 1 280 €/mois pour vivre
-const PAID = SAVED * 12 * YEARS_N; // 115 200 € → « 115 000 € »
-const FINAL = Math.round(futureValue(SAVED, A.marketRate, YEARS_N)); // ≈ 435 008 € → « plus de 430 000 € »
+const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
+const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
+const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
+const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
+const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
+const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
+const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
 
-export const COMPUTED = {SAVED, LEFT, PAID, FINAL};
+export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -262,7 +266,17 @@ export type JarsScene = SceneBase & {
   fillDuration: number;
 };
 
+/** Carte de fin : logo du compte (scripts/brand.ts) + appel à s'abonner. */
+export type EndCardScene = SceneBase & {
+  visual: 'endcard';
+  /** Texte de la pastille (ex : « Abonne-toi pour la suite »). */
+  cta: string;
+  /** Texte du bouton (ex : « S'abonner »). */
+  button: string;
+};
+
 export type Scene =
+  | EndCardScene
   | CounterScene
   | ChartScene
   | SplitScene
@@ -309,103 +323,116 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '320\u00A0€',
-  '430\u00A0000\u00A0€',
-  '50\u00A0%',
-  '30\u00A0%',
-  '20\u00A0%',
+  '1\u00A0million',
+  '484\u00A0€',
+  '1\u00A0140\u00A0€',
   'intérêts composés',
-  '1\u00A0280\u00A0€',
-  'paie-toi en premier',
+  '140\u00A0000\u00A0€',
+  'commence tôt',
+  'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Le premier salaire de Léo » (~25 s, style pop)
+// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
-const NAME = VIDEO_CONFIG.mascot.name;
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const pct = (x: number) => `${Math.round(x * 100)}\u00A0%`;
-const AGES = Array.from({length: YEARS_N + 1}, (_, i) => A.startAge + i);
+const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'notify',
-    durationInSeconds: 6,
-    subtitle: `${NAME} met ${SAVED}\u00A0€ de côté chaque mois, dès son premier salaire. À ${A.endAge}\u00A0ans\u00A0: plus de 430\u00A0000\u00A0€.`,
-    accent: 'emerald',
+    visual: 'counter',
+    durationInSeconds: 4.5,
+    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    accent: 'gold',
     whooshIn: false,
-    eyebrow: `Le premier salaire de ${NAME}`,
-    notifLabel: 'Virement reçu',
-    items: [{label: 'Salaire', amount: A.salary, icon: 'euro', incoming: true}],
-    itemsAt: 0.2,
-    itemGap: 0.5,
+    eyebrow: `Objectif à ${A.endAge} ans`,
+    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
     from: 0,
-    to: FINAL,
-    animation: {delay: 3.4, duration: 2.0, endAtWord: '430\u00A0000\u00A0€'},
+    to: A.target,
+    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
     impactAtEnd: true,
-    character: {pose: 'phone', then: 'happy', holdsPhone: true},
+    character: {pose: 'think', then: 'shock'},
   },
   {
-    id: 'jars',
-    visual: 'jars',
-    durationInSeconds: 6,
-    subtitle: `La règle de ${NAME}\u00A0: ${pct(A.needs)} pour les besoins, ${pct(A.wants)} pour les envies, ${pct(A.future)} pour le futur.`,
+    id: 'split',
+    visual: 'split',
+    durationInSeconds: 5,
+    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
     accent: 'emerald',
-    title: 'La règle 50/30/20',
-    total: A.salary,
-    totalLabel: `${fmt(A.salary)}\u00A0€ net`,
-    jars: [
-      {label: 'Besoins', share: A.needs, color: 'violet'},
-      {label: 'Envies', share: A.wants, color: 'coral'},
-      {label: 'Futur', share: A.future, color: 'mint'},
-    ],
-    fillAt: [1.15, 2.75, 4.1],
-    fillDuration: 0.9,
+    left: {
+      title: `Dès ${A.earlyStart} ans`,
+      detail: `par mois · ${EARLY_YEARS} ans`,
+      from: 0,
+      to: EARLY_MONTHLY,
+      invested: EARLY_PAID,
+      style: 'winner',
+    },
+    right: {
+      title: `Dès ${A.lateStart} ans`,
+      detail: `par mois · ${LATE_YEARS} ans`,
+      from: 0,
+      to: LATE_MONTHLY,
+      invested: LATE_PAID,
+      style: 'loser',
+    },
+    gapLabel: 'Effort en plus',
+    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
+    animation: {delay: 0.35, duration: 2.8},
     character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'chart',
     visual: 'chart',
     durationInSeconds: 5,
-    subtitle: 'Grâce aux intérêts composés, 115\u00A0000\u00A0€ versés deviennent plus de 430\u00A0000\u00A0€.',
+    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
     accent: 'emerald',
-    title: `${SAVED}\u00A0€/mois de ${A.startAge} à ${A.endAge} ans`,
+    title: `1\u00A0million à ${A.endAge} ans`,
     xValues: AGES,
     xLabelSuffix: ' ans',
-    xTicks: [22, 32, 42, 52],
+    xTicks: [20, 30, 40, 55],
     series: [
-      {label: `Versé · ${SAVED}\u00A0€/mois`, style: 'muted', values: AGES.map((age) => SAVED * 12 * (age - A.startAge))},
-      {label: 'Investi à 8\u00A0%/an', style: 'neon', values: growthSeries(SAVED, A.marketRate, A.startAge, A.startAge, A.endAge)},
+      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
+      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
     ],
     animation: {delay: 0.3, duration: 3.6},
     character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'left',
+    id: 'extra',
     visual: 'counter',
     durationInSeconds: 4.5,
-    subtitle: `Et il reste quand même 1\u00A0280\u00A0€ par mois pour vivre et se faire plaisir.`,
-    accent: 'emerald',
-    eyebrow: 'Chaque mois, pour vivre',
-    caption: `Besoins ${fmt(A.salary * A.needs)}\u00A0€ · Envies ${fmt(A.salary * A.wants)}\u00A0€`,
+    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    accent: 'gold',
+    eyebrow: 'Le prix de 10 ans d’attente',
+    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
     from: 0,
-    to: LEFT,
-    animation: {delay: 0.15, duration: 2.0, endAtWord: '1\u00A0280\u00A0€'},
+    to: EXTRA_PAID,
+    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
     impactAtEnd: true,
-    character: {pose: 'idle', then: 'happy', holdsCup: true},
+    character: {pose: 'idle', then: 'shock'},
   },
   {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 4,
-    subtitle: 'Ton premier salaire\u00A0? Paie-toi en premier, avant de dépenser le reste.',
+    durationInSeconds: 3.5,
+    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
     accent: 'emerald',
-    lines: [{text: 'Paie-toi'}, {text: 'en premier.', highlight: true}],
-    caption: 'Avant de dépenser le reste.',
+    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
+    caption: 'Ton futur toi te dira merci.',
     disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
     character: {pose: 'idle', then: 'happy'},
+  },
+  {
+    id: 'endcard',
+    visual: 'endcard',
+    durationInSeconds: 2.5,
+    subtitle: 'Abonne-toi à Léo & la Thune pour la suite\u00A0!',
+    voiceText: 'Abonne-toi à Léo et la Thune pour la suite !',
+    accent: 'gold',
+    cta: 'Abonne-toi pour la suite',
+    button: 'S’abonner',
   },
 ];

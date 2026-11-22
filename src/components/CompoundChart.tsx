@@ -97,13 +97,14 @@ export const CompoundChart: React.FC<Props> = ({
   const {fps} = useVideoConfig();
   const p = chartEasing(linearProgress(frame, timing, fps));
 
-  const pad = {l: 118, r: 36, t: 70, b: 74};
-  const plotW = width - pad.l - pad.r;
-  const plotH = height - pad.t - pad.b;
   const n = xValues.length;
   const maxV = Math.max(...series.flatMap((s) => s.values));
   const step = niceStep(maxV / 5);
   const yMax = Math.ceil((maxV * 1.08) / step) * step;
+  // Marge gauche adaptée à la plus longue étiquette de l'axe Y (ex : « 1 250 k€ »).
+  const pad = {l: Math.max(118, 34 + formatCompactEuro(yMax).length * 17), r: 36, t: 70, b: 74};
+  const plotW = width - pad.l - pad.r;
+  const plotH = height - pad.t - pad.b;
   const sx = (i: number) => pad.l + (i / (n - 1)) * plotW;
   const sy = (v: number) => pad.t + (1 - v / yMax) * plotH;
   const baseY = sy(0);

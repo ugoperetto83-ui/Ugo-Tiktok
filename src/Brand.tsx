@@ -8,7 +8,7 @@ import {OUTLINE, POP, POP_FONT, sticker} from './pop/theme';
 
 loadFonts();
 
-const BG: Record<AvatarBg, {fill: string; ray: string}> = {
+export const BG: Record<AvatarBg, {fill: string; ray: string}> = {
   yellow: {fill: POP.yellow, ray: '#FFE27A'},
   violet: {fill: POP.violetLight, ray: '#E8E2FF'},
   mint: {fill: '#7FE3C3', ray: '#A6EED6'},
@@ -16,7 +16,7 @@ const BG: Record<AvatarBg, {fill: string; ray: string}> = {
 };
 
 /** Rayons fixes derrière la tête (même ADN que les vidéos). */
-const Rays: React.FC<{size: number; color: string}> = ({size, color}) => {
+export const Rays: React.FC<{size: number; color: string}> = ({size, color}) => {
   const r = size / 2;
   const n = 16;
   return (
@@ -31,7 +31,7 @@ const Rays: React.FC<{size: number; color: string}> = ({size, color}) => {
 };
 
 /** Buste de Léo cadré pour un avatar rond (tête dans le cercle central). */
-const LeoBust: React.FC<{size: number; pose: CharacterPose}> = ({size, pose}) => {
+export const LeoBust: React.FC<{size: number; pose: CharacterPose}> = ({size, pose}) => {
   const k = size / 1080;
   const w = 1100 * k;
   return (

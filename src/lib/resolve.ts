@@ -59,6 +59,8 @@ const withTimings = (scene: Scene, duration: number, voice?: VoiceClip): Resolve
       const k = Math.min(1, Math.max(0.3, (duration - 0.6) / last));
       return {...base, fillAt: scene.fillAt.map((t) => t * k), fillDuration: scene.fillDuration * k} as ResolvedScene;
     }
+    case 'endcard':
+      return base as ResolvedScene;
     case 'statement':
       return {
         ...base,

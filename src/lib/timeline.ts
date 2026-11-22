@@ -290,6 +290,10 @@ export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[]
           events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
         }
         break;
+      case 'endcard':
+        events.push({type: 'impact', frame: from + toFrames(0.05, fps), gain: 0.6, pitch: 1.2});
+        events.push({type: 'tick', frame: from + toFrames(28 / 60, fps), gain: 0.9, pitch: 1.8});
+        break;
       case 'jars':
         // Pièces qui tintent pendant le remplissage, petit impact quand le bocal est plein.
         scene.fillAt.forEach((t, j) => {

@@ -41,6 +41,18 @@ const withTimings = (scene: Scene, duration: number, voice?: VoiceClip): Resolve
       const animation = fitTiming(scene.animation, duration, voice);
       return {...base, animation, cupAt: Math.min(scene.cupAt, animation.delay * 0.8)} as ResolvedScene;
     }
+    case 'notify': {
+      const animation = fitTiming(scene.animation, duration, voice);
+      // Les notifications doivent toutes être arrivées avant que le compteur démarre.
+      const k = Math.min(1, (animation.delay * 0.9) / (scene.itemsAt + scene.itemGap * (scene.items.length - 1) + 0.01));
+      return {...base, animation, itemsAt: scene.itemsAt * k, itemGap: scene.itemGap * k} as ResolvedScene;
+    }
+    case 'checklist': {
+      // La dernière rature tombe au plus tard 1 s avant la coupe.
+      const last = scene.strikeAt + scene.strikeGap * (scene.items.length - 1);
+      const k = Math.min(1, Math.max(0.3, (duration - 1) / last));
+      return {...base, strikeAt: scene.strikeAt * k, strikeGap: scene.strikeGap * k} as ResolvedScene;
+    }
     case 'statement':
       return {
         ...base,

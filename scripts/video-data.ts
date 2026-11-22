@@ -50,23 +50,26 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // Hypothèses du scénario
 // ---------------------------------------------------------------------------
 
+/** Abonnements oubliés (prix illustratifs, noms génériques). */
+export const SUBSCRIPTIONS: SubItem[] = [
+  {label: 'Streaming vidéo', amount: 13.99, icon: 'play'},
+  {label: 'Musique', amount: 7.99, icon: 'music'},
+  {label: 'Salle de sport', amount: 17.99, icon: 'gym'},
+  {label: 'Appli premium', amount: 4.99, icon: 'star'},
+];
+
 export const ASSUMPTIONS = {
-  coffee: 4, // € par café
-  daysPerMonth: 30,
   marketRate: 0.08, // rendement annuel moyen supposé
-  startAge: 20,
-  endAge: 50,
+  years: 30,
 } as const;
 
 const A = ASSUMPTIONS;
-const YEARS_N = A.endAge - A.startAge; // 30 ans
-const MONTHLY = A.coffee * A.daysPerMonth; // 120 €/mois
-const INVESTED_VALUE = Math.round(futureValue(MONTHLY, A.marketRate, YEARS_N)); // ≈ 163 127 € → « plus de 160 000 € »
-const PAID = MONTHLY * 12 * YEARS_N; // 43 200 €
-const CUPS = PAID / A.coffee; // 10 800 cafés
-const TRUE_PRICE = INVESTED_VALUE / CUPS; // ≈ 15,1 € par café → « environ 15 € »
+const MONTHLY = SUBSCRIPTIONS.reduce((sum, s) => sum + s.amount, 0); // 44,96 € → « 45 € »
+const YEARLY = MONTHLY * 12; // 539,52 € → « 540 € »
+const SPENT = Math.round(YEARLY * A.years); // ≈ 16 186 € → « plus de 16 000 € »
+const INVESTED_VALUE = Math.round(futureValue(MONTHLY, A.marketRate, A.years)); // ≈ 61 119 € → « plus de 60 000 € »
 
-export const COMPUTED = {MONTHLY, INVESTED_VALUE, PAID, CUPS, TRUE_PRICE};
+export const COMPUTED = {MONTHLY, YEARLY, SPENT, INVESTED_VALUE};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -75,7 +78,7 @@ export const COMPUTED = {MONTHLY, INVESTED_VALUE, PAID, CUPS, TRUE_PRICE};
 export type Accent = 'emerald' | 'gold';
 
 /** Poses du personnage (style « pop »). */
-export type CharacterPose = 'idle' | 'order' | 'shock' | 'think' | 'happy' | 'point';
+export type CharacterPose = 'idle' | 'order' | 'shock' | 'think' | 'happy' | 'point' | 'phone';
 
 export type CharacterCue = {
   /** Pose au début de la scène. */
@@ -84,6 +87,8 @@ export type CharacterCue = {
   then?: CharacterPose;
   /** Tient un gobelet de café. */
   holdsCup?: boolean;
+  /** Tient un téléphone (pose « phone » conseillée). */
+  holdsPhone?: boolean;
 };
 
 export type AnimationTiming = {
@@ -192,7 +197,50 @@ export type OrderScene = SceneBase & {
   impactAtEnd?: boolean;
 };
 
-export type Scene = CounterScene | ChartScene | SplitScene | StatementScene | OrderScene;
+/** Un abonnement (ou toute dépense récurrente) affiché en notification / ligne de liste. */
+export type SubItem = {
+  label: string;
+  /** Montant mensuel (€, centimes acceptés). */
+  amount: number;
+  icon: 'play' | 'music' | 'gym' | 'star';
+};
+
+/** Notifications de prélèvement qui s'empilent sur un téléphone, puis compteur du total. */
+export type NotifyScene = SceneBase & {
+  visual: 'notify';
+  eyebrow: string;
+  /** Petit libellé au-dessus de chaque notification (ex : « Prélèvement »). */
+  notifLabel: string;
+  items: SubItem[];
+  /** Arrivée de la 1re notification (s) puis écart entre deux (s). */
+  itemsAt: number;
+  itemGap: number;
+  from: number;
+  to: number;
+  /** Suffixe affiché après le compteur (ex : « /an »). */
+  suffix?: string;
+  caption?: string;
+  animation: AnimationTiming;
+  impactAtEnd?: boolean;
+};
+
+/** Liste d'abonnements barrés un à un (tampon), puis pastille d'économie. */
+export type ChecklistScene = SceneBase & {
+  visual: 'checklist';
+  title: string;
+  items: SubItem[];
+  /** Suffixe des montants (ex : « /mois »). */
+  amountSuffix: string;
+  /** Tampon posé sur chaque ligne barrée. */
+  stamp: string;
+  /** Première rature (s) puis écart entre deux (s). */
+  strikeAt: number;
+  strikeGap: number;
+  /** Pastille finale (ex : « +45 €/mois à investir »). */
+  savedLabel: string;
+};
+
+export type Scene = CounterScene | ChartScene | SplitScene | StatementScene | OrderScene | NotifyScene | ChecklistScene;
 
 // ---------------------------------------------------------------------------
 // Configuration globale
@@ -202,6 +250,8 @@ export const VIDEO_CONFIG = {
   id: 'FinanceViral',
   /** Identité visuelle : 'dark' (Dark Finance Minimalist) ou 'pop' (sticker coloré + personnage). */
   style: 'pop' as 'dark' | 'pop',
+  /** Mascotte de la série (style « pop »). */
+  mascot: {name: 'Léo'},
   width: 1080,
   height: 1920,
   fps: 60,
@@ -229,53 +279,68 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '4\u00A0€',
-  '160\u00A0000\u00A0€',
+  '540\u00A0€',
+  '45\u00A0€',
+  '16\u00A0000\u00A0€',
+  '60\u00A0000\u00A0€',
   '8\u00A0%',
-  'rien',
-  'intérêts composés',
-  '15\u00A0€',
+  'résilies',
   'investis',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Ton café à 4 € par jour te coûte 160 000 € » (~25 s, style pop)
+// Scénario : « Tes abonnements oubliés te coûtent 540 € par an » (~25 s, style pop, Léo)
 // ---------------------------------------------------------------------------
 
-const AGES = Array.from({length: YEARS_N + 1}, (_, i) => A.startAge + i);
-const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
+const NAME = VIDEO_CONFIG.mascot.name;
+const euros = (n: number) => `${Math.round(n)}\u00A0€`;
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'order',
-    durationInSeconds: 5,
-    subtitle: 'Ton petit café à 4\u00A0€ par jour\u00A0? En vrai, il te coûte plus de 160\u00A0000\u00A0€.',
+    visual: 'notify',
+    durationInSeconds: 4.5,
+    subtitle: `Streaming, musique, salle de sport, appli… Ces ${SUBSCRIPTIONS.length} abonnements oubliés te coûtent 540\u00A0€ par an.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: 'Ton café quotidien',
-    bubble: 'Un latte, svp\u00A0!',
-    priceLabel: `${A.coffee}\u00A0€`,
-    cupAt: 0.8,
-    caption: `${MONTHLY}\u00A0€/mois · 8\u00A0%/an · ${YEARS_N}\u00A0ans`,
-    from: A.coffee,
-    to: INVESTED_VALUE,
-    animation: {delay: 2.1, duration: 2.0, endAtWord: '160\u00A0000\u00A0€'},
+    eyebrow: `Les abos de ${NAME}`,
+    notifLabel: 'Prélèvement',
+    items: SUBSCRIPTIONS,
+    itemsAt: 0.15,
+    itemGap: 0.83,
+    from: 0,
+    to: Math.round(YEARLY),
+    suffix: '/an',
+    animation: {delay: 3.3, duration: 1.8, endAtWord: '540\u00A0€'},
     impactAtEnd: true,
-    character: {pose: 'order', then: 'shock'},
+    character: {pose: 'phone', then: 'shock', holdsPhone: true},
+  },
+  {
+    id: 'thirty-years',
+    visual: 'counter',
+    durationInSeconds: 5,
+    subtitle: `Ça paraît rien, ${euros(MONTHLY)} par mois. Mais sur 30\u00A0ans, c’est plus de 16\u00A0000\u00A0€ envolés.`,
+    accent: 'gold',
+    eyebrow: `${A.years} ans d’abonnements`,
+    caption: `${euros(MONTHLY)}/mois × 12 × ${A.years} ans`,
+    from: 0,
+    to: SPENT,
+    animation: {delay: 1.6, duration: 2.4, endAtWord: '16\u00A0000\u00A0€'},
+    impactAtEnd: true,
+    character: {pose: 'think', then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 6,
-    subtitle: 'Bu chaque jour, il ne reste rien. Investi à 8\u00A0% par an, il devient plus de 160\u00A0000\u00A0€.',
+    durationInSeconds: 5,
+    subtitle: `Investis à 8\u00A0% par an, ces mêmes ${euros(MONTHLY)} deviendraient plus de 60\u00A0000\u00A0€.`,
     accent: 'emerald',
     left: {
-      title: 'Bu',
-      detail: `${YEARS_N} ans de cafés`,
+      title: 'Abonné',
+      detail: `${SUBSCRIPTIONS.length} abos oubliés`,
       from: 0,
       to: 0,
-      invested: PAID,
+      invested: SPENT,
       investedLabel: 'Dépensé',
       style: 'loser',
     },
@@ -284,7 +349,7 @@ export const SCENES: Scene[] = [
       detail: 'à 8\u00A0%/an',
       from: 0,
       to: INVESTED_VALUE,
-      invested: PAID,
+      invested: SPENT,
       investedLabel: 'Versé',
       style: 'winner',
     },
@@ -294,54 +359,30 @@ export const SCENES: Scene[] = [
     character: {pose: 'think', then: 'happy'},
   },
   {
-    id: 'chart',
-    visual: 'chart',
+    id: 'cleanup',
+    visual: 'checklist',
     durationInSeconds: 5,
-    subtitle: 'Au début, ça monte doucement. Puis les intérêts composés font décoller la courbe.',
+    subtitle: 'Alors fais le tri\u00A0: chaque abonnement que tu n’as pas utilisé ce mois-ci, tu le résilies.',
     accent: 'emerald',
-    title: `${A.coffee}\u00A0€/jour de ${A.startAge} à ${A.endAge} ans`,
-    xValues: AGES,
-    xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 50],
-    series: [
-      {
-        label: `Versé · ${MONTHLY}\u00A0€/mois`,
-        style: 'muted',
-        values: AGES.map((age) => MONTHLY * 12 * (age - A.startAge)),
-      },
-      {
-        label: 'Investi à 8\u00A0%/an',
-        style: 'neon',
-        values: growthSeries(MONTHLY, A.marketRate, A.startAge, A.startAge, A.endAge),
-      },
-    ],
-    animation: {delay: 0.3, duration: 3.6},
+    title: `Le grand tri de ${NAME}`,
+    items: SUBSCRIPTIONS,
+    amountSuffix: '/mois',
+    stamp: 'Résilié',
+    strikeAt: 0.9,
+    strikeGap: 0.55,
+    savedLabel: `+${euros(MONTHLY)}/mois à investir`,
     character: {pose: 'point', then: 'happy'},
-  },
-  {
-    id: 'true-price',
-    visual: 'counter',
-    durationInSeconds: 4,
-    subtitle: 'Au final, chaque café à 4\u00A0€ te coûte en vrai environ 15\u00A0€.',
-    accent: 'gold',
-    eyebrow: 'Le vrai prix d’un café',
-    caption: `${fmt(INVESTED_VALUE)}\u00A0€ ÷ ${fmt(CUPS)} cafés`,
-    from: A.coffee,
-    to: Math.round(TRUE_PRICE),
-    animation: {delay: 0.4, duration: 2.4, endAtWord: '15\u00A0€'},
-    impactAtEnd: true,
-    character: {pose: 'idle', then: 'shock', holdsCup: true},
   },
   {
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 4.5,
-    subtitle: 'Pas besoin d’arrêter le café. Investis aussi un peu chaque mois, dès aujourd’hui.',
+    subtitle: 'Garde seulement ce que tu utilises vraiment, et investis tout le reste chaque mois.',
     accent: 'emerald',
-    lines: [{text: 'Bois ton café,'}, {text: 'investis aussi.', highlight: true}],
-    caption: 'Un peu chaque mois, dès aujourd’hui.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
+    lines: [{text: 'Résilie,'}, {text: 'investis.', highlight: true}],
+    caption: 'Garde seulement ce que tu utilises.',
+    disclaimer: 'Exemple illustratif · prix indicatifs · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
-    character: {pose: 'idle', then: 'happy', holdsCup: true},
+    character: {pose: 'idle', then: 'happy'},
   },
 ];

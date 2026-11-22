@@ -19,6 +19,10 @@ const renderPopScene = (scene: ResolvedScene) => {
   switch (scene.visual) {
     case 'order':
       return <Pop.OrderSceneView scene={scene} />;
+    case 'notify':
+      return <Pop.NotifySceneView scene={scene} />;
+    case 'checklist':
+      return <Pop.ChecklistSceneView scene={scene} />;
     case 'counter':
       return <Pop.CounterSceneView scene={scene} />;
     case 'split':
@@ -34,8 +38,11 @@ const renderScene = (scene: ResolvedScene) => {
   if (POP_STYLE) return renderPopScene(scene);
   switch (scene.visual) {
     case 'order':
-      // Pas de vue « comptoir » en style sombre : compteur classique.
+    case 'notify':
+      // Pas de vue dédiée en style sombre : compteur classique.
       return <CounterSceneView scene={{...scene, visual: 'counter'}} />;
+    case 'checklist':
+      return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.title}], caption: scene.savedLabel}} />;
     case 'counter':
       return <CounterSceneView scene={scene} />;
     case 'split':

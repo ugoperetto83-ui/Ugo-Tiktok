@@ -202,6 +202,13 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
   de l'animation principale.
 - Scène `visual: 'order'` (accroche au comptoir) : `bubble`, `priceLabel`, `cupAt`, puis compteur
   `from → to` (champs d'un `counter`). En style sombre, elle s'affiche comme un `counter`.
+- Mascotte : **Léo** (`VIDEO_CONFIG.mascot.name`). Script à la 2e personne (« tu »), le nom
+  apparaît à l'écran (pastilles, titres) ; pas de pronom attribué à Léo.
+- Scène `visual: 'notify'` : téléphone, notifications `items: SubItem[]` (`label`, `amount`,
+  `icon: play|music|gym|star`) à `itemsAt` + `i × itemGap` (caler sur les mots de la voix), puis
+  compteur `from → to` + `suffix`. Pose `phone` + `holdsPhone`.
+- Scène `visual: 'checklist'` : lignes barrées une à une (`strikeAt`, `strikeGap`, tampon `stamp`),
+  puis pastille `savedLabel`. Sons : « ding » par notification, coup de tampon par rature.
 - `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
 - Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
 - `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).

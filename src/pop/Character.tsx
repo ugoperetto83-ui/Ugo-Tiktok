@@ -9,7 +9,7 @@ import {POP} from './theme';
  * (ressort + petit saut) à `switchAt`.
  */
 
-type Eyes = 'normal' | 'wide' | 'happy' | 'up';
+type Eyes = 'normal' | 'wide' | 'happy' | 'up' | 'down';
 type Mouth = 'smile' | 'open' | 'o' | 'grin' | 'flat';
 type Brows = 'neutral' | 'up' | 'focus';
 
@@ -31,6 +31,7 @@ const POSES: Record<CharacterPose, PoseDef> = {
   think: {left: [12, 6], right: [15, 222], eyes: 'up', mouth: 'flat', brows: 'focus'},
   happy: {left: [128, 150], right: [138, 162], eyes: 'happy', mouth: 'grin', brows: 'up'},
   point: {left: [12, 6], right: [88, 92], eyes: 'normal', mouth: 'smile', brows: 'up', finger: true},
+  phone: {left: [12, 6], right: [28, 165], eyes: 'down', mouth: 'flat', brows: 'neutral'},
 };
 
 const SHOULDER_L = {x: 104, y: 228};
@@ -131,8 +132,8 @@ const EyesView: React.FC<{kind: Eyes; blink: number}> = ({kind, blink}) => (
           </g>
         );
       }
-      const dy = kind === 'up' ? -5 : 0;
-      const dx = kind === 'up' ? 4 : 0;
+      const dy = kind === 'up' ? -5 : kind === 'down' ? 6 : 0;
+      const dx = kind === 'up' ? 4 : kind === 'down' ? 3 : 0;
       return <ellipse key={cx} cx={cx + dx} cy={cy + dy} rx={9} ry={Math.max(1.5, 12 * blink)} fill={POP.ink} />;
     })}
   </g>
@@ -270,6 +271,14 @@ export const Character: React.FC<Props> = ({cue, switchAt, width = 300, talking,
         {/* Bras (devant le corps) */}
         <Arm origin={SHOULDER_L} side={-1} a1={lA1} a2={lA2} />
         <Arm origin={SHOULDER_R} side={1} a1={rA1} a2={rA2} finger={discrete.finger && !cue.holdsCup} />
+        {cue.holdsPhone && (
+          <g transform={`translate(${right.hand.x - 6} ${right.hand.y - 34}) rotate(-12)`}>
+            <rect x={-22} y={-38} width={44} height={74} rx={10} fill={POP.ink} />
+            <rect x={-16} y={-31} width={32} height={58} rx={6} fill={POP.violetLight} />
+            <circle cx={0} cy={-24} r={2.5} fill={POP.ink} />
+          </g>
+        )}
+        {cue.holdsPhone && <circle cx={right.hand.x} cy={right.hand.y} r={17} fill={POP.skin} stroke={POP.ink} strokeWidth={STROKE} />}
         {cue.holdsCup && <Cup x={right.hand.x + 4} y={right.hand.y - 18} scale={0.78} steam={(sec * 0.6) % 1} />}
       </g>
     </svg>

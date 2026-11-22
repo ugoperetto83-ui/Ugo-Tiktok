@@ -276,6 +276,22 @@ export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[]
           events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
         }
         break;
+      case 'notify':
+        // « Ding » aigu à chaque notification, puis le compteur du total.
+        scene.items.forEach((_, i) => {
+          events.push({type: 'tick', frame: from + toFrames(scene.itemsAt + i * scene.itemGap, fps), gain: 0.9, pitch: 1.6 + 0.08 * i});
+        });
+        events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
+        if (scene.impactAtEnd) {
+          events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
+        }
+        break;
+      case 'checklist':
+        // Un coup de tampon par ligne barrée.
+        scene.items.forEach((_, i) => {
+          events.push({type: 'impact', frame: from + toFrames(scene.strikeAt + i * scene.strikeGap, fps), gain: 0.45, pitch: 1.35});
+        });
+        break;
       case 'counter':
         events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
         if (scene.impactAtEnd) {

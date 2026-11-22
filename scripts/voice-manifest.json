@@ -5,84 +5,159 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Ton petit café à 4 € par jour ? En vrai, il te coûte plus de 160 000 €.",
-      "key": "e5f86c23d6a176d1",
-      "duration": 5.064,
+      "text": "Streaming, musique, salle de sport, appli… Ces 4 abonnements oubliés te coûtent 540 € par an.",
+      "key": "95978e00278506bd",
+      "duration": 6.456,
       "words": [
         {
-          "text": "Ton",
-          "start": 0.0781,
-          "end": 0.1898
+          "text": "Streaming",
+          "start": 0.0446,
+          "end": 0.6361
         },
         {
-          "text": "petit",
-          "start": 0.1898,
-          "end": 0.4241
-        },
-        {
-          "text": "café",
-          "start": 0.4241,
-          "end": 0.8594
-        },
-        {
-          "text": "à",
+          "text": "musique",
           "start": 0.8705,
-          "end": 0.971
+          "end": 1.3058
         },
         {
-          "text": "4 €",
-          "start": 0.971,
-          "end": 1.3951
-        },
-        {
-          "text": "par",
-          "start": 1.3951,
-          "end": 1.5625
-        },
-        {
-          "text": "jour",
-          "start": 1.5625,
-          "end": 1.9755
-        },
-        {
-          "text": "En",
-          "start": 2.3214,
-          "end": 2.4107
-        },
-        {
-          "text": "vrai",
-          "start": 2.4107,
-          "end": 2.712
-        },
-        {
-          "text": "il",
-          "start": 3.0245,
-          "end": 3.1138
-        },
-        {
-          "text": "te",
-          "start": 3.1138,
-          "end": 3.2143
-        },
-        {
-          "text": "coûte",
-          "start": 3.2143,
-          "end": 3.4263
-        },
-        {
-          "text": "plus",
-          "start": 3.4263,
-          "end": 3.6161
+          "text": "salle",
+          "start": 1.5737,
+          "end": 1.7522
         },
         {
           "text": "de",
-          "start": 3.6161,
-          "end": 3.7388
+          "start": 1.7523,
+          "end": 1.8527
         },
         {
-          "text": "160 000 €",
-          "start": 3.7388,
-          "end": 4.7433
+          "text": "sport",
+          "start": 1.8527,
+          "end": 2.2991
+        },
+        {
+          "text": "appli",
+          "start": 2.567,
+          "end": 2.9576
+        },
+        {
+          "text": "Ces",
+          "start": 3.2924,
+          "end": 3.4598
+        },
+        {
+          "text": "4 abonnements",
+          "start": 3.4598,
+          "end": 3.9955
+        },
+        {
+          "text": "oubliés",
+          "start": 3.9955,
+          "end": 4.5424
+        },
+        {
+          "text": "te",
+          "start": 4.6094,
+          "end": 4.7321
+        },
+        {
+          "text": "coûtent",
+          "start": 4.7321,
+          "end": 4.9665
+        },
+        {
+          "text": "540 €",
+          "start": 4.9665,
+          "end": 5.7255
+        },
+        {
+          "text": "par",
+          "start": 5.7255,
+          "end": 5.9375
+        },
+        {
+          "text": "an",
+          "start": 5.9375,
+          "end": 6.1384
+        }
+      ]
+    },
+    "thirty-years": {
+      "file": "voice/thirty-years.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Ça paraît rien, 45 € par mois. Mais sur 30 ans, c’est plus de 16 000 € envolés.",
+      "key": "4a49d8bbf359effe",
+      "duration": 5.544,
+      "words": [
+        {
+          "text": "Ça",
+          "start": 0.0781,
+          "end": 0.2455
+        },
+        {
+          "text": "paraît",
+          "start": 0.2455,
+          "end": 0.5022
+        },
+        {
+          "text": "rien",
+          "start": 0.5022,
+          "end": 0.8594
+        },
+        {
+          "text": "45 €",
+          "start": 1.1495,
+          "end": 1.7969
+        },
+        {
+          "text": "par",
+          "start": 1.7969,
+          "end": 1.9643
+        },
+        {
+          "text": "mois",
+          "start": 1.9643,
+          "end": 2.2656
+        },
+        {
+          "text": "Mais",
+          "start": 2.6116,
+          "end": 2.7455
+        },
+        {
+          "text": "sur",
+          "start": 2.7455,
+          "end": 2.9018
+        },
+        {
+          "text": "30 ans",
+          "start": 2.9018,
+          "end": 3.3594
+        },
+        {
+          "text": "c’est",
+          "start": 3.75,
+          "end": 3.8727
+        },
+        {
+          "text": "plus",
+          "start": 3.8727,
+          "end": 4.0402
+        },
+        {
+          "text": "de",
+          "start": 4.0402,
+          "end": 4.1518
+        },
+        {
+          "text": "16 000 €",
+          "start": 4.1518,
+          "end": 4.7321
+        },
+        {
+          "text": "envolés",
+          "start": 4.7321,
+          "end": 5.2232
         }
       ]
     },
@@ -90,239 +165,159 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Bu chaque jour, il ne reste rien. Investi à 8 % par an, il devient plus de 160 000 €.",
-      "key": "55541ef0c39617f4",
-      "duration": 5.88,
+      "text": "Investis à 8 % par an, ces mêmes 45 € deviendraient plus de 60 000 €.",
+      "key": "12e6e191f60442ca",
+      "duration": 4.848,
       "words": [
         {
-          "text": "Bu",
-          "start": 0.0781,
-          "end": 0.2344
-        },
-        {
-          "text": "chaque",
-          "start": 0.2344,
-          "end": 0.4353
-        },
-        {
-          "text": "jour",
-          "start": 0.4353,
-          "end": 0.8147
-        },
-        {
-          "text": "il",
-          "start": 1.0602,
-          "end": 1.1272
-        },
-        {
-          "text": "ne",
-          "start": 1.1273,
-          "end": 1.2165
-        },
-        {
-          "text": "reste",
-          "start": 1.2165,
-          "end": 1.4844
-        },
-        {
-          "text": "rien",
-          "start": 1.4844,
-          "end": 1.8415
-        },
-        {
-          "text": "Investi",
-          "start": 2.1763,
-          "end": 2.6674
+          "text": "Investis",
+          "start": 0.067,
+          "end": 0.5692
         },
         {
           "text": "à",
-          "start": 2.6674,
-          "end": 2.7455
+          "start": 0.5692,
+          "end": 0.6473
         },
         {
           "text": "8 %",
-          "start": 2.7455,
-          "end": 3.2143
+          "start": 0.6473,
+          "end": 1.0938
         },
         {
           "text": "par",
-          "start": 3.2143,
-          "end": 3.4263
+          "start": 1.0938,
+          "end": 1.317
         },
         {
           "text": "an",
-          "start": 3.4263,
-          "end": 3.5937
+          "start": 1.317,
+          "end": 1.4844
         },
         {
-          "text": "il",
-          "start": 3.9844,
-          "end": 4.0848
+          "text": "ces",
+          "start": 1.9308,
+          "end": 2.0647
         },
         {
-          "text": "devient",
-          "start": 4.0848,
-          "end": 4.3527
+          "text": "mêmes",
+          "start": 2.0648,
+          "end": 2.2433
+        },
+        {
+          "text": "45 €",
+          "start": 2.2433,
+          "end": 3.0134
+        },
+        {
+          "text": "deviendraient",
+          "start": 3.0692,
+          "end": 3.4487
         },
         {
           "text": "plus",
-          "start": 4.3527,
-          "end": 4.5089
+          "start": 3.4487,
+          "end": 3.6161
         },
         {
           "text": "de",
-          "start": 4.5089,
-          "end": 4.6317
+          "start": 3.6161,
+          "end": 3.7165
         },
         {
-          "text": "160 000 €",
-          "start": 4.6317,
-          "end": 5.5692
+          "text": "60 000 €",
+          "start": 3.7165,
+          "end": 4.5424
         }
       ]
     },
-    "chart": {
-      "file": "voice/chart.mp3",
+    "cleanup": {
+      "file": "voice/cleanup.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Au début, ça monte doucement. Puis les intérêts composés font décoller la courbe.",
-      "key": "23edc40b60f16340",
-      "duration": 4.776,
+      "text": "Alors fais le tri : chaque abonnement que tu n’as pas utilisé ce mois-ci, tu le résilies.",
+      "key": "7612600c98766cec",
+      "duration": 4.368,
       "words": [
         {
-          "text": "Au",
-          "start": 0.0487,
-          "end": 0.1826
+          "text": "Alors",
+          "start": 0.0893,
+          "end": 0.3013
         },
         {
-          "text": "début",
-          "start": 0.1826,
-          "end": 0.5509
+          "text": "fais",
+          "start": 0.3013,
+          "end": 0.413
         },
         {
-          "text": "ça",
-          "start": 0.8522,
-          "end": 0.9862
+          "text": "le",
+          "start": 0.413,
+          "end": 0.5022
         },
         {
-          "text": "monte",
-          "start": 0.9862,
-          "end": 1.2429
-        },
-        {
-          "text": "doucement",
-          "start": 1.2429,
-          "end": 1.7228
-        },
-        {
-          "text": "Puis",
-          "start": 2.0536,
-          "end": 2.2321
-        },
-        {
-          "text": "les",
-          "start": 2.2321,
-          "end": 2.3326
-        },
-        {
-          "text": "intérêts",
-          "start": 2.3326,
-          "end": 2.6897
-        },
-        {
-          "text": "composés",
-          "start": 2.6898,
-          "end": 3.2701
-        },
-        {
-          "text": "font",
-          "start": 3.337,
-          "end": 3.5156
-        },
-        {
-          "text": "décoller",
-          "start": 3.5156,
-          "end": 3.8505
-        },
-        {
-          "text": "la",
-          "start": 3.8505,
-          "end": 3.9509
-        },
-        {
-          "text": "courbe",
-          "start": 3.9509,
-          "end": 4.4531
-        }
-      ]
-    },
-    "true-price": {
-      "file": "voice/true-price.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Au final, chaque café à 4 € te coûte en vrai environ 15 €.",
-      "key": "76f5713697bccd96",
-      "duration": 4.008,
-      "words": [
-        {
-          "text": "Au",
-          "start": 0.0487,
-          "end": 0.1826
-        },
-        {
-          "text": "final",
-          "start": 0.1826,
-          "end": 0.6625
+          "text": "tri",
+          "start": 0.5022,
+          "end": 0.7924
         },
         {
           "text": "chaque",
-          "start": 1.0308,
-          "end": 1.2317
+          "start": 1.1049,
+          "end": 1.317
         },
         {
-          "text": "café",
-          "start": 1.2317,
-          "end": 1.5219
+          "text": "abonnement",
+          "start": 1.317,
+          "end": 1.7299
         },
         {
-          "text": "à",
-          "start": 1.5219,
-          "end": 1.5777
+          "text": "que",
+          "start": 1.7299,
+          "end": 1.8304
         },
         {
-          "text": "4 €",
-          "start": 1.5777,
-          "end": 2.0911
+          "text": "tu",
+          "start": 1.8304,
+          "end": 1.9308
         },
         {
-          "text": "te",
-          "start": 2.0911,
-          "end": 2.2027
+          "text": "n’as",
+          "start": 1.9308,
+          "end": 2.0201
         },
         {
-          "text": "coûte",
-          "start": 2.2027,
-          "end": 2.4035
+          "text": "pas",
+          "start": 2.0201,
+          "end": 2.1317
         },
         {
-          "text": "en",
-          "start": 2.4036,
-          "end": 2.4817
+          "text": "utilisé",
+          "start": 2.1317,
+          "end": 2.5893
         },
         {
-          "text": "vrai",
-          "start": 2.4817,
-          "end": 2.7272
+          "text": "ce",
+          "start": 2.5893,
+          "end": 2.7009
         },
         {
-          "text": "environ",
-          "start": 2.7384,
-          "end": 3.0955
+          "text": "mois-ci",
+          "start": 2.7009,
+          "end": 3.1473
         },
         {
-          "text": "15 €",
-          "start": 3.0955,
-          "end": 3.687
+          "text": "tu",
+          "start": 3.3594,
+          "end": 3.471
+        },
+        {
+          "text": "le",
+          "start": 3.471,
+          "end": 3.5491
+        },
+        {
+          "text": "résilies",
+          "start": 3.5491,
+          "end": 4.0514
         }
       ]
     },
@@ -330,74 +325,79 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Pas besoin d’arrêter le café. Investis aussi un peu chaque mois, dès aujourd’hui.",
-      "key": "f4598a9b9d31e610",
-      "duration": 4.512,
+      "text": "Garde seulement ce que tu utilises vraiment, et investis tout le reste chaque mois.",
+      "key": "5805e7481fb32a4b",
+      "duration": 3.888,
       "words": [
         {
-          "text": "Pas",
+          "text": "Garde",
           "start": 0.0781,
-          "end": 0.1674
+          "end": 0.3906
         },
         {
-          "text": "besoin",
-          "start": 0.1674,
-          "end": 0.5245
+          "text": "seulement",
+          "start": 0.3906,
+          "end": 0.7366
         },
         {
-          "text": "d’arrêter",
-          "start": 0.5245,
+          "text": "ce",
+          "start": 0.7366,
           "end": 0.8482
         },
         {
-          "text": "le",
+          "text": "que",
           "start": 0.8482,
-          "end": 0.9152
+          "end": 0.9375
         },
         {
-          "text": "café",
-          "start": 0.9152,
-          "end": 1.4174
+          "text": "tu",
+          "start": 0.9375,
+          "end": 1.0602
         },
         {
-          "text": "Investis",
-          "start": 1.7523,
+          "text": "utilises",
+          "start": 1.0602,
+          "end": 1.3951
+        },
+        {
+          "text": "vraiment",
+          "start": 1.3951,
+          "end": 1.7969
+        },
+        {
+          "text": "et",
+          "start": 2.1429,
           "end": 2.2321
         },
         {
-          "text": "aussi",
+          "text": "investis",
           "start": 2.2321,
-          "end": 2.5
+          "end": 2.6004
         },
         {
-          "text": "un",
-          "start": 2.5,
-          "end": 2.5781
+          "text": "tout",
+          "start": 2.6005,
+          "end": 2.7009
         },
         {
-          "text": "peu",
-          "start": 2.5781,
-          "end": 2.712
+          "text": "le",
+          "start": 2.7009,
+          "end": 2.7678
+        },
+        {
+          "text": "reste",
+          "start": 2.7679,
+          "end": 3.0692
         },
         {
           "text": "chaque",
-          "start": 2.712,
-          "end": 2.9464
+          "start": 3.0692,
+          "end": 3.2812
         },
         {
           "text": "mois",
-          "start": 2.9464,
-          "end": 3.2254
-        },
-        {
-          "text": "dès",
-          "start": 3.5268,
-          "end": 3.6161
-        },
-        {
-          "text": "aujourd’hui",
-          "start": 3.6161,
-          "end": 4.1965
+          "start": 3.2812,
+          "end": 3.5826
         }
       ]
     }

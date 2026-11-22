@@ -1,9 +1,9 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import type {ChartScene, CounterScene, OrderScene, SplitScene, SplitSide, StatementScene} from '../../scripts/video-data';
+import type {ChartScene, ChecklistScene, CounterScene, NotifyScene, OrderScene, SplitScene, SplitSide, StatementScene, SubItem} from '../../scripts/video-data';
 import {useCounter} from '../components/AnimatedCounter';
 import {CompoundChart, type ChartPalette} from '../components/CompoundChart';
-import {formatEuro} from '../lib/format';
+import {formatEuro, formatEuroCents} from '../lib/format';
 import {animationEndFrame, toFrames} from '../lib/timeline';
 import {TABULAR} from '../theme';
 import {Character, Cup} from './Character';
@@ -591,6 +591,244 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
             {scene.disclaimer}
           </div>
         </Abs>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Abonnements : icônes, notifications, liste à barrer
+// ---------------------------------------------------------------------------
+
+const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet};
+
+const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
+  <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
+    <rect x={3} y={3} width={58} height={58} rx={16} fill={ICON_BG[icon]} stroke={POP.ink} strokeWidth={5} />
+    {icon === 'play' && <path d="M25,19 L45,32 L25,45 Z" fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round" />}
+    {icon === 'music' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <path d="M27,42 L27,18 L44,14 L44,38" fill="none" strokeLinecap="round" />
+        <circle cx={23} cy={43} r={6} />
+        <circle cx={40} cy={39} r={6} />
+      </g>
+    )}
+    {icon === 'gym' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <line x1={20} y1={32} x2={44} y2={32} strokeLinecap="round" />
+        <rect x={12} y={22} width={9} height={20} rx={3} />
+        <rect x={43} y={22} width={9} height={20} rx={3} />
+      </g>
+    )}
+    {icon === 'star' && (
+      <path
+        d="M32,15 L37,27 L50,27 L40,35 L44,48 L32,40 L20,48 L24,35 L14,27 L27,27 Z"
+        fill={POP.yellow}
+        stroke={POP.ink}
+        strokeWidth={4}
+        strokeLinejoin="round"
+      />
+    )}
+  </svg>
+);
+
+const PHONE = {x: 370, y: 330, w: 520, h: 640};
+
+export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const {value, progress} = useCounter(scene.from, scene.to, scene.animation);
+  const endFrame = animationEndFrame(scene.animation, fps);
+  const startFrame = toFrames(scene.animation.delay, fps);
+  const shake = useShake(endFrame, 1.4);
+  const totalIn = spring({frame: frame - startFrame + 4, fps, config: {damping: 10, stiffness: 190, mass: 0.7}});
+  const accent = popAccent(scene.accent);
+
+  return (
+    <AbsoluteFill style={{transform: `translate(${shake}px, ${shake * 0.4}px)`}}>
+      <Sunburst x={PHONE.x + PHONE.w / 2} y={980} size={1000} color={POP.yellow} intensity={progress} />
+      <Abs y={250}>
+        <Pill text={scene.eyebrow} />
+      </Abs>
+      {/* Téléphone */}
+      <div
+        style={{
+          position: 'absolute',
+          left: PHONE.x,
+          top: PHONE.y,
+          width: PHONE.w,
+          height: PHONE.h,
+          ...sticker(POP.ink, 14, 64),
+          padding: 16,
+          transform: 'rotate(2deg)',
+        }}
+      >
+        <div style={{width: '100%', height: '100%', borderRadius: 46, background: POP.violetLight, position: 'relative', overflow: 'hidden'}}>
+          <div style={{position: 'absolute', left: '50%', top: 14, width: 110, height: 26, marginLeft: -55, borderRadius: 13, background: POP.ink}} />
+          <div style={{position: 'absolute', left: 0, right: 0, top: 58, textAlign: 'center', fontFamily: POP_FONT, fontWeight: 700, fontSize: 64, color: POP.ink, opacity: 0.85, ...TABULAR}}>
+            09:41
+          </div>
+          {scene.items.map((item, i) => {
+            const at = toFrames(scene.itemsAt + i * scene.itemGap, fps);
+            const s = spring({frame: frame - at, fps, config: {damping: 12, stiffness: 210, mass: 0.6}});
+            return (
+              <div
+                key={item.label}
+                style={{
+                  position: 'absolute',
+                  left: 14,
+                  right: 14,
+                  top: 160 + i * 104,
+                  height: 92,
+                  ...sticker(POP.white, 5, 22),
+                  borderWidth: 4,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: '0 14px',
+                  transform: `translateY(${(1 - s) * -80}px) scale(${interpolate(s, [0, 1], [0.8, 1])})`,
+                  opacity: Math.min(1, s * 2.5),
+                  fontFamily: POP_FONT,
+                  ...TABULAR,
+                }}
+              >
+                <SubIcon icon={item.icon} size={52} />
+                <div style={{flex: 1, minWidth: 0}}>
+                  <div style={{fontSize: 18, fontWeight: 600, color: POP.textDim, textTransform: 'uppercase', letterSpacing: '0.06em'}}>{scene.notifLabel}</div>
+                  <div style={{fontSize: 25, fontWeight: 700, color: POP.ink, whiteSpace: 'nowrap'}}>{item.label}</div>
+                </div>
+                <div style={{fontSize: 26, fontWeight: 700, color: POP.coral, whiteSpace: 'nowrap'}}>{formatEuroCents(-item.amount)}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* Total qui tombe sur le téléphone */}
+      <div
+        style={{
+          position: 'absolute',
+          left: PHONE.x + PHONE.w / 2,
+          top: 1000,
+          transform: `translateX(-50%) scale(${interpolate(totalIn, [0, 1], [0.3, 1])})`,
+          opacity: Math.min(1, totalIn * 2),
+        }}
+      >
+        <BigNumber
+          value={`${formatEuro(value)}${scene.suffix ?? ''}`}
+          fontSize={120}
+          bg={progress >= 1 ? accent : POP.white}
+          endFrame={endFrame}
+          rotate={-3}
+        />
+      </div>
+      {scene.character && (
+        <div style={{position: 'absolute', left: 40, top: 1220 - 382}}>
+          <Character cue={scene.character} switchAt={endFrame} width={260} enterAt={0} />
+        </div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+export const ChecklistSceneView: React.FC<{scene: ChecklistScene}> = ({scene}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const lastFrame = toFrames(scene.strikeAt + scene.strikeGap * (scene.items.length - 1), fps);
+  const saved = spring({frame: frame - lastFrame - 8, fps, config: {damping: 9, stiffness: 190, mass: 0.7}});
+  const rowH = 128;
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 80, top: 262, fontFamily: POP_FONT, fontWeight: 700, fontSize: 64, color: POP.ink}}>{scene.title}</div>
+      <div style={{position: 'absolute', left: 80, top: 380, width: 840, ...sticker(POP.white, 14, 40), padding: '10px 0'}}>
+        {scene.items.map((item, i) => {
+          const at = toFrames(scene.strikeAt + i * scene.strikeGap, fps);
+          const strike = interpolate(frame, [at - 6, at + 2], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          const stamp = spring({frame: frame - at, fps, config: {damping: 9, stiffness: 260, mass: 0.6}});
+          return (
+            <div
+              key={item.label}
+              style={{
+                position: 'relative',
+                height: rowH,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 22,
+                padding: '0 34px',
+                borderTop: i ? `4px dashed ${POP.greyLight}` : undefined,
+                fontFamily: POP_FONT,
+                ...TABULAR,
+              }}
+            >
+              <div style={{display: 'flex', alignItems: 'center', gap: 22, flex: 1, opacity: 1 - 0.55 * strike}}>
+                <SubIcon icon={item.icon} size={72} />
+                <div style={{flex: 1, fontSize: 40, fontWeight: 700, color: POP.ink, whiteSpace: 'nowrap'}}>{item.label}</div>
+                <div style={{fontSize: 34, fontWeight: 600, color: POP.textDim, whiteSpace: 'nowrap'}}>
+                  {formatEuroCents(item.amount)}
+                  {scene.amountSuffix}
+                </div>
+              </div>
+              {/* Rature */}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: 24,
+                  top: rowH / 2 - 6,
+                  height: 12,
+                  width: `calc((100% - 48px) * ${strike})`,
+                  borderRadius: 6,
+                  background: POP.coral,
+                  border: `3px solid ${POP.ink}`,
+                }}
+              />
+              {/* Tampon */}
+              <div
+                style={{
+                  position: 'absolute',
+                  right: 40,
+                  top: rowH / 2 - 32,
+                  padding: '4px 20px',
+                  border: `6px solid ${POP.coral}`,
+                  borderRadius: 14,
+                  background: POP.white,
+                  color: POP.coral,
+                  fontFamily: POP_FONT,
+                  fontWeight: 700,
+                  fontSize: 34,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  transform: `rotate(-12deg) scale(${interpolate(stamp, [0, 1], [2.4, 1])})`,
+                  opacity: frame >= at ? Math.min(1, stamp * 2) : 0,
+                }}
+              >
+                {scene.stamp}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          left: 330,
+          top: 1010,
+          ...sticker(POP.mint, 10, 999),
+          padding: '18px 40px',
+          fontFamily: POP_FONT,
+          fontWeight: 700,
+          fontSize: 44,
+          color: POP.ink,
+          whiteSpace: 'nowrap',
+          transform: `rotate(-3deg) scale(${interpolate(saved, [0, 1], [0.3, 1])})`,
+          opacity: Math.min(1, saved * 2),
+          ...TABULAR,
+        }}
+      >
+        {scene.savedLabel}
+      </div>
+      {scene.character && (
+        <div style={{position: 'absolute', left: 70, top: 1220 - 323}}>
+          <Character cue={scene.character} switchAt={lastFrame + 8} width={220} enterAt={6} />
+        </div>
       )}
     </AbsoluteFill>
   );

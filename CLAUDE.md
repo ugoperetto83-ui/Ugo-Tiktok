@@ -13,6 +13,26 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
 
 ---
 
+## 0. Série en cours : « Léo & la Thune » (@leoetlathune) — à lire en premier
+
+- **Toutes les nouvelles vidéos** se font dans le style `pop` avec la mascotte **Léo**, voix
+  **Rémy** (+12 %), ~25 s + **carte de fin** (`visual: 'endcard'`, toujours en dernière scène).
+- Public : tout le monde, en particulier les jeunes. Ton : complice, argot léger (« thune », « sous »).
+- Léo : aucun pronom genré dans les scripts (2e personne « tu », ou tournures neutres :
+  « Léo met… », « la règle de Léo », « il reste… » impersonnel).
+- Avant d'écrire : poser à l'utilisateur les questions utiles (montants, hypothèses, angle de
+  l'accroche) avec des options et une recommandation ; l'utilisateur aime être consulté.
+- Chaque nouvel épisode archive d'abord le précédent dans `scripts/videos/<slug>.ts`.
+- Épisodes réalisés (archives dans `scripts/videos/`, MP4 dans `out/`, non versionnés) :
+  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` (actuel
+  `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
+- Idées en réserve : crédit conso / paiement en 4 fois, règle de 72, livret vs inflation.
+- Logo / avatar : `brand/` (PNG finaux), `scripts/brand.ts` (nom, pseudo, couleur jaune).
+- Toujours finir par : planche de `remotion still`, `ffprobe`, `silencedetect`, commit + push,
+  envoi du MP4.
+
+---
+
 ## 1. Démarrage d'une session (environnement neuf)
 
 ```bash

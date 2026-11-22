@@ -150,7 +150,7 @@ export const SplitComparison: React.FC<Props> = ({left, right, timing, gapLabel,
           whiteSpace: 'nowrap',
         }}
       >
-        {gapLabel} : <span style={{color: COLORS.gold}}>+{formatEuro(gapValue)}</span>
+        {gapLabel} : <span style={{color: COLORS.gold}}>{gapValue < 0 ? '−' : '+'}{formatEuro(Math.abs(gapValue))}</span>
       </div>
     </div>
   );

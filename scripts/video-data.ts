@@ -38,27 +38,34 @@ export const growthSeries = (
   return out;
 };
 
+/** Pouvoir d'achat (en euros d'aujourd'hui) d'un capital placé à `rate` pendant `years` ans d'inflation. */
+export const realValue = (amount: number, rate: number, inflation: number, years: number): number =>
+  amount * Math.pow((1 + rate) / (1 + inflation), years);
+
+/** Pouvoir d'achat année par année, de 0 à `years` (inclus). */
+export const realSeries = (amount: number, rate: number, inflation: number, years: number): number[] =>
+  Array.from({length: years + 1}, (_, y) => Math.round(realValue(amount, rate, inflation, y)));
+
 // ---------------------------------------------------------------------------
 // Hypothèses du scénario
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  monthly: 200, // € investis par mois
-  marketRate: 0.08, // rendement annuel moyen supposé (S&P 500)
-  cashRate: 0.02, // Livret A / cash
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  savings: 10_000, // € d'épargne
+  inflation: 0.03, // inflation annuelle
+  years: 24,
+  investRate: 0.05, // placement alternatif (rendement nominal)
+  basket: 100, // caddie de courses (€ aujourd'hui)
+  startYear: 2026,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY = Math.round(futureValue(A.monthly, A.marketRate, A.endAge - A.earlyStart)); // ≈ 413 560 €
-const LATE = Math.round(futureValue(A.monthly, A.marketRate, A.endAge - A.lateStart)); // ≈ 175 454 €
-const GAP = EARLY - LATE; // ≈ 238 106 € → « près de 240 000 € »
-const INVESTED_EARLY = A.monthly * 12 * (A.endAge - A.earlyStart);
-const INVESTED_LATE = A.monthly * 12 * (A.endAge - A.lateStart);
+const SLEEPING = Math.round(realValue(A.savings, 0, A.inflation, A.years)); // ≈ 4 919 € → « moins de 5 000 € »
+const LOSS = A.savings - SLEEPING; // ≈ 5 081 €
+const INVESTED = Math.round(realValue(A.savings, A.investRate, A.inflation, A.years)); // ≈ 15 8xx € (euros constants)
+const BASKET = Math.round(A.basket * Math.pow(1 + A.inflation, A.years)); // ≈ 203 € → « plus de 200 € »
 
-export const COMPUTED = {EARLY, LATE, GAP, INVESTED_EARLY, INVESTED_LATE};
+export const COMPUTED = {SLEEPING, LOSS, INVESTED, BASKET};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -100,6 +107,8 @@ export type CounterScene = SceneBase & {
   animation: AnimationTiming;
   /** Impact grave quand le compteur atteint sa valeur finale. */
   impactAtEnd?: boolean;
+  /** Sens de la mini-courbe sous le compteur (défaut : 'up'). */
+  trend?: 'up' | 'down';
 };
 
 export type ChartSeries = {
@@ -197,98 +206,100 @@ export const KEYWORDS: string[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Pourquoi attendre 10 ans pour investir te coûte 240 000 € » (20 s)
+// Scénario : « L'inflation à 3 % divise ton épargne par 2 en 24 ans » (~25 s)
 // ---------------------------------------------------------------------------
 
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+const YEARS = Array.from({length: A.years + 1}, (_, i) => i);
+const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'counter',
-    durationInSeconds: 3,
-    subtitle: 'Attendre 10 ans pour investir te coûte près de 240 000 €.',
+    durationInSeconds: 4,
+    subtitle: 'L’inflation à 3\u00A0% divise ton épargne par 2 en seulement 24\u00A0ans.',
     accent: 'gold',
     whooshIn: false,
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: '200 €/mois · 8 %/an · jusqu’à 55 ans',
-    from: 0,
-    to: GAP,
-    animation: {delay: 0.25, duration: 2.1, endAtWord: '240\u00A0000\u00A0€'},
+    eyebrow: `Pouvoir d’achat de ${fmt(A.savings)}\u00A0€`,
+    caption: `Inflation 3\u00A0%/an · ${A.startYear} → ${A.startYear + A.years}`,
+    from: A.savings,
+    to: SLEEPING,
+    trend: 'down',
+    animation: {delay: 0.25, duration: 2.6, endAtWord: 'ans'},
     impactAtEnd: true,
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 4.5,
-    subtitle: 'Même 200 € par mois, même 8 % par an. Seule différence : l’âge de départ.',
-    accent: 'emerald',
+    durationInSeconds: 5.5,
+    subtitle: 'Sur ton compte, tu vois toujours 10\u00A0000\u00A0€. Mais en vrai, ils valent moins de 5\u00A0000\u00A0€.',
+    accent: 'gold',
     left: {
-      title: 'Dès 20 ans',
-      detail: '35 ans d’investissement',
+      title: 'Ton compte',
+      detail: `en ${A.startYear + A.years}`,
       from: 0,
-      to: EARLY,
-      invested: INVESTED_EARLY,
+      to: A.savings,
+      invested: A.savings,
       style: 'winner',
     },
     right: {
-      title: 'Dès 30 ans',
-      detail: '25 ans d’investissement',
+      title: 'En vrai',
+      detail: 'pouvoir d’achat',
       from: 0,
-      to: LATE,
-      invested: INVESTED_LATE,
+      to: SLEEPING,
+      invested: A.savings,
       style: 'loser',
     },
-    gapLabel: 'Écart à 55 ans',
-    gapValue: GAP,
-    animation: {delay: 0.35, duration: 2.6},
+    gapLabel: 'Perte invisible',
+    gapValue: -LOSS,
+    animation: {delay: 0.35, duration: 2.8},
   },
   {
     id: 'chart',
     visual: 'chart',
-    durationInSeconds: 5,
-    subtitle: 'Le Livret A suit à peine l’inflation. Le S&P 500 profite des intérêts composés.',
+    durationInSeconds: 5.5,
+    subtitle: 'L’argent qui dort fond chaque année. Placé à 5\u00A0%, il garde une longueur d’avance sur les prix.',
     accent: 'emerald',
-    title: '200 €/mois de 20 à 55 ans',
-    xValues: AGES,
+    title: `Pouvoir d’achat de ${fmt(A.savings)}\u00A0€`,
+    xValues: YEARS,
     xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
+    xTicks: [0, 8, 16, 24],
     series: [
       {
-        label: 'Livret A / Cash · 2 %',
+        label: 'Argent qui dort · 0\u00A0%',
         style: 'muted',
-        values: growthSeries(A.monthly, A.cashRate, A.earlyStart, A.earlyStart, A.endAge),
+        values: realSeries(A.savings, 0, A.inflation, A.years),
       },
       {
-        label: 'Investissement S&P 500 · 8 %',
+        label: 'Placé à 5\u00A0%/an',
         style: 'neon',
-        values: growthSeries(A.monthly, A.marketRate, A.earlyStart, A.earlyStart, A.endAge),
+        values: realSeries(A.savings, A.investRate, A.inflation, A.years),
       },
     ],
-    animation: {delay: 0.3, duration: 3.6},
+    animation: {delay: 0.3, duration: 3.8},
   },
   {
-    id: 'final-number',
+    id: 'basket',
     visual: 'counter',
-    durationInSeconds: 4,
-    subtitle: 'Tes 10 premières années rapportent plus que les 25 suivantes.',
-    accent: 'emerald',
-    eyebrow: 'Ton patrimoine à 55 ans',
-    caption: `en commençant à 20 ans · ${new Intl.NumberFormat('fr-FR').format(INVESTED_EARLY).replace(/\s/g, ' ')} € versés`,
-    from: 0,
-    to: EARLY,
-    animation: {delay: 0.25, duration: 2.6},
+    durationInSeconds: 3.5,
+    subtitle: `Et ton caddie de 100\u00A0€ coûtera plus de 200\u00A0€ en ${A.startYear + A.years}.`,
+    accent: 'gold',
+    eyebrow: `Ton caddie de ${A.basket}\u00A0€ en ${A.startYear + A.years}`,
+    caption: 'Mêmes courses · inflation 3\u00A0%/an',
+    from: A.basket,
+    to: BASKET,
+    animation: {delay: 0.25, duration: 2.2, endAtWord: '200\u00A0€'},
     impactAtEnd: true,
   },
   {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 3.5,
-    subtitle: 'Le temps est ton meilleur actif. Ta liberté commence aujourd’hui.',
+    durationInSeconds: 4,
+    subtitle: 'Alors ne laisse pas dormir ton épargne. Fais-la travailler plus vite que l’inflation, dès aujourd’hui.',
     accent: 'emerald',
-    lines: [{text: 'Commence'}, {text: 'aujourd’hui.', highlight: true}],
-    caption: 'Pas dans 10 ans.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
+    lines: [{text: 'Fais-la'}, {text: 'travailler.', highlight: true}],
+    caption: 'Plus vite que l’inflation.',
+    disclaimer: 'Exemple illustratif · inflation et rendement constants supposés · pas un conseil en investissement',
     impactAt: 0.35,
   },
 ];

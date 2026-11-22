@@ -53,6 +53,12 @@ const withTimings = (scene: Scene, duration: number, voice?: VoiceClip): Resolve
       const k = Math.min(1, Math.max(0.3, (duration - 1) / last));
       return {...base, strikeAt: scene.strikeAt * k, strikeGap: scene.strikeGap * k} as ResolvedScene;
     }
+    case 'jars': {
+      // Le dernier bocal doit être plein au plus tard 0.6 s avant la coupe.
+      const last = scene.fillAt[scene.fillAt.length - 1] + scene.fillDuration;
+      const k = Math.min(1, Math.max(0.3, (duration - 0.6) / last));
+      return {...base, fillAt: scene.fillAt.map((t) => t * k), fillDuration: scene.fillDuration * k} as ResolvedScene;
+    }
     case 'statement':
       return {
         ...base,

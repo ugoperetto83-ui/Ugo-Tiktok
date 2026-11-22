@@ -259,6 +259,10 @@ const ticksForCounter = (
   return events;
 };
 
+/** Pièces par bocal et durée de chute d'une pièce (s) : partagés avec la vue « jars ». */
+export const JAR_COINS = 6;
+export const COIN_FALL = 0.32;
+
 export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[] => {
   const events: SfxEvent[] = [];
   for (const slot of layoutScenes(scenes, fps)) {
@@ -285,6 +289,16 @@ export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[]
         if (scene.impactAtEnd) {
           events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
         }
+        break;
+      case 'jars':
+        // Pièces qui tintent pendant le remplissage, petit impact quand le bocal est plein.
+        scene.fillAt.forEach((t, j) => {
+          for (let c = 0; c < JAR_COINS; c++) {
+            const at = t + (c / JAR_COINS) * scene.fillDuration * 0.8 + COIN_FALL;
+            events.push({type: 'tick', frame: from + toFrames(at, fps), gain: 0.55, pitch: 1.35 + 0.1 * j + 0.04 * c});
+          }
+          events.push({type: 'impact', frame: from + toFrames(t + scene.fillDuration, fps), gain: 0.4, pitch: 1.4});
+        });
         break;
       case 'checklist':
         // Un coup de tampon par ligne barrée.

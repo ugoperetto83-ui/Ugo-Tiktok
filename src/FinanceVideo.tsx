@@ -23,6 +23,8 @@ const renderPopScene = (scene: ResolvedScene) => {
       return <Pop.NotifySceneView scene={scene} />;
     case 'checklist':
       return <Pop.ChecklistSceneView scene={scene} />;
+    case 'jars':
+      return <Pop.JarsSceneView scene={scene} />;
     case 'counter':
       return <Pop.CounterSceneView scene={scene} />;
     case 'split':
@@ -43,6 +45,8 @@ const renderScene = (scene: ResolvedScene) => {
       return <CounterSceneView scene={{...scene, visual: 'counter'}} />;
     case 'checklist':
       return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.title}], caption: scene.savedLabel}} />;
+    case 'jars':
+      return <StatementSceneView scene={{...scene, visual: 'statement', lines: [{text: scene.title}], caption: scene.totalLabel}} />;
     case 'counter':
       return <CounterSceneView scene={scene} />;
     case 'split':

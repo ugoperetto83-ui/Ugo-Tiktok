@@ -1,10 +1,10 @@
 import React from 'react';
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import type {ChartScene, ChecklistScene, CounterScene, NotifyScene, OrderScene, SplitScene, SplitSide, StatementScene, SubItem} from '../../scripts/video-data';
+import type {ChartScene, ChecklistScene, CounterScene, JarsScene, NotifyScene, OrderScene, SplitScene, SplitSide, StatementScene, SubItem} from '../../scripts/video-data';
 import {useCounter} from '../components/AnimatedCounter';
 import {CompoundChart, type ChartPalette} from '../components/CompoundChart';
 import {formatEuro, formatEuroCents} from '../lib/format';
-import {animationEndFrame, toFrames} from '../lib/timeline';
+import {COIN_FALL, JAR_COINS, animationEndFrame, toFrames} from '../lib/timeline';
 import {TABULAR} from '../theme';
 import {Character, Cup} from './Character';
 import {OUTLINE, POP, POP_FONT, popAccent, sticker} from './theme';
@@ -463,10 +463,10 @@ export const ChartSceneView: React.FC<{scene: ChartScene}> = ({scene}) => {
           position: 'absolute',
           left: 70,
           top: 262,
-          width: 640,
+          width: 660,
           fontFamily: POP_FONT,
           fontWeight: 700,
-          fontSize: 58,
+          fontSize: 50,
           lineHeight: 1.05,
           color: POP.ink,
         }}
@@ -600,7 +600,7 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
 // Abonnements : icônes, notifications, liste à barrer
 // ---------------------------------------------------------------------------
 
-const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet};
+const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint};
 
 const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
   <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
@@ -620,6 +620,11 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
         <rect x={43} y={22} width={9} height={20} rx={3} />
       </g>
     )}
+    {icon === 'euro' && (
+      <text x={32} y={45} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={38} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
+        €
+      </text>
+    )}
     {icon === 'star' && (
       <path
         d="M32,15 L37,27 L50,27 L40,35 L44,48 L32,40 L20,48 L24,35 L14,27 L27,27 Z"
@@ -632,7 +637,9 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
   </svg>
 );
 
-const PHONE = {x: 370, y: 330, w: 520, h: 640};
+const PHONE = {x: 370, y: 330, w: 520};
+/** Hauteur du téléphone selon le nombre de notifications. */
+const phoneHeight = (n: number) => Math.max(400, 200 + n * 104 + 40);
 
 export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
   const frame = useCurrentFrame();
@@ -657,7 +664,7 @@ export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
           left: PHONE.x,
           top: PHONE.y,
           width: PHONE.w,
-          height: PHONE.h,
+          height: phoneHeight(scene.items.length),
           ...sticker(POP.ink, 14, 64),
           padding: 16,
           transform: 'rotate(2deg)',
@@ -697,7 +704,9 @@ export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
                   <div style={{fontSize: 18, fontWeight: 600, color: POP.textDim, textTransform: 'uppercase', letterSpacing: '0.06em'}}>{scene.notifLabel}</div>
                   <div style={{fontSize: 25, fontWeight: 700, color: POP.ink, whiteSpace: 'nowrap'}}>{item.label}</div>
                 </div>
-                <div style={{fontSize: 26, fontWeight: 700, color: POP.coral, whiteSpace: 'nowrap'}}>{formatEuroCents(-item.amount)}</div>
+                <div style={{fontSize: 26, fontWeight: 700, color: item.incoming ? '#12A47C' : POP.coral, whiteSpace: 'nowrap'}}>
+                  {item.incoming ? `+${formatEuroCents(item.amount)}` : formatEuroCents(-item.amount)}
+                </div>
               </div>
             );
           })}
@@ -708,7 +717,7 @@ export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
         style={{
           position: 'absolute',
           left: PHONE.x + PHONE.w / 2,
-          top: 1000,
+          top: Math.min(1000, PHONE.y + phoneHeight(scene.items.length) - 30),
           transform: `translateX(-50%) scale(${interpolate(totalIn, [0, 1], [0.3, 1])})`,
           opacity: Math.min(1, totalIn * 2),
         }}
@@ -828,6 +837,149 @@ export const ChecklistSceneView: React.FC<{scene: ChecklistScene}> = ({scene}) =
       {scene.character && (
         <div style={{position: 'absolute', left: 70, top: 1220 - 323}}>
           <Character cue={scene.character} switchAt={lastFrame + 8} width={220} enterAt={6} />
+        </div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Répartition en bocaux
+// ---------------------------------------------------------------------------
+
+const JAR_COLOR: Record<'violet' | 'coral' | 'mint', string> = {violet: POP.violet, coral: POP.coral, mint: POP.mint};
+const JAR = {w: 260, h: 450, gap: 36, top: 500};
+
+/** Pseudo-aléatoire déterministe (rendu identique à chaque frame). */
+const rand = (n: number) => {
+  const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+};
+
+export const JarsSceneView: React.FC<{scene: JarsScene}> = ({scene}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const n = scene.jars.length;
+  const totalW = n * JAR.w + (n - 1) * JAR.gap;
+  const left0 = (1080 - totalW) / 2 - 20;
+  const maxShare = Math.max(...scene.jars.map((j) => j.share));
+  const lastFull = toFrames(scene.fillAt[n - 1] + scene.fillDuration, fps);
+  const pillIn = spring({frame: frame - 4, fps, config: {damping: 10, stiffness: 200, mass: 0.6}});
+  // Le montant de départ « se vide » à mesure que les bocaux se remplissent.
+  const poured = scene.jars.reduce((sum, jar, j) => {
+    const p = interpolate(frame / fps, [scene.fillAt[j], scene.fillAt[j] + scene.fillDuration], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+    return sum + jar.share * p;
+  }, 0);
+
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', left: 70, top: 262, fontFamily: POP_FONT, fontWeight: 700, fontSize: 64, color: POP.ink}}>{scene.title}</div>
+      <div style={{position: 'absolute', left: 70, top: 360, transformOrigin: '0 50%', transform: `scale(${pillIn})`}}>
+        <div style={{...sticker(POP.yellow, 8, 999), padding: '10px 32px', fontFamily: POP_FONT, fontWeight: 700, fontSize: 42, color: POP.ink, whiteSpace: 'nowrap', ...TABULAR}}>
+          {formatEuro(scene.total * (1 - poured))}
+          <span style={{fontSize: 28, color: POP.textDim}}> / {scene.totalLabel}</span>
+        </div>
+      </div>
+      {scene.jars.map((jar, j) => {
+        const x = left0 + j * (JAR.w + JAR.gap);
+        const t0 = scene.fillAt[j];
+        const p = interpolate(frame / fps, [t0 + COIN_FALL, t0 + COIN_FALL + scene.fillDuration], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        const eased = 1 - Math.pow(1 - p, 2);
+        const fillH = (jar.share / maxShare) * (JAR.h - 70) * eased;
+        const fullFrame = toFrames(t0 + COIN_FALL + scene.fillDuration, fps);
+        const bump = interpolate(frame - fullFrame, [0, 5, 18], [1, 1.08, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        const labelIn = spring({frame: frame - toFrames(t0, fps), fps, config: {damping: 10, stiffness: 200, mass: 0.6}});
+        const color = JAR_COLOR[jar.color];
+        return (
+          <React.Fragment key={jar.label}>
+            {/* Pièces qui tombent */}
+            {Array.from({length: JAR_COINS}, (_, c) => {
+              const start = t0 + (c / JAR_COINS) * scene.fillDuration * 0.8;
+              const k = (frame / fps - start) / COIN_FALL;
+              if (k < 0 || k > 1) return null;
+              const cx = x + JAR.w / 2 + (rand(j * 10 + c) - 0.5) * 120;
+              const cy = 400 + k * k * (JAR.top + 40 - 400);
+              return (
+                <div
+                  key={c}
+                  style={{
+                    position: 'absolute',
+                    left: cx - 24,
+                    top: cy - 24,
+                    width: 48,
+                    height: 48,
+                    borderRadius: 24,
+                    background: POP.yellow,
+                    border: `5px solid ${POP.ink}`,
+                    transform: `rotate(${k * 300 + c * 40}deg) scaleX(${0.55 + 0.45 * Math.abs(Math.cos(k * 6 + c))})`,
+                    fontFamily: POP_FONT,
+                    fontWeight: 700,
+                    fontSize: 24,
+                    lineHeight: '38px',
+                    textAlign: 'center',
+                    color: POP.ink,
+                  }}
+                >
+                  €
+                </div>
+              );
+            })}
+            {/* Bocal */}
+            <div style={{position: 'absolute', left: x, top: JAR.top, width: JAR.w, transform: `scale(${bump}) rotate(${(j - 1) * 2}deg)`, transformOrigin: '50% 100%'}}>
+              <div style={{margin: '0 30px', height: 40, ...sticker(color, 6, 14), borderWidth: OUTLINE}} />
+              <div
+                style={{
+                  marginTop: -6,
+                  height: JAR.h - 34,
+                  border: `${OUTLINE}px solid ${POP.ink}`,
+                  borderRadius: '34px 34px 54px 54px',
+                  background: 'rgba(255,255,255,0.75)',
+                  boxShadow: `10px 10px 0 ${POP.ink}`,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    height: fillH,
+                    background: `repeating-linear-gradient(-45deg, ${color} 0 22px, ${color}CC 22px 44px)`,
+                    borderTop: fillH > 2 ? `${OUTLINE}px solid ${POP.ink}` : undefined,
+                  }}
+                />
+                <div style={{position: 'absolute', left: 22, top: 24, width: 16, height: 90, borderRadius: 8, background: POP.white, opacity: 0.9}} />
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 120,
+                    textAlign: 'center',
+                    fontFamily: POP_FONT,
+                    fontWeight: 700,
+                    fontSize: 64,
+                    color: POP.ink,
+                    opacity: labelIn,
+                    ...TABULAR,
+                  }}
+                >
+                  {Math.round(jar.share * 100)}&nbsp;%
+                </div>
+              </div>
+              <div style={{textAlign: 'center', marginTop: 22, fontFamily: POP_FONT, opacity: labelIn, transform: `translateY(${(1 - labelIn) * 20}px)`, ...TABULAR}}>
+                <div style={{fontSize: 48, fontWeight: 700, color: POP.ink}}>{jar.label}</div>
+                <div style={{fontSize: 48, fontWeight: 700, color, WebkitTextStroke: `2px ${POP.ink}`}}>{formatEuro(scene.total * jar.share * eased)}</div>
+              </div>
+            </div>
+          </React.Fragment>
+        );
+      })}
+      {scene.character && (
+        <div style={{position: 'absolute', left: 760, top: 196, transform: 'scaleX(-1)'}}>
+          <Character cue={scene.character} switchAt={lastFull} width={160} enterAt={8} />
         </div>
       )}
     </AbsoluteFill>

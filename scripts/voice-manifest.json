@@ -5,319 +5,319 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Streaming, musique, salle de sport, appli… Ces 4 abonnements oubliés te coûtent 540 € par an.",
-      "key": "95978e00278506bd",
-      "duration": 6.456,
+      "text": "Léo met 320 € de côté chaque mois, dès son premier salaire. À 52 ans : plus de 430 000 €.",
+      "key": "6057186ee4c88d3a",
+      "duration": 6.6,
       "words": [
         {
-          "text": "Streaming",
-          "start": 0.0446,
-          "end": 0.6361
-        },
-        {
-          "text": "musique",
-          "start": 0.8705,
-          "end": 1.3058
-        },
-        {
-          "text": "salle",
-          "start": 1.5737,
-          "end": 1.7522
-        },
-        {
-          "text": "de",
-          "start": 1.7523,
-          "end": 1.8527
-        },
-        {
-          "text": "sport",
-          "start": 1.8527,
-          "end": 2.2991
-        },
-        {
-          "text": "appli",
-          "start": 2.567,
-          "end": 2.9576
-        },
-        {
-          "text": "Ces",
-          "start": 3.2924,
-          "end": 3.4598
-        },
-        {
-          "text": "4 abonnements",
-          "start": 3.4598,
-          "end": 3.9955
-        },
-        {
-          "text": "oubliés",
-          "start": 3.9955,
-          "end": 4.5424
-        },
-        {
-          "text": "te",
-          "start": 4.6094,
-          "end": 4.7321
-        },
-        {
-          "text": "coûtent",
-          "start": 4.7321,
-          "end": 4.9665
-        },
-        {
-          "text": "540 €",
-          "start": 4.9665,
-          "end": 5.7255
-        },
-        {
-          "text": "par",
-          "start": 5.7255,
-          "end": 5.9375
-        },
-        {
-          "text": "an",
-          "start": 5.9375,
-          "end": 6.1384
-        }
-      ]
-    },
-    "thirty-years": {
-      "file": "voice/thirty-years.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Ça paraît rien, 45 € par mois. Mais sur 30 ans, c’est plus de 16 000 € envolés.",
-      "key": "4a49d8bbf359effe",
-      "duration": 5.544,
-      "words": [
-        {
-          "text": "Ça",
-          "start": 0.0781,
-          "end": 0.2455
-        },
-        {
-          "text": "paraît",
-          "start": 0.2455,
-          "end": 0.5022
-        },
-        {
-          "text": "rien",
-          "start": 0.5022,
-          "end": 0.8594
-        },
-        {
-          "text": "45 €",
-          "start": 1.1495,
-          "end": 1.7969
-        },
-        {
-          "text": "par",
-          "start": 1.7969,
-          "end": 1.9643
-        },
-        {
-          "text": "mois",
-          "start": 1.9643,
-          "end": 2.2656
-        },
-        {
-          "text": "Mais",
-          "start": 2.6116,
-          "end": 2.7455
-        },
-        {
-          "text": "sur",
-          "start": 2.7455,
-          "end": 2.9018
-        },
-        {
-          "text": "30 ans",
-          "start": 2.9018,
-          "end": 3.3594
-        },
-        {
-          "text": "c’est",
-          "start": 3.75,
-          "end": 3.8727
-        },
-        {
-          "text": "plus",
-          "start": 3.8727,
-          "end": 4.0402
-        },
-        {
-          "text": "de",
-          "start": 4.0402,
-          "end": 4.1518
-        },
-        {
-          "text": "16 000 €",
-          "start": 4.1518,
-          "end": 4.7321
-        },
-        {
-          "text": "envolés",
-          "start": 4.7321,
-          "end": 5.2232
-        }
-      ]
-    },
-    "split": {
-      "file": "voice/split.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Investis à 8 % par an, ces mêmes 45 € deviendraient plus de 60 000 €.",
-      "key": "12e6e191f60442ca",
-      "duration": 4.848,
-      "words": [
-        {
-          "text": "Investis",
-          "start": 0.067,
-          "end": 0.5692
-        },
-        {
-          "text": "à",
-          "start": 0.5692,
-          "end": 0.6473
-        },
-        {
-          "text": "8 %",
-          "start": 0.6473,
-          "end": 1.0938
-        },
-        {
-          "text": "par",
-          "start": 1.0938,
-          "end": 1.317
-        },
-        {
-          "text": "an",
-          "start": 1.317,
-          "end": 1.4844
-        },
-        {
-          "text": "ces",
-          "start": 1.9308,
-          "end": 2.0647
-        },
-        {
-          "text": "mêmes",
-          "start": 2.0648,
-          "end": 2.2433
-        },
-        {
-          "text": "45 €",
-          "start": 2.2433,
-          "end": 3.0134
-        },
-        {
-          "text": "deviendraient",
-          "start": 3.0692,
-          "end": 3.4487
-        },
-        {
-          "text": "plus",
-          "start": 3.4487,
-          "end": 3.6161
-        },
-        {
-          "text": "de",
-          "start": 3.6161,
-          "end": 3.7165
-        },
-        {
-          "text": "60 000 €",
-          "start": 3.7165,
-          "end": 4.5424
-        }
-      ]
-    },
-    "cleanup": {
-      "file": "voice/cleanup.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Alors fais le tri : chaque abonnement que tu n’as pas utilisé ce mois-ci, tu le résilies.",
-      "key": "7612600c98766cec",
-      "duration": 4.368,
-      "words": [
-        {
-          "text": "Alors",
+          "text": "Léo",
           "start": 0.0893,
-          "end": 0.3013
+          "end": 0.4576
         },
         {
-          "text": "fais",
-          "start": 0.3013,
-          "end": 0.413
+          "text": "met",
+          "start": 0.4576,
+          "end": 0.5803
         },
         {
-          "text": "le",
-          "start": 0.413,
-          "end": 0.5022
+          "text": "320 €",
+          "start": 0.5804,
+          "end": 1.2835
         },
         {
-          "text": "tri",
-          "start": 0.5022,
-          "end": 0.7924
+          "text": "de",
+          "start": 1.2835,
+          "end": 1.3728
+        },
+        {
+          "text": "côté",
+          "start": 1.3727,
+          "end": 1.6071
         },
         {
           "text": "chaque",
-          "start": 1.1049,
-          "end": 1.317
+          "start": 1.6071,
+          "end": 1.8192
         },
         {
-          "text": "abonnement",
-          "start": 1.317,
-          "end": 1.7299
+          "text": "mois",
+          "start": 1.8192,
+          "end": 2.0871
         },
         {
-          "text": "que",
-          "start": 1.7299,
-          "end": 1.8304
+          "text": "dès",
+          "start": 2.3773,
+          "end": 2.4554
         },
         {
-          "text": "tu",
-          "start": 1.8304,
-          "end": 1.9308
+          "text": "son",
+          "start": 2.4554,
+          "end": 2.5781
         },
         {
-          "text": "n’as",
-          "start": 1.9308,
-          "end": 2.0201
+          "text": "premier",
+          "start": 2.5781,
+          "end": 2.846
         },
         {
-          "text": "pas",
-          "start": 2.0201,
-          "end": 2.1317
+          "text": "salaire",
+          "start": 2.846,
+          "end": 3.404
         },
         {
-          "text": "utilisé",
-          "start": 2.1317,
-          "end": 2.5893
+          "text": "À",
+          "start": 3.75,
+          "end": 3.8281
         },
         {
-          "text": "ce",
-          "start": 2.5893,
-          "end": 2.7009
+          "text": "52 ans",
+          "start": 3.8281,
+          "end": 4.5982
         },
         {
-          "text": "mois-ci",
-          "start": 2.7009,
-          "end": 3.1473
+          "text": "plus",
+          "start": 4.933,
+          "end": 5.0893
         },
         {
-          "text": "tu",
-          "start": 3.3594,
-          "end": 3.471
+          "text": "de",
+          "start": 5.0893,
+          "end": 5.2009
+        },
+        {
+          "text": "430 000 €",
+          "start": 5.2009,
+          "end": 6.2946
+        }
+      ]
+    },
+    "jars": {
+      "file": "voice/jars.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "La règle de Léo : 50 % pour les besoins, 30 % pour les envies, 20 % pour le futur.",
+      "key": "6a4123fe906629ec",
+      "duration": 5.688,
+      "words": [
+        {
+          "text": "La",
+          "start": 0.0893,
+          "end": 0.2232
+        },
+        {
+          "text": "règle",
+          "start": 0.2232,
+          "end": 0.5134
+        },
+        {
+          "text": "de",
+          "start": 0.5134,
+          "end": 0.6027
+        },
+        {
+          "text": "Léo",
+          "start": 0.6027,
+          "end": 0.9263
+        },
+        {
+          "text": "50 %",
+          "start": 1.2388,
+          "end": 1.9085
+        },
+        {
+          "text": "pour",
+          "start": 1.9085,
+          "end": 2.0312
+        },
+        {
+          "text": "les",
+          "start": 2.0312,
+          "end": 2.0982
+        },
+        {
+          "text": "besoins",
+          "start": 2.0982,
+          "end": 2.5335
+        },
+        {
+          "text": "30 %",
+          "start": 2.8013,
+          "end": 3.3035
+        },
+        {
+          "text": "pour",
+          "start": 3.3036,
+          "end": 3.4263
+        },
+        {
+          "text": "les",
+          "start": 3.4263,
+          "end": 3.4933
+        },
+        {
+          "text": "envies",
+          "start": 3.4933,
+          "end": 3.8839
+        },
+        {
+          "text": "20 %",
+          "start": 4.1741,
+          "end": 4.6205
+        },
+        {
+          "text": "pour",
+          "start": 4.6205,
+          "end": 4.7433
         },
         {
           "text": "le",
-          "start": 3.471,
-          "end": 3.5491
+          "start": 4.7433,
+          "end": 4.8102
         },
         {
-          "text": "résilies",
-          "start": 3.5491,
-          "end": 4.0514
+          "text": "futur",
+          "start": 4.8102,
+          "end": 5.3683
+        }
+      ]
+    },
+    "chart": {
+      "file": "voice/chart.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Grâce aux intérêts composés, 115 000 € versés deviennent plus de 430 000 €.",
+      "key": "adcf30b5599508ae",
+      "duration": 4.704,
+      "words": [
+        {
+          "text": "Grâce",
+          "start": 0.067,
+          "end": 0.3571
+        },
+        {
+          "text": "aux",
+          "start": 0.3571,
+          "end": 0.4018
+        },
+        {
+          "text": "intérêts",
+          "start": 0.4018,
+          "end": 0.7477
+        },
+        {
+          "text": "composés",
+          "start": 0.7478,
+          "end": 1.3058
+        },
+        {
+          "text": "115 000 €",
+          "start": 1.663,
+          "end": 2.3326
+        },
+        {
+          "text": "versés",
+          "start": 2.3326,
+          "end": 2.7567
+        },
+        {
+          "text": "deviennent",
+          "start": 2.7679,
+          "end": 3.0692
+        },
+        {
+          "text": "plus",
+          "start": 3.0692,
+          "end": 3.2255
+        },
+        {
+          "text": "de",
+          "start": 3.2255,
+          "end": 3.3259
+        },
+        {
+          "text": "430 000 €",
+          "start": 3.3259,
+          "end": 4.3973
+        }
+      ]
+    },
+    "left": {
+      "file": "voice/left.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Et il reste quand même 1 280 € par mois pour vivre et se faire plaisir.",
+      "key": "7a48b1e72d70f17f",
+      "duration": 4.08,
+      "words": [
+        {
+          "text": "Et",
+          "start": 0.0893,
+          "end": 0.1451
+        },
+        {
+          "text": "il",
+          "start": 0.1451,
+          "end": 0.2567
+        },
+        {
+          "text": "reste",
+          "start": 0.2567,
+          "end": 0.5469
+        },
+        {
+          "text": "quand",
+          "start": 0.5469,
+          "end": 0.692
+        },
+        {
+          "text": "même",
+          "start": 0.692,
+          "end": 0.8705
+        },
+        {
+          "text": "1 280 €",
+          "start": 0.8705,
+          "end": 1.9308
+        },
+        {
+          "text": "par",
+          "start": 1.9308,
+          "end": 2.1205
+        },
+        {
+          "text": "mois",
+          "start": 2.1205,
+          "end": 2.3437
+        },
+        {
+          "text": "pour",
+          "start": 2.3438,
+          "end": 2.5223
+        },
+        {
+          "text": "vivre",
+          "start": 2.5223,
+          "end": 2.8237
+        },
+        {
+          "text": "et",
+          "start": 2.913,
+          "end": 2.9464
+        },
+        {
+          "text": "se",
+          "start": 2.9464,
+          "end": 3.0469
+        },
+        {
+          "text": "faire",
+          "start": 3.0469,
+          "end": 3.1808
+        },
+        {
+          "text": "plaisir",
+          "start": 3.1808,
+          "end": 3.7612
         }
       ]
     },
@@ -325,79 +325,64 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Garde seulement ce que tu utilises vraiment, et investis tout le reste chaque mois.",
-      "key": "5805e7481fb32a4b",
-      "duration": 3.888,
+      "text": "Ton premier salaire ? Paie-toi en premier, avant de dépenser le reste.",
+      "key": "8c7b821b12c28111",
+      "duration": 4.272,
       "words": [
         {
-          "text": "Garde",
-          "start": 0.0781,
-          "end": 0.3906
+          "text": "Ton",
+          "start": 0.0487,
+          "end": 0.2495
         },
         {
-          "text": "seulement",
-          "start": 0.3906,
-          "end": 0.7366
+          "text": "premier",
+          "start": 0.2495,
+          "end": 0.5509
         },
         {
-          "text": "ce",
-          "start": 0.7366,
-          "end": 0.8482
+          "text": "salaire",
+          "start": 0.5509,
+          "end": 1.1759
         },
         {
-          "text": "que",
-          "start": 0.8482,
-          "end": 0.9375
+          "text": "Paie-toi",
+          "start": 1.5067,
+          "end": 1.7745
         },
         {
-          "text": "tu",
-          "start": 0.9375,
-          "end": 1.0602
+          "text": "en",
+          "start": 1.7745,
+          "end": 1.8415
         },
         {
-          "text": "utilises",
-          "start": 1.0602,
-          "end": 1.3951
+          "text": "premier",
+          "start": 1.8415,
+          "end": 2.3214
         },
         {
-          "text": "vraiment",
-          "start": 1.3951,
-          "end": 1.7969
+          "text": "avant",
+          "start": 2.6339,
+          "end": 2.8795
         },
         {
-          "text": "et",
-          "start": 2.1429,
-          "end": 2.2321
+          "text": "de",
+          "start": 2.8795,
+          "end": 2.9799
         },
         {
-          "text": "investis",
-          "start": 2.2321,
-          "end": 2.6004
-        },
-        {
-          "text": "tout",
-          "start": 2.6005,
-          "end": 2.7009
+          "text": "dépenser",
+          "start": 2.9799,
+          "end": 3.3482
         },
         {
           "text": "le",
-          "start": 2.7009,
-          "end": 2.7678
+          "start": 3.3482,
+          "end": 3.4263
         },
         {
           "text": "reste",
-          "start": 2.7679,
-          "end": 3.0692
-        },
-        {
-          "text": "chaque",
-          "start": 3.0692,
-          "end": 3.2812
-        },
-        {
-          "text": "mois",
-          "start": 3.2812,
-          "end": 3.5826
+          "start": 3.4263,
+          "end": 3.962
         }
       ]
     }

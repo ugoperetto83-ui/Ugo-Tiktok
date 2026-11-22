@@ -50,26 +50,24 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // Hypothèses du scénario
 // ---------------------------------------------------------------------------
 
-/** Abonnements oubliés (prix illustratifs, noms génériques). */
-export const SUBSCRIPTIONS: SubItem[] = [
-  {label: 'Streaming vidéo', amount: 13.99, icon: 'play'},
-  {label: 'Musique', amount: 7.99, icon: 'music'},
-  {label: 'Salle de sport', amount: 17.99, icon: 'gym'},
-  {label: 'Appli premium', amount: 4.99, icon: 'star'},
-];
-
 export const ASSUMPTIONS = {
+  salary: 1600, // € net par mois
+  needs: 0.5, // règle 50/30/20
+  wants: 0.3,
+  future: 0.2,
   marketRate: 0.08, // rendement annuel moyen supposé
-  years: 30,
+  startAge: 22,
+  endAge: 52,
 } as const;
 
 const A = ASSUMPTIONS;
-const MONTHLY = SUBSCRIPTIONS.reduce((sum, s) => sum + s.amount, 0); // 44,96 € → « 45 € »
-const YEARLY = MONTHLY * 12; // 539,52 € → « 540 € »
-const SPENT = Math.round(YEARLY * A.years); // ≈ 16 186 € → « plus de 16 000 € »
-const INVESTED_VALUE = Math.round(futureValue(MONTHLY, A.marketRate, A.years)); // ≈ 61 119 € → « plus de 60 000 € »
+const YEARS_N = A.endAge - A.startAge; // 30 ans
+const SAVED = A.salary * A.future; // 320 €/mois
+const LEFT = A.salary - SAVED; // 1 280 €/mois pour vivre
+const PAID = SAVED * 12 * YEARS_N; // 115 200 € → « 115 000 € »
+const FINAL = Math.round(futureValue(SAVED, A.marketRate, YEARS_N)); // ≈ 435 008 € → « plus de 430 000 € »
 
-export const COMPUTED = {MONTHLY, YEARLY, SPENT, INVESTED_VALUE};
+export const COMPUTED = {SAVED, LEFT, PAID, FINAL};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -202,7 +200,9 @@ export type SubItem = {
   label: string;
   /** Montant mensuel (€, centimes acceptés). */
   amount: number;
-  icon: 'play' | 'music' | 'gym' | 'star';
+  icon: 'play' | 'music' | 'gym' | 'star' | 'euro';
+  /** Argent reçu (affiché « +… € » en vert) plutôt que prélevé. */
+  incoming?: boolean;
 };
 
 /** Notifications de prélèvement qui s'empilent sur un téléphone, puis compteur du total. */
@@ -240,7 +240,37 @@ export type ChecklistScene = SceneBase & {
   savedLabel: string;
 };
 
-export type Scene = CounterScene | ChartScene | SplitScene | StatementScene | OrderScene | NotifyScene | ChecklistScene;
+/** Un bocal de la répartition budgétaire. */
+export type Jar = {
+  label: string;
+  /** Part du total (0–1). */
+  share: number;
+  color: 'violet' | 'coral' | 'mint';
+};
+
+/** Le total tombe en pièces dans des bocaux qui se remplissent un à un. */
+export type JarsScene = SceneBase & {
+  visual: 'jars';
+  title: string;
+  /** Montant réparti (€). */
+  total: number;
+  totalLabel: string;
+  jars: Jar[];
+  /** Début du remplissage de chaque bocal (s, à caler sur les mots de la voix). */
+  fillAt: number[];
+  /** Durée de remplissage d'un bocal (s). */
+  fillDuration: number;
+};
+
+export type Scene =
+  | CounterScene
+  | ChartScene
+  | SplitScene
+  | StatementScene
+  | OrderScene
+  | NotifyScene
+  | ChecklistScene
+  | JarsScene;
 
 // ---------------------------------------------------------------------------
 // Configuration globale
@@ -279,109 +309,102 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '540\u00A0€',
-  '45\u00A0€',
-  '16\u00A0000\u00A0€',
-  '60\u00A0000\u00A0€',
-  '8\u00A0%',
-  'résilies',
-  'investis',
+  '320\u00A0€',
+  '430\u00A0000\u00A0€',
+  '50\u00A0%',
+  '30\u00A0%',
+  '20\u00A0%',
+  'intérêts composés',
+  '1\u00A0280\u00A0€',
+  'paie-toi en premier',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Tes abonnements oubliés te coûtent 540 € par an » (~25 s, style pop, Léo)
+// Scénario : « Le premier salaire de Léo » (~25 s, style pop)
 // ---------------------------------------------------------------------------
 
 const NAME = VIDEO_CONFIG.mascot.name;
-const euros = (n: number) => `${Math.round(n)}\u00A0€`;
+const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
+const pct = (x: number) => `${Math.round(x * 100)}\u00A0%`;
+const AGES = Array.from({length: YEARS_N + 1}, (_, i) => A.startAge + i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'notify',
-    durationInSeconds: 4.5,
-    subtitle: `Streaming, musique, salle de sport, appli… Ces ${SUBSCRIPTIONS.length} abonnements oubliés te coûtent 540\u00A0€ par an.`,
-    accent: 'gold',
-    whooshIn: false,
-    eyebrow: `Les abos de ${NAME}`,
-    notifLabel: 'Prélèvement',
-    items: SUBSCRIPTIONS,
-    itemsAt: 0.15,
-    itemGap: 0.83,
-    from: 0,
-    to: Math.round(YEARLY),
-    suffix: '/an',
-    animation: {delay: 3.3, duration: 1.8, endAtWord: '540\u00A0€'},
-    impactAtEnd: true,
-    character: {pose: 'phone', then: 'shock', holdsPhone: true},
-  },
-  {
-    id: 'thirty-years',
-    visual: 'counter',
-    durationInSeconds: 5,
-    subtitle: `Ça paraît rien, ${euros(MONTHLY)} par mois. Mais sur 30\u00A0ans, c’est plus de 16\u00A0000\u00A0€ envolés.`,
-    accent: 'gold',
-    eyebrow: `${A.years} ans d’abonnements`,
-    caption: `${euros(MONTHLY)}/mois × 12 × ${A.years} ans`,
-    from: 0,
-    to: SPENT,
-    animation: {delay: 1.6, duration: 2.4, endAtWord: '16\u00A0000\u00A0€'},
-    impactAtEnd: true,
-    character: {pose: 'think', then: 'shock'},
-  },
-  {
-    id: 'split',
-    visual: 'split',
-    durationInSeconds: 5,
-    subtitle: `Investis à 8\u00A0% par an, ces mêmes ${euros(MONTHLY)} deviendraient plus de 60\u00A0000\u00A0€.`,
+    durationInSeconds: 6,
+    subtitle: `${NAME} met ${SAVED}\u00A0€ de côté chaque mois, dès son premier salaire. À ${A.endAge}\u00A0ans\u00A0: plus de 430\u00A0000\u00A0€.`,
     accent: 'emerald',
-    left: {
-      title: 'Abonné',
-      detail: `${SUBSCRIPTIONS.length} abos oubliés`,
-      from: 0,
-      to: 0,
-      invested: SPENT,
-      investedLabel: 'Dépensé',
-      style: 'loser',
-    },
-    right: {
-      title: 'Investi',
-      detail: 'à 8\u00A0%/an',
-      from: 0,
-      to: INVESTED_VALUE,
-      invested: SPENT,
-      investedLabel: 'Versé',
-      style: 'winner',
-    },
-    gapLabel: 'Différence',
-    gapValue: INVESTED_VALUE,
-    animation: {delay: 0.35, duration: 2.8},
+    whooshIn: false,
+    eyebrow: `Le premier salaire de ${NAME}`,
+    notifLabel: 'Virement reçu',
+    items: [{label: 'Salaire', amount: A.salary, icon: 'euro', incoming: true}],
+    itemsAt: 0.2,
+    itemGap: 0.5,
+    from: 0,
+    to: FINAL,
+    animation: {delay: 3.4, duration: 2.0, endAtWord: '430\u00A0000\u00A0€'},
+    impactAtEnd: true,
+    character: {pose: 'phone', then: 'happy', holdsPhone: true},
+  },
+  {
+    id: 'jars',
+    visual: 'jars',
+    durationInSeconds: 6,
+    subtitle: `La règle de ${NAME}\u00A0: ${pct(A.needs)} pour les besoins, ${pct(A.wants)} pour les envies, ${pct(A.future)} pour le futur.`,
+    accent: 'emerald',
+    title: 'La règle 50/30/20',
+    total: A.salary,
+    totalLabel: `${fmt(A.salary)}\u00A0€ net`,
+    jars: [
+      {label: 'Besoins', share: A.needs, color: 'violet'},
+      {label: 'Envies', share: A.wants, color: 'coral'},
+      {label: 'Futur', share: A.future, color: 'mint'},
+    ],
+    fillAt: [1.15, 2.75, 4.1],
+    fillDuration: 0.9,
     character: {pose: 'think', then: 'happy'},
   },
   {
-    id: 'cleanup',
-    visual: 'checklist',
+    id: 'chart',
+    visual: 'chart',
     durationInSeconds: 5,
-    subtitle: 'Alors fais le tri\u00A0: chaque abonnement que tu n’as pas utilisé ce mois-ci, tu le résilies.',
+    subtitle: 'Grâce aux intérêts composés, 115\u00A0000\u00A0€ versés deviennent plus de 430\u00A0000\u00A0€.',
     accent: 'emerald',
-    title: `Le grand tri de ${NAME}`,
-    items: SUBSCRIPTIONS,
-    amountSuffix: '/mois',
-    stamp: 'Résilié',
-    strikeAt: 0.9,
-    strikeGap: 0.55,
-    savedLabel: `+${euros(MONTHLY)}/mois à investir`,
+    title: `${SAVED}\u00A0€/mois de ${A.startAge} à ${A.endAge} ans`,
+    xValues: AGES,
+    xLabelSuffix: ' ans',
+    xTicks: [22, 32, 42, 52],
+    series: [
+      {label: `Versé · ${SAVED}\u00A0€/mois`, style: 'muted', values: AGES.map((age) => SAVED * 12 * (age - A.startAge))},
+      {label: 'Investi à 8\u00A0%/an', style: 'neon', values: growthSeries(SAVED, A.marketRate, A.startAge, A.startAge, A.endAge)},
+    ],
+    animation: {delay: 0.3, duration: 3.6},
     character: {pose: 'point', then: 'happy'},
+  },
+  {
+    id: 'left',
+    visual: 'counter',
+    durationInSeconds: 4.5,
+    subtitle: `Et il reste quand même 1\u00A0280\u00A0€ par mois pour vivre et se faire plaisir.`,
+    accent: 'emerald',
+    eyebrow: 'Chaque mois, pour vivre',
+    caption: `Besoins ${fmt(A.salary * A.needs)}\u00A0€ · Envies ${fmt(A.salary * A.wants)}\u00A0€`,
+    from: 0,
+    to: LEFT,
+    animation: {delay: 0.15, duration: 2.0, endAtWord: '1\u00A0280\u00A0€'},
+    impactAtEnd: true,
+    character: {pose: 'idle', then: 'happy', holdsCup: true},
   },
   {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 4.5,
-    subtitle: 'Garde seulement ce que tu utilises vraiment, et investis tout le reste chaque mois.',
+    durationInSeconds: 4,
+    subtitle: 'Ton premier salaire\u00A0? Paie-toi en premier, avant de dépenser le reste.',
     accent: 'emerald',
-    lines: [{text: 'Résilie,'}, {text: 'investis.', highlight: true}],
-    caption: 'Garde seulement ce que tu utilises.',
-    disclaimer: 'Exemple illustratif · prix indicatifs · rendement moyen non garanti · pas un conseil en investissement',
+    lines: [{text: 'Paie-toi'}, {text: 'en premier.', highlight: true}],
+    caption: 'Avant de dépenser le reste.',
+    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
     character: {pose: 'idle', then: 'happy'},
   },

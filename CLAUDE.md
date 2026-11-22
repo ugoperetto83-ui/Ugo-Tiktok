@@ -209,6 +209,9 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
   compteur `from → to` + `suffix`. Pose `phone` + `holdsPhone`.
 - Scène `visual: 'checklist'` : lignes barrées une à une (`strikeAt`, `strikeGap`, tampon `stamp`),
   puis pastille `savedLabel`. Sons : « ding » par notification, coup de tampon par rature.
+- Scène `visual: 'jars'` : `total` réparti en pièces dans des bocaux `jars[{label, share, color}]`,
+  remplissage à `fillAt[i]` (caler sur « 50 % », « 30 % »…) pendant `fillDuration`.
+  Notification entrante : `SubItem.incoming: true` + `icon: 'euro'` (« +1 600,00 € » en vert).
 - `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
 - Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
 - `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).

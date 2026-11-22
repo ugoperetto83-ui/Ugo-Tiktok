@@ -5,54 +5,54 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Attendre 10 ans pour investir te coûte près de 240 000 €.",
-      "key": "1c19550e965cc555",
-      "duration": 3.672,
+      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
+      "key": "d0086c5ad7918fff",
+      "duration": 5.592,
       "words": [
         {
-          "text": "Attendre",
-          "start": 0.0893,
-          "end": 0.5469
+          "text": "1 million",
+          "start": 0.0487,
+          "end": 0.6402
         },
         {
-          "text": "10 ans",
-          "start": 0.5469,
-          "end": 0.8705
+          "text": "à",
+          "start": 0.6402,
+          "end": 0.7406
         },
         {
-          "text": "pour",
-          "start": 0.8705,
-          "end": 1.0491
+          "text": "55 ans",
+          "start": 0.7406,
+          "end": 1.5442
         },
         {
-          "text": "investir",
-          "start": 1.0491,
-          "end": 1.6295
+          "text": "C’est",
+          "start": 1.875,
+          "end": 2.0648
         },
         {
-          "text": "te",
-          "start": 1.6295,
-          "end": 1.7522
+          "text": "484 €",
+          "start": 2.0648,
+          "end": 3.2255
         },
         {
-          "text": "coûte",
-          "start": 1.7523,
-          "end": 2.0089
+          "text": "par",
+          "start": 3.2255,
+          "end": 3.404
         },
         {
-          "text": "près",
-          "start": 2.0089,
-          "end": 2.2098
+          "text": "mois",
+          "start": 3.404,
+          "end": 3.6495
         },
         {
-          "text": "de",
-          "start": 2.2098,
-          "end": 2.3326
+          "text": "ou",
+          "start": 4.2411,
+          "end": 4.308
         },
         {
-          "text": "240 000 €",
-          "start": 2.3326,
-          "end": 3.3482
+          "text": "1 140 €",
+          "start": 4.308,
+          "end": 5.2679
         }
       ]
     },
@@ -60,74 +60,64 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Même 200 € par mois, même 8 % par an. Seule différence : l’âge de départ.",
-      "key": "2859ff1774c7ec52",
-      "duration": 5.352,
+      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
+      "key": "e65ad5201c379cca",
+      "duration": 6.024,
       "words": [
         {
-          "text": "Même",
+          "text": "Dès",
           "start": 0.0781,
-          "end": 0.346
+          "end": 0.2455
         },
         {
-          "text": "200 €",
-          "start": 0.346,
-          "end": 0.8259
+          "text": "20 ans",
+          "start": 0.2455,
+          "end": 0.7143
+        },
+        {
+          "text": "484 €",
+          "start": 1.0156,
+          "end": 2.221
         },
         {
           "text": "par",
-          "start": 0.8259,
-          "end": 1.0045
+          "start": 2.221,
+          "end": 2.3773
         },
         {
           "text": "mois",
-          "start": 1.0045,
-          "end": 1.25
-        },
-        {
-          "text": "même",
-          "start": 1.5737,
-          "end": 1.7411
-        },
-        {
-          "text": "8 %",
-          "start": 1.7411,
-          "end": 2.1763
-        },
-        {
-          "text": "par",
-          "start": 2.1763,
-          "end": 2.3772
-        },
-        {
-          "text": "an",
           "start": 2.3773,
-          "end": 2.5558
+          "end": 2.4888
         },
         {
-          "text": "Seule",
-          "start": 2.8906,
-          "end": 3.1473
+          "text": "suffisent",
+          "start": 2.4888,
+          "end": 3.125
         },
         {
-          "text": "différence",
-          "start": 3.1473,
-          "end": 3.8393
+          "text": "Dès",
+          "start": 3.4598,
+          "end": 3.6161
         },
         {
-          "text": "l’âge",
-          "start": 4.1295,
-          "end": 4.3638
+          "text": "30 ans",
+          "start": 3.6161,
+          "end": 4.1072
         },
         {
-          "text": "de",
-          "start": 4.3638,
-          "end": 4.4643
-        },
-        {
-          "text": "départ",
+          "text": "il",
           "start": 4.4643,
-          "end": 5.0447
+          "end": 4.5759
+        },
+        {
+          "text": "faut",
+          "start": 4.5759,
+          "end": 4.7321
+        },
+        {
+          "text": "1 140 €",
+          "start": 4.7321,
+          "end": 5.7142
         }
       ]
     },
@@ -135,134 +125,144 @@
       "file": "voice/chart.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Le Livret A suit à peine l’inflation. Le S&P 500 profite des intérêts composés.",
-      "key": "3955cc05d2a5c27a",
-      "duration": 5.64,
+      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
+      "key": "bb1d740a32ac104d",
+      "duration": 4.464,
       "words": [
         {
-          "text": "Le",
-          "start": 0.05,
-          "end": 0.2732
-        },
-        {
-          "text": "Livret",
-          "start": 0.2732,
-          "end": 0.7196
-        },
-        {
-          "text": "A",
-          "start": 0.7308,
-          "end": 0.8535
-        },
-        {
-          "text": "suit",
-          "start": 0.8536,
-          "end": 1.1549
-        },
-        {
-          "text": "à",
-          "start": 1.1549,
-          "end": 1.233
-        },
-        {
-          "text": "peine",
-          "start": 1.233,
-          "end": 1.4339
-        },
-        {
-          "text": "l’inflation",
-          "start": 1.4339,
-          "end": 2.0924
-        },
-        {
-          "text": "Le",
-          "start": 2.3924,
-          "end": 2.6714
-        },
-        {
-          "text": "S&P",
-          "start": 2.6714,
-          "end": 3.1737
-        },
-        {
-          "text": "500",
-          "start": 3.1737,
-          "end": 3.7987
-        },
-        {
-          "text": "profite",
-          "start": 3.7987,
-          "end": 4.2674
-        },
-        {
-          "text": "des",
-          "start": 4.2674,
-          "end": 4.3679
-        },
-        {
-          "text": "intérêts",
-          "start": 4.3679,
-          "end": 4.7138
-        },
-        {
-          "text": "composés",
-          "start": 4.7138,
-          "end": 5.3388
-        }
-      ]
-    },
-    "final-number": {
-      "file": "voice/final-number.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Tes 10 premières années rapportent plus que les 25 suivantes.",
-      "key": "5865a5ad8a180d82",
-      "duration": 3.24,
-      "words": [
-        {
-          "text": "Tes",
+          "text": "Même",
           "start": 0.0781,
-          "end": 0.1898
+          "end": 0.3125
         },
         {
-          "text": "10 premières",
-          "start": 0.1898,
-          "end": 0.6138
+          "text": "million",
+          "start": 0.3125,
+          "end": 0.6585
         },
         {
-          "text": "années",
-          "start": 0.6138,
-          "end": 1.0268
+          "text": "au",
+          "start": 0.6585,
+          "end": 0.7589
         },
         {
-          "text": "rapportent",
-          "start": 1.1049,
-          "end": 1.5513
+          "text": "bout",
+          "start": 0.7589,
+          "end": 1.0491
         },
         {
-          "text": "plus",
-          "start": 1.5513,
-          "end": 1.808
+          "text": "Commencer",
+          "start": 1.3727,
+          "end": 1.741
         },
         {
-          "text": "que",
-          "start": 1.808,
-          "end": 1.9085
+          "text": "tôt",
+          "start": 1.7411,
+          "end": 2.0201
+        },
+        {
+          "text": "c’est",
+          "start": 2.4107,
+          "end": 2.5446
+        },
+        {
+          "text": "laisser",
+          "start": 2.5446,
+          "end": 2.8013
         },
         {
           "text": "les",
-          "start": 1.9085,
-          "end": 1.9866
+          "start": 2.8013,
+          "end": 2.8906
         },
         {
-          "text": "25",
-          "start": 1.9866,
-          "end": 2.3326
+          "text": "intérêts",
+          "start": 2.8906,
+          "end": 3.2701
         },
         {
-          "text": "suivantes",
-          "start": 2.3326,
-          "end": 2.9352
+          "text": "composés",
+          "start": 3.2701,
+          "end": 3.6719
+        },
+        {
+          "text": "bosser",
+          "start": 3.6719,
+          "end": 4.1518
+        }
+      ]
+    },
+    "extra": {
+      "file": "voice/extra.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
+      "key": "bed107f5ec29328b",
+      "duration": 4.272,
+      "words": [
+        {
+          "text": "Attendre",
+          "start": 0.0893,
+          "end": 0.4911
+        },
+        {
+          "text": "10 ans",
+          "start": 0.4911,
+          "end": 0.8929
+        },
+        {
+          "text": "c’est",
+          "start": 1.25,
+          "end": 1.3505
+        },
+        {
+          "text": "verser",
+          "start": 1.3505,
+          "end": 1.6183
+        },
+        {
+          "text": "près",
+          "start": 1.6183,
+          "end": 1.7857
+        },
+        {
+          "text": "de",
+          "start": 1.7857,
+          "end": 1.8973
+        },
+        {
+          "text": "140 000 €",
+          "start": 1.8973,
+          "end": 2.6227
+        },
+        {
+          "text": "de",
+          "start": 2.6227,
+          "end": 2.7232
+        },
+        {
+          "text": "plus",
+          "start": 2.7232,
+          "end": 3.0692
+        },
+        {
+          "text": "pour",
+          "start": 3.0692,
+          "end": 3.2031
+        },
+        {
+          "text": "le",
+          "start": 3.2031,
+          "end": 3.2701
+        },
+        {
+          "text": "même",
+          "start": 3.2701,
+          "end": 3.4152
+        },
+        {
+          "text": "résultat",
+          "start": 3.4152,
+          "end": 3.962
         }
       ]
     },
@@ -270,59 +270,119 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Le temps est ton meilleur actif. Ta liberté commence aujourd’hui.",
-      "key": "ec64785852bd349f",
-      "duration": 3.816,
+      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
+      "key": "78e5495b49d42298",
+      "duration": 4.104,
       "words": [
         {
-          "text": "Le",
+          "text": "Alors",
           "start": 0.0893,
-          "end": 0.2679
-        },
-        {
-          "text": "temps",
-          "start": 0.2679,
-          "end": 0.5134
-        },
-        {
-          "text": "est",
-          "start": 0.5245,
-          "end": 0.6138
-        },
-        {
-          "text": "ton",
-          "start": 0.6138,
-          "end": 0.7589
-        },
-        {
-          "text": "meilleur",
-          "start": 0.7589,
-          "end": 1.0156
-        },
-        {
-          "text": "actif",
-          "start": 1.0156,
-          "end": 1.6183
-        },
-        {
-          "text": "Ta",
-          "start": 1.9531,
-          "end": 2.0424
-        },
-        {
-          "text": "liberté",
-          "start": 2.0424,
-          "end": 2.5781
+          "end": 0.3237
         },
         {
           "text": "commence",
-          "start": 2.5781,
-          "end": 2.9241
+          "start": 0.3237,
+          "end": 0.6696
         },
         {
-          "text": "aujourd’hui",
-          "start": 2.9241,
-          "end": 3.4933
+          "text": "tôt",
+          "start": 0.6696,
+          "end": 0.9263
+        },
+        {
+          "text": "même",
+          "start": 1.2165,
+          "end": 1.3839
+        },
+        {
+          "text": "petit",
+          "start": 1.3839,
+          "end": 1.8192
+        },
+        {
+          "text": "Ton",
+          "start": 2.1245,
+          "end": 2.292
+        },
+        {
+          "text": "futur",
+          "start": 2.292,
+          "end": 2.7384
+        },
+        {
+          "text": "toi",
+          "start": 2.7384,
+          "end": 2.9616
+        },
+        {
+          "text": "te",
+          "start": 2.9616,
+          "end": 3.0732
+        },
+        {
+          "text": "dira",
+          "start": 3.0732,
+          "end": 3.2852
+        },
+        {
+          "text": "merci",
+          "start": 3.2853,
+          "end": 3.7875
+        }
+      ]
+    },
+    "endcard": {
+      "file": "voice/endcard.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Abonne-toi à Léo et la Thune pour la suite !",
+      "key": "ce695af86d2287ab",
+      "duration": 2.544,
+      "words": [
+        {
+          "text": "Abonne-toi",
+          "start": 0.0893,
+          "end": 0.558
+        },
+        {
+          "text": "à",
+          "start": 0.558,
+          "end": 0.625
+        },
+        {
+          "text": "Léo",
+          "start": 0.625,
+          "end": 1.038
+        },
+        {
+          "text": "et",
+          "start": 1.1273,
+          "end": 1.183
+        },
+        {
+          "text": "la",
+          "start": 1.183,
+          "end": 1.2946
+        },
+        {
+          "text": "Thune",
+          "start": 1.2946,
+          "end": 1.5402
+        },
+        {
+          "text": "pour",
+          "start": 1.5402,
+          "end": 1.6518
+        },
+        {
+          "text": "la",
+          "start": 1.6518,
+          "end": 1.7299
+        },
+        {
+          "text": "suite",
+          "start": 1.7299,
+          "end": 2.221
         }
       ]
     }

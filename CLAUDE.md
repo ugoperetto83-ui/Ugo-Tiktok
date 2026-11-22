@@ -13,6 +13,26 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
 
 ---
 
+## 0. Série en cours : « Léo & la Thune » (@leoetlathune) — à lire en premier
+
+- **Toutes les nouvelles vidéos** se font dans le style `pop` avec la mascotte **Léo**, voix
+  **Rémy** (+12 %), ~25 s + **carte de fin** (`visual: 'endcard'`, toujours en dernière scène).
+- Public : tout le monde, en particulier les jeunes. Ton : complice, argot léger (« thune », « sous »).
+- Léo : aucun pronom genré dans les scripts (2e personne « tu », ou tournures neutres :
+  « Léo met… », « la règle de Léo », « il reste… » impersonnel).
+- Avant d'écrire : poser à l'utilisateur les questions utiles (montants, hypothèses, angle de
+  l'accroche) avec des options et une recommandation ; l'utilisateur aime être consulté.
+- Chaque nouvel épisode archive d'abord le précédent dans `scripts/videos/<slug>.ts`.
+- Épisodes réalisés (archives dans `scripts/videos/`, MP4 dans `out/`, non versionnés) :
+  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` (actuel
+  `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
+- Idées en réserve : crédit conso / paiement en 4 fois, règle de 72, livret vs inflation.
+- Logo / avatar : `brand/` (PNG finaux), `scripts/brand.ts` (nom, pseudo, couleur jaune).
+- Toujours finir par : planche de `remotion still`, `ffprobe`, `silencedetect`, commit + push,
+  envoi du MP4.
+
+---
+
 ## 1. Démarrage d'une session (environnement neuf)
 
 ```bash
@@ -47,6 +67,7 @@ ugo-tiktok/ (racine du dépôt)
 ├── remotion.config.ts      h264, CRF 16, yuv420p, jpeg 95, navigateur préinstallé
 ├── tsconfig.json           resolveJsonModule (import du manifeste voix)
 ├── scripts/
+│   ├── videos/             archives des vidéos précédentes (copier sur video-data.ts pour re-rendre)
 │   ├── video-data.ts       ★ LES DONNÉES : config, hypothèses, mots-clés, SCENES (seul fichier à éditer)
 │   ├── voice-input.ts      exporte {voice, scenes:[{id,text}]} en JSON sur stdout → lu par Python
 │   ├── generate_voice.py   edge-tts → public/voice/<id>.mp3 + scripts/voice-manifest.json
@@ -190,6 +211,36 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
 5. Vérifier : quelques `remotion still` à `--scale=0.5` (milieu/fin de chaque scène) assemblés en
    planche ; `ffprobe` (1080×1920, 60 fps, h264 + aac) ; `silencedetect` pour confirmer la voix.
 6. Envoyer le MP4 à l'utilisateur.
+
+### Style « pop » (sticker + personnage) — `VIDEO_CONFIG.style: 'pop'`
+- Vues dans `src/pop/` : `PopScenes.tsx` (fond crème à pois, cartes sticker à contour noir 6 px
+  et ombre décalée, rayons de soleil sur les chiffres clés), `Character.tsx` (personnage SVG :
+  bonnet, sweat violet, respiration, clignements), `theme.ts` (palette `POP`, police **Fredoka**).
+- `style: 'dark'` garde l'identité « Dark Finance Minimalist » d'origine.
+- Personnage fil rouge par scène : `character: {pose, then?, holdsCup?}`, poses
+  `idle | order | shock | think | happy | point` ; `then` est pris (ressort + petit saut) à la fin
+  de l'animation principale.
+- Scène `visual: 'order'` (accroche au comptoir) : `bubble`, `priceLabel`, `cupAt`, puis compteur
+  `from → to` (champs d'un `counter`). En style sombre, elle s'affiche comme un `counter`.
+- Mascotte : **Léo** (`VIDEO_CONFIG.mascot.name`). Script à la 2e personne (« tu »), le nom
+  apparaît à l'écran (pastilles, titres) ; pas de pronom attribué à Léo.
+- Scène `visual: 'notify'` : téléphone, notifications `items: SubItem[]` (`label`, `amount`,
+  `icon: play|music|gym|star`) à `itemsAt` + `i × itemGap` (caler sur les mots de la voix), puis
+  compteur `from → to` + `suffix`. Pose `phone` + `holdsPhone`.
+- Scène `visual: 'checklist'` : lignes barrées une à une (`strikeAt`, `strikeGap`, tampon `stamp`),
+  puis pastille `savedLabel`. Sons : « ding » par notification, coup de tampon par rature.
+- Scène `visual: 'jars'` : `total` réparti en pièces dans des bocaux `jars[{label, share, color}]`,
+  remplissage à `fillAt[i]` (caler sur « 50 % », « 30 % »…) pendant `fillDuration`.
+  Notification entrante : `SubItem.incoming: true` + `icon: 'euro'` (« +1 600,00 € » en vert).
+- Scène `visual: 'endcard'` (à mettre en dernier) : avatar de Léo, nom, pseudo et bouton
+  « S'abonner » lus dans `scripts/brand.ts` ; champs `cta`, `button`. Mettre le disclaimer sur la
+  scène précédente. Voix : `voiceText` avec « et » à la place de « & ».
+- Identité du compte « Léo & la Thune » (`scripts/brand.ts`) : compositions `Avatar` (1080×1080)
+  et `Wordmark` ; fichiers finaux dans `brand/`.
+- Helper `requiredMonthly(target, rate, years)` : versement mensuel pour atteindre un objectif.
+- `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
+- Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
+- `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).
 
 ### Contraintes de mise en page (vérifiées)
 - Zones sûres (`theme.ts › SAFE`) : visuels entre y=230 et y=1220 ; sous-titres centrés y=1395 ;

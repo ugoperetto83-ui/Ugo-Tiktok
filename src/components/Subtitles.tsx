@@ -3,13 +3,37 @@ import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from
 import type {SubtitleWord} from '../lib/timeline';
 import {COLORS, FONT_FAMILY, SAFE} from '../theme';
 
-type Props = {words: SubtitleWord[]; fontSize?: number};
+type Props = {
+  words: SubtitleWord[];
+  fontSize?: number;
+  /** Couleur des mots-clés (défaut : émeraude). */
+  keywordColor?: string;
+  fontFamily?: string;
+  fontWeight?: number;
+  /** Halo lumineux sur les mots-clés (style sombre). */
+  glow?: boolean;
+  /** Ombre portée de la couche contour. */
+  shadow?: string;
+  uppercase?: boolean;
+  /** Épaisseur du contour, en fraction de la taille de police. */
+  strokeRatio?: number;
+};
 
 /**
  * Sous-titres mot par mot, style TikTok : blanc ultra-bold, contour noir épais,
  * mots-clés financiers en vert émeraude. Affichés par groupes de 1 à 3 mots.
  */
-export const Subtitles: React.FC<Props> = ({words, fontSize = 86}) => {
+export const Subtitles: React.FC<Props> = ({
+  words,
+  fontSize = 86,
+  keywordColor = COLORS.emerald,
+  fontFamily = FONT_FAMILY,
+  fontWeight = 900,
+  glow = true,
+  shadow = '0 8px 18px rgba(0,0,0,0.85)',
+  uppercase = true,
+  strokeRatio = 0.2,
+}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
 
@@ -47,12 +71,12 @@ export const Subtitles: React.FC<Props> = ({words, fontSize = 86}) => {
           alignItems: 'center',
           columnGap: fontSize * 0.34,
           rowGap: 6,
-          fontFamily: FONT_FAMILY,
-          fontWeight: 900,
+          fontFamily,
+          fontWeight,
           fontSize,
           lineHeight: 1.08,
           letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
+          textTransform: uppercase ? 'uppercase' : 'none',
           textAlign: 'center',
         }}
       >
@@ -61,7 +85,7 @@ export const Subtitles: React.FC<Props> = ({words, fontSize = 86}) => {
           const spoken = frame >= w.start;
           const pop = spring({frame: frame - w.start, fps, config: {damping: 10, stiffness: 260, mass: 0.5}});
           const scale = active ? interpolate(pop, [0, 1], [0.92, 1.06]) : 1;
-          const color = w.keyword ? COLORS.emerald : COLORS.text;
+          const color = w.keyword ? keywordColor : COLORS.text;
           return (
             <span
               key={`${w.start}-${i}`}
@@ -81,8 +105,8 @@ export const Subtitles: React.FC<Props> = ({words, fontSize = 86}) => {
                   position: 'absolute',
                   inset: 0,
                   color: '#000',
-                  WebkitTextStroke: `${Math.round(fontSize * 0.2)}px #000`,
-                  textShadow: '0 8px 18px rgba(0,0,0,0.85)',
+                  WebkitTextStroke: `${Math.round(fontSize * strokeRatio)}px #000`,
+                  textShadow: shadow,
                 }}
               >
                 {w.text}
@@ -91,7 +115,7 @@ export const Subtitles: React.FC<Props> = ({words, fontSize = 86}) => {
                 style={{
                   position: 'relative',
                   color,
-                  textShadow: w.keyword && spoken ? `0 0 26px ${COLORS.emerald}AA` : undefined,
+                  textShadow: glow && w.keyword && spoken ? `0 0 26px ${keywordColor}AA` : undefined,
                 }}
               >
                 {w.text}

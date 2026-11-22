@@ -49,13 +49,14 @@ const Eyebrow: React.FC<{text: string; color: string}> = ({text, color}) => (
 );
 
 /** Petite courbe exponentielle sous le compteur, synchronisée avec lui. */
-const MiniCurve: React.FC<{progress: number; color: string}> = ({progress, color}) => {
+const MiniCurve: React.FC<{progress: number; color: string; down?: boolean}> = ({progress, color, down}) => {
   const W = 620;
   const H = 150;
   const N = 60;
   const pts = Array.from({length: N + 1}, (_, i) => {
     const t = i / N;
-    return [t * W, H - counterEasing(t) * (H - 8) - 4];
+    const y = counterEasing(t) * (H - 8);
+    return [t * W, down ? y + 4 : H - y - 4];
   });
   const d = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
   let len = 0;
@@ -94,7 +95,7 @@ export const CounterSceneView: React.FC<{scene: CounterScene}> = ({scene}) => {
           glowColor={color}
         />
         <div style={{height: 50}} />
-        <MiniCurve progress={progress} color={color} />
+        <MiniCurve progress={progress} color={color} down={scene.trend === 'down'} />
         {scene.caption && (
           <div
             style={{

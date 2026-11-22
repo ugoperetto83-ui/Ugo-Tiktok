@@ -7,16 +7,27 @@ const WEIGHTS: [string, number][] = [
   ['Inter-Black.otf', 900],
 ];
 
+/** Police arrondie du style « pop ». */
+const ROUNDED: [string, number][] = [
+  ['Fredoka-500.woff2', 500],
+  ['Fredoka-600.woff2', 600],
+  ['Fredoka-700.woff2', 700],
+];
+
 let loaded = false;
 
 /** Charge Inter depuis /public/fonts et bloque le rendu tant que la police n'est pas prête. */
 export const loadFonts = () => {
   if (loaded || typeof document === 'undefined') return;
   loaded = true;
-  const handle = delayRender('Chargement de la police Inter');
+  const handle = delayRender('Chargement des polices');
+  const faces = [
+    ...WEIGHTS.map(([file, weight]) => ['Inter', file, weight, 'opentype'] as const),
+    ...ROUNDED.map(([file, weight]) => ['Fredoka', file, weight, 'woff2'] as const),
+  ];
   Promise.all(
-    WEIGHTS.map(([file, weight]) => {
-      const face = new FontFace('Inter', `url(${staticFile(`fonts/${file}`)}) format('opentype')`, {
+    faces.map(([family, file, weight, format]) => {
+      const face = new FontFace(family, `url(${staticFile(`fonts/${file}`)}) format('${format}')`, {
         weight: String(weight),
         style: 'normal',
       });

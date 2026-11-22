@@ -75,7 +75,7 @@ const Column: React.FC<{side: SplitSide; timing: AnimationTiming; maxValue: numb
         />
       </div>
       <div style={{...text, marginTop: 20, fontSize: 30, fontWeight: 700, color: COLORS.textFaint}}>
-        Versé : <span style={{color: winner ? COLORS.textDim : COLORS.textFaint}}>{formatEuro(side.invested)}</span>
+        {side.investedLabel ?? 'Versé'} : <span style={{color: winner ? COLORS.textDim : COLORS.textFaint}}>{formatEuro(side.invested)}</span>
       </div>
       <div style={{width: 60, height: 6, borderRadius: 3, background: color, marginTop: 16, opacity: winner ? 1 : 0.5}} />
     </div>
@@ -150,7 +150,7 @@ export const SplitComparison: React.FC<Props> = ({left, right, timing, gapLabel,
           whiteSpace: 'nowrap',
         }}
       >
-        {gapLabel} : <span style={{color: COLORS.gold}}>+{formatEuro(gapValue)}</span>
+        {gapLabel} : <span style={{color: COLORS.gold}}>{gapValue < 0 ? '−' : '+'}{formatEuro(Math.abs(gapValue))}</span>
       </div>
     </div>
   );

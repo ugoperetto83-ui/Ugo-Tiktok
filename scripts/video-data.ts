@@ -23,6 +23,10 @@ export const futureValue = (monthly: number, annualRate: number, years: number):
   return yearly * ((Math.pow(1 + annualRate, years) - 1) / annualRate);
 };
 
+/** Versement mensuel nécessaire pour atteindre `target` en `years` ans (inverse de futureValue). */
+export const requiredMonthly = (target: number, annualRate: number, years: number): number =>
+  target / futureValue(1, annualRate, years);
+
 /** Valeur du portefeuille à chaque âge, de `fromAge` à `toAge` (inclus). 0 avant `startAge`. */
 export const growthSeries = (
   monthly: number,
@@ -38,33 +42,56 @@ export const growthSeries = (
   return out;
 };
 
+/** Pouvoir d'achat (en euros d'aujourd'hui) d'un capital placé à `rate` pendant `years` ans d'inflation. */
+export const realValue = (amount: number, rate: number, inflation: number, years: number): number =>
+  amount * Math.pow((1 + rate) / (1 + inflation), years);
+
+/** Pouvoir d'achat année par année, de 0 à `years` (inclus). */
+export const realSeries = (amount: number, rate: number, inflation: number, years: number): number[] =>
+  Array.from({length: years + 1}, (_, y) => Math.round(realValue(amount, rate, inflation, y)));
+
 // ---------------------------------------------------------------------------
 // Hypothèses du scénario
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  monthly: 200, // € investis par mois
-  marketRate: 0.08, // rendement annuel moyen supposé (S&P 500)
-  cashRate: 0.02, // Livret A / cash
+  target: 1_000_000, // objectif (€)
+  marketRate: 0.08, // rendement annuel moyen supposé
   earlyStart: 20,
   lateStart: 30,
   endAge: 55,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY = Math.round(futureValue(A.monthly, A.marketRate, A.endAge - A.earlyStart)); // ≈ 413 560 €
-const LATE = Math.round(futureValue(A.monthly, A.marketRate, A.endAge - A.lateStart)); // ≈ 175 454 €
-const GAP = EARLY - LATE; // ≈ 238 106 € → « près de 240 000 € »
-const INVESTED_EARLY = A.monthly * 12 * (A.endAge - A.earlyStart);
-const INVESTED_LATE = A.monthly * 12 * (A.endAge - A.lateStart);
+const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
+const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
+const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
+const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
+const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
+const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
+const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
 
-export const COMPUTED = {EARLY, LATE, GAP, INVESTED_EARLY, INVESTED_LATE};
+export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
 // ---------------------------------------------------------------------------
 
 export type Accent = 'emerald' | 'gold';
+
+/** Poses du personnage (style « pop »). */
+export type CharacterPose = 'idle' | 'order' | 'shock' | 'think' | 'happy' | 'point' | 'phone';
+
+export type CharacterCue = {
+  /** Pose au début de la scène. */
+  pose: CharacterPose;
+  /** Pose prise à la fin de l'animation principale (compteur, barres, courbe, impact). */
+  then?: CharacterPose;
+  /** Tient un gobelet de café. */
+  holdsCup?: boolean;
+  /** Tient un téléphone (pose « phone » conseillée). */
+  holdsPhone?: boolean;
+};
 
 export type AnimationTiming = {
   /** Délai avant le début de l'animation (s, relatif au début de la scène). */
@@ -87,6 +114,8 @@ type SceneBase = {
   accent: Accent;
   /** Joue un « whoosh » à l'entrée de la scène (défaut : true sauf 1re scène). */
   whooshIn?: boolean;
+  /** Personnage fil rouge (style « pop » uniquement). */
+  character?: CharacterCue;
 };
 
 export type CounterScene = SceneBase & {
@@ -100,6 +129,8 @@ export type CounterScene = SceneBase & {
   animation: AnimationTiming;
   /** Impact grave quand le compteur atteint sa valeur finale. */
   impactAtEnd?: boolean;
+  /** Sens de la mini-courbe sous le compteur (défaut : 'up'). */
+  trend?: 'up' | 'down';
 };
 
 export type ChartSeries = {
@@ -127,6 +158,8 @@ export type SplitSide = {
   from: number;
   to: number;
   invested: number;
+  /** Libellé du montant `invested` (défaut : « Versé »). */
+  investedLabel?: string;
   style: 'winner' | 'loser';
 };
 
@@ -149,7 +182,109 @@ export type StatementScene = SceneBase & {
   impactAt?: number;
 };
 
-export type Scene = CounterScene | ChartScene | SplitScene | StatementScene;
+/** Le personnage commande au comptoir ; le prix affiché explose ensuite en compteur. */
+export type OrderScene = SceneBase & {
+  visual: 'order';
+  eyebrow: string;
+  /** Bulle de dialogue du personnage. */
+  bubble: string;
+  /** Étiquette collée sur le gobelet (ex : « 4 € »). */
+  priceLabel: string;
+  /** Arrivée du gobelet sur le comptoir (s). */
+  cupAt: number;
+  from: number;
+  to: number;
+  caption?: string;
+  animation: AnimationTiming;
+  impactAtEnd?: boolean;
+};
+
+/** Un abonnement (ou toute dépense récurrente) affiché en notification / ligne de liste. */
+export type SubItem = {
+  label: string;
+  /** Montant mensuel (€, centimes acceptés). */
+  amount: number;
+  icon: 'play' | 'music' | 'gym' | 'star' | 'euro';
+  /** Argent reçu (affiché « +… € » en vert) plutôt que prélevé. */
+  incoming?: boolean;
+};
+
+/** Notifications de prélèvement qui s'empilent sur un téléphone, puis compteur du total. */
+export type NotifyScene = SceneBase & {
+  visual: 'notify';
+  eyebrow: string;
+  /** Petit libellé au-dessus de chaque notification (ex : « Prélèvement »). */
+  notifLabel: string;
+  items: SubItem[];
+  /** Arrivée de la 1re notification (s) puis écart entre deux (s). */
+  itemsAt: number;
+  itemGap: number;
+  from: number;
+  to: number;
+  /** Suffixe affiché après le compteur (ex : « /an »). */
+  suffix?: string;
+  caption?: string;
+  animation: AnimationTiming;
+  impactAtEnd?: boolean;
+};
+
+/** Liste d'abonnements barrés un à un (tampon), puis pastille d'économie. */
+export type ChecklistScene = SceneBase & {
+  visual: 'checklist';
+  title: string;
+  items: SubItem[];
+  /** Suffixe des montants (ex : « /mois »). */
+  amountSuffix: string;
+  /** Tampon posé sur chaque ligne barrée. */
+  stamp: string;
+  /** Première rature (s) puis écart entre deux (s). */
+  strikeAt: number;
+  strikeGap: number;
+  /** Pastille finale (ex : « +45 €/mois à investir »). */
+  savedLabel: string;
+};
+
+/** Un bocal de la répartition budgétaire. */
+export type Jar = {
+  label: string;
+  /** Part du total (0–1). */
+  share: number;
+  color: 'violet' | 'coral' | 'mint';
+};
+
+/** Le total tombe en pièces dans des bocaux qui se remplissent un à un. */
+export type JarsScene = SceneBase & {
+  visual: 'jars';
+  title: string;
+  /** Montant réparti (€). */
+  total: number;
+  totalLabel: string;
+  jars: Jar[];
+  /** Début du remplissage de chaque bocal (s, à caler sur les mots de la voix). */
+  fillAt: number[];
+  /** Durée de remplissage d'un bocal (s). */
+  fillDuration: number;
+};
+
+/** Carte de fin : logo du compte (scripts/brand.ts) + appel à s'abonner. */
+export type EndCardScene = SceneBase & {
+  visual: 'endcard';
+  /** Texte de la pastille (ex : « Abonne-toi pour la suite »). */
+  cta: string;
+  /** Texte du bouton (ex : « S'abonner »). */
+  button: string;
+};
+
+export type Scene =
+  | EndCardScene
+  | CounterScene
+  | ChartScene
+  | SplitScene
+  | StatementScene
+  | OrderScene
+  | NotifyScene
+  | ChecklistScene
+  | JarsScene;
 
 // ---------------------------------------------------------------------------
 // Configuration globale
@@ -157,6 +292,10 @@ export type Scene = CounterScene | ChartScene | SplitScene | StatementScene;
 
 export const VIDEO_CONFIG = {
   id: 'FinanceViral',
+  /** Identité visuelle : 'dark' (Dark Finance Minimalist) ou 'pop' (sticker coloré + personnage). */
+  style: 'pop' as 'dark' | 'pop',
+  /** Mascotte de la série (style « pop »). */
+  mascot: {name: 'Léo'},
   width: 1080,
   height: 1920,
   fps: 60,
@@ -184,111 +323,116 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
+  '1\u00A0million',
+  '484\u00A0€',
+  '1\u00A0140\u00A0€',
   'intérêts composés',
-  'liberté',
-  'inflation',
-  'S&P 500',
-  '240 000 €',
-  '10 ans',
-  '8 %',
-  'aujourd’hui',
-  '10 premières années',
-  'temps',
+  '140\u00A0000\u00A0€',
+  'commence tôt',
+  'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Pourquoi attendre 10 ans pour investir te coûte 240 000 € » (20 s)
+// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
+const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
 const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'counter',
-    durationInSeconds: 3,
-    subtitle: 'Attendre 10 ans pour investir te coûte près de 240 000 €.',
+    durationInSeconds: 4.5,
+    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: '200 €/mois · 8 %/an · jusqu’à 55 ans',
+    eyebrow: `Objectif à ${A.endAge} ans`,
+    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
     from: 0,
-    to: GAP,
-    animation: {delay: 0.25, duration: 2.1, endAtWord: '240\u00A0000\u00A0€'},
+    to: A.target,
+    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
     impactAtEnd: true,
+    character: {pose: 'think', then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 4.5,
-    subtitle: 'Même 200 € par mois, même 8 % par an. Seule différence : l’âge de départ.',
+    durationInSeconds: 5,
+    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
     accent: 'emerald',
     left: {
-      title: 'Dès 20 ans',
-      detail: '35 ans d’investissement',
+      title: `Dès ${A.earlyStart} ans`,
+      detail: `par mois · ${EARLY_YEARS} ans`,
       from: 0,
-      to: EARLY,
-      invested: INVESTED_EARLY,
+      to: EARLY_MONTHLY,
+      invested: EARLY_PAID,
       style: 'winner',
     },
     right: {
-      title: 'Dès 30 ans',
-      detail: '25 ans d’investissement',
+      title: `Dès ${A.lateStart} ans`,
+      detail: `par mois · ${LATE_YEARS} ans`,
       from: 0,
-      to: LATE,
-      invested: INVESTED_LATE,
+      to: LATE_MONTHLY,
+      invested: LATE_PAID,
       style: 'loser',
     },
-    gapLabel: 'Écart à 55 ans',
-    gapValue: GAP,
-    animation: {delay: 0.35, duration: 2.6},
+    gapLabel: 'Effort en plus',
+    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
+    animation: {delay: 0.35, duration: 2.8},
+    character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'chart',
     visual: 'chart',
     durationInSeconds: 5,
-    subtitle: 'Le Livret A suit à peine l’inflation. Le S&P 500 profite des intérêts composés.',
+    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
     accent: 'emerald',
-    title: '200 €/mois de 20 à 55 ans',
+    title: `1\u00A0million à ${A.endAge} ans`,
     xValues: AGES,
     xLabelSuffix: ' ans',
     xTicks: [20, 30, 40, 55],
     series: [
-      {
-        label: 'Livret A / Cash · 2 %',
-        style: 'muted',
-        values: growthSeries(A.monthly, A.cashRate, A.earlyStart, A.earlyStart, A.endAge),
-      },
-      {
-        label: 'Investissement S&P 500 · 8 %',
-        style: 'neon',
-        values: growthSeries(A.monthly, A.marketRate, A.earlyStart, A.earlyStart, A.endAge),
-      },
+      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
+      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
     ],
     animation: {delay: 0.3, duration: 3.6},
+    character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'final-number',
+    id: 'extra',
     visual: 'counter',
-    durationInSeconds: 4,
-    subtitle: 'Tes 10 premières années rapportent plus que les 25 suivantes.',
-    accent: 'emerald',
-    eyebrow: 'Ton patrimoine à 55 ans',
-    caption: `en commençant à 20 ans · ${new Intl.NumberFormat('fr-FR').format(INVESTED_EARLY).replace(/\s/g, ' ')} € versés`,
+    durationInSeconds: 4.5,
+    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    accent: 'gold',
+    eyebrow: 'Le prix de 10 ans d’attente',
+    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
     from: 0,
-    to: EARLY,
-    animation: {delay: 0.25, duration: 2.6},
+    to: EXTRA_PAID,
+    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
     impactAtEnd: true,
+    character: {pose: 'idle', then: 'shock'},
   },
   {
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 3.5,
-    subtitle: 'Le temps est ton meilleur actif. Ta liberté commence aujourd’hui.',
+    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
     accent: 'emerald',
-    lines: [{text: 'Commence'}, {text: 'aujourd’hui.', highlight: true}],
-    caption: 'Pas dans 10 ans.',
+    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
+    caption: 'Ton futur toi te dira merci.',
     disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
+    character: {pose: 'idle', then: 'happy'},
+  },
+  {
+    id: 'endcard',
+    visual: 'endcard',
+    durationInSeconds: 2.5,
+    subtitle: 'Abonne-toi à Léo & la Thune pour la suite\u00A0!',
+    voiceText: 'Abonne-toi à Léo et la Thune pour la suite !',
+    accent: 'gold',
+    cta: 'Abonne-toi pour la suite',
+    button: 'S’abonner',
   },
 ];

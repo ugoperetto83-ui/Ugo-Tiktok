@@ -259,6 +259,10 @@ const ticksForCounter = (
   return events;
 };
 
+/** Pièces par bocal et durée de chute d'une pièce (s) : partagés avec la vue « jars ». */
+export const JAR_COINS = 6;
+export const COIN_FALL = 0.32;
+
 export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[] => {
   const events: SfxEvent[] = [];
   for (const slot of layoutScenes(scenes, fps)) {
@@ -268,6 +272,44 @@ export const buildSfxEvents = (scenes: ResolvedScene[], fps: number): SfxEvent[]
       events.push({type: 'whoosh', frame: Math.max(0, from - toFrames(WHOOSH_PEAK_SECONDS, fps)), gain: 0.55, pitch: 1});
     }
     switch (scene.visual) {
+      case 'order':
+        // « Pop » aigu quand le gobelet se pose sur le comptoir.
+        events.push({type: 'tick', frame: from + toFrames(scene.cupAt, fps), gain: 0.9, pitch: 1.7});
+        events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
+        if (scene.impactAtEnd) {
+          events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
+        }
+        break;
+      case 'notify':
+        // « Ding » aigu à chaque notification, puis le compteur du total.
+        scene.items.forEach((_, i) => {
+          events.push({type: 'tick', frame: from + toFrames(scene.itemsAt + i * scene.itemGap, fps), gain: 0.9, pitch: 1.6 + 0.08 * i});
+        });
+        events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
+        if (scene.impactAtEnd) {
+          events.push({type: 'impact', frame: from + animationEndFrame(scene.animation, fps), gain: 1, pitch: 1});
+        }
+        break;
+      case 'endcard':
+        events.push({type: 'impact', frame: from + toFrames(0.05, fps), gain: 0.6, pitch: 1.2});
+        events.push({type: 'tick', frame: from + toFrames(28 / 60, fps), gain: 0.9, pitch: 1.8});
+        break;
+      case 'jars':
+        // Pièces qui tintent pendant le remplissage, petit impact quand le bocal est plein.
+        scene.fillAt.forEach((t, j) => {
+          for (let c = 0; c < JAR_COINS; c++) {
+            const at = t + (c / JAR_COINS) * scene.fillDuration * 0.8 + COIN_FALL;
+            events.push({type: 'tick', frame: from + toFrames(at, fps), gain: 0.55, pitch: 1.35 + 0.1 * j + 0.04 * c});
+          }
+          events.push({type: 'impact', frame: from + toFrames(t + scene.fillDuration, fps), gain: 0.4, pitch: 1.4});
+        });
+        break;
+      case 'checklist':
+        // Un coup de tampon par ligne barrée.
+        scene.items.forEach((_, i) => {
+          events.push({type: 'impact', frame: from + toFrames(scene.strikeAt + i * scene.strikeGap, fps), gain: 0.45, pitch: 1.35});
+        });
+        break;
       case 'counter':
         events.push(...ticksForCounter(from, scene.animation, fps, 0.5));
         if (scene.impactAtEnd) {

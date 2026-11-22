@@ -1,0 +1,6 @@
+node_modules
+out
+public/sfx
+.venv
+__pycache__
+*.part

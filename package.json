@@ -1,0 +1,28 @@
+{
+  "name": "finance-viral",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vidéos verticales TikTok d'éducation financière (Remotion, Dark Finance Minimalist)",
+  "scripts": {
+    "setup:voice": "python3 -m venv .venv && .venv/bin/pip install -r requirements.txt",
+    "voice": ".venv/bin/python scripts/generate_voice.py",
+    "audio": "tsx scripts/generate-audio.ts",
+    "build:assets": "npm run voice && npm run audio",
+    "studio": "npm run build:assets && remotion studio src/index.ts",
+    "render": "npm run build:assets && remotion render src/index.ts FinanceViral out/finance_viral.mp4",
+    "make": "npm run build:assets && remotion render src/index.ts FinanceViral",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.545",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.545"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^18.3.31",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

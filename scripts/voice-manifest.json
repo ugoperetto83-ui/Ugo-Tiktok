@@ -1,0 +1,330 @@
+{
+  "generatedWith": "edge-tts 7.3.1",
+  "scenes": {
+    "hook": {
+      "file": "voice/hook.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Attendre 10 ans pour investir te coûte près de 240 000 €.",
+      "key": "1c19550e965cc555",
+      "duration": 3.672,
+      "words": [
+        {
+          "text": "Attendre",
+          "start": 0.0893,
+          "end": 0.5469
+        },
+        {
+          "text": "10 ans",
+          "start": 0.5469,
+          "end": 0.8705
+        },
+        {
+          "text": "pour",
+          "start": 0.8705,
+          "end": 1.0491
+        },
+        {
+          "text": "investir",
+          "start": 1.0491,
+          "end": 1.6295
+        },
+        {
+          "text": "te",
+          "start": 1.6295,
+          "end": 1.7522
+        },
+        {
+          "text": "coûte",
+          "start": 1.7523,
+          "end": 2.0089
+        },
+        {
+          "text": "près",
+          "start": 2.0089,
+          "end": 2.2098
+        },
+        {
+          "text": "de",
+          "start": 2.2098,
+          "end": 2.3326
+        },
+        {
+          "text": "240 000 €",
+          "start": 2.3326,
+          "end": 3.3482
+        }
+      ]
+    },
+    "split": {
+      "file": "voice/split.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Même 200 € par mois, même 8 % par an. Seule différence : l’âge de départ.",
+      "key": "2859ff1774c7ec52",
+      "duration": 5.352,
+      "words": [
+        {
+          "text": "Même",
+          "start": 0.0781,
+          "end": 0.346
+        },
+        {
+          "text": "200 €",
+          "start": 0.346,
+          "end": 0.8259
+        },
+        {
+          "text": "par",
+          "start": 0.8259,
+          "end": 1.0045
+        },
+        {
+          "text": "mois",
+          "start": 1.0045,
+          "end": 1.25
+        },
+        {
+          "text": "même",
+          "start": 1.5737,
+          "end": 1.7411
+        },
+        {
+          "text": "8 %",
+          "start": 1.7411,
+          "end": 2.1763
+        },
+        {
+          "text": "par",
+          "start": 2.1763,
+          "end": 2.3772
+        },
+        {
+          "text": "an",
+          "start": 2.3773,
+          "end": 2.5558
+        },
+        {
+          "text": "Seule",
+          "start": 2.8906,
+          "end": 3.1473
+        },
+        {
+          "text": "différence",
+          "start": 3.1473,
+          "end": 3.8393
+        },
+        {
+          "text": "l’âge",
+          "start": 4.1295,
+          "end": 4.3638
+        },
+        {
+          "text": "de",
+          "start": 4.3638,
+          "end": 4.4643
+        },
+        {
+          "text": "départ",
+          "start": 4.4643,
+          "end": 5.0447
+        }
+      ]
+    },
+    "chart": {
+      "file": "voice/chart.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Le Livret A suit à peine l’inflation. Le S&P 500 profite des intérêts composés.",
+      "key": "3955cc05d2a5c27a",
+      "duration": 5.64,
+      "words": [
+        {
+          "text": "Le",
+          "start": 0.05,
+          "end": 0.2732
+        },
+        {
+          "text": "Livret",
+          "start": 0.2732,
+          "end": 0.7196
+        },
+        {
+          "text": "A",
+          "start": 0.7308,
+          "end": 0.8535
+        },
+        {
+          "text": "suit",
+          "start": 0.8536,
+          "end": 1.1549
+        },
+        {
+          "text": "à",
+          "start": 1.1549,
+          "end": 1.233
+        },
+        {
+          "text": "peine",
+          "start": 1.233,
+          "end": 1.4339
+        },
+        {
+          "text": "l’inflation",
+          "start": 1.4339,
+          "end": 2.0924
+        },
+        {
+          "text": "Le",
+          "start": 2.3924,
+          "end": 2.6714
+        },
+        {
+          "text": "S&P",
+          "start": 2.6714,
+          "end": 3.1737
+        },
+        {
+          "text": "500",
+          "start": 3.1737,
+          "end": 3.7987
+        },
+        {
+          "text": "profite",
+          "start": 3.7987,
+          "end": 4.2674
+        },
+        {
+          "text": "des",
+          "start": 4.2674,
+          "end": 4.3679
+        },
+        {
+          "text": "intérêts",
+          "start": 4.3679,
+          "end": 4.7138
+        },
+        {
+          "text": "composés",
+          "start": 4.7138,
+          "end": 5.3388
+        }
+      ]
+    },
+    "final-number": {
+      "file": "voice/final-number.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Tes 10 premières années rapportent plus que les 25 suivantes.",
+      "key": "5865a5ad8a180d82",
+      "duration": 3.24,
+      "words": [
+        {
+          "text": "Tes",
+          "start": 0.0781,
+          "end": 0.1898
+        },
+        {
+          "text": "10 premières",
+          "start": 0.1898,
+          "end": 0.6138
+        },
+        {
+          "text": "années",
+          "start": 0.6138,
+          "end": 1.0268
+        },
+        {
+          "text": "rapportent",
+          "start": 1.1049,
+          "end": 1.5513
+        },
+        {
+          "text": "plus",
+          "start": 1.5513,
+          "end": 1.808
+        },
+        {
+          "text": "que",
+          "start": 1.808,
+          "end": 1.9085
+        },
+        {
+          "text": "les",
+          "start": 1.9085,
+          "end": 1.9866
+        },
+        {
+          "text": "25",
+          "start": 1.9866,
+          "end": 2.3326
+        },
+        {
+          "text": "suivantes",
+          "start": 2.3326,
+          "end": 2.9352
+        }
+      ]
+    },
+    "cta": {
+      "file": "voice/cta.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Le temps est ton meilleur actif. Ta liberté commence aujourd’hui.",
+      "key": "ec64785852bd349f",
+      "duration": 3.816,
+      "words": [
+        {
+          "text": "Le",
+          "start": 0.0893,
+          "end": 0.2679
+        },
+        {
+          "text": "temps",
+          "start": 0.2679,
+          "end": 0.5134
+        },
+        {
+          "text": "est",
+          "start": 0.5245,
+          "end": 0.6138
+        },
+        {
+          "text": "ton",
+          "start": 0.6138,
+          "end": 0.7589
+        },
+        {
+          "text": "meilleur",
+          "start": 0.7589,
+          "end": 1.0156
+        },
+        {
+          "text": "actif",
+          "start": 1.0156,
+          "end": 1.6183
+        },
+        {
+          "text": "Ta",
+          "start": 1.9531,
+          "end": 2.0424
+        },
+        {
+          "text": "liberté",
+          "start": 2.0424,
+          "end": 2.5781
+        },
+        {
+          "text": "commence",
+          "start": 2.5781,
+          "end": 2.9241
+        },
+        {
+          "text": "aujourd’hui",
+          "start": 2.9241,
+          "end": 3.4933
+        }
+      ]
+    }
+  }
+}

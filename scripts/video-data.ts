@@ -55,23 +55,22 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  phonePrice: 1200, // prix du dernier modèle (€)
-  years: 10, // horizon
-  keepYears: 3, // « garder le tien 2 ans de plus » : un téléphone tous les 3 ans
-  marketRate: 0.07, // rendement annuel moyen supposé de l'écart placé
-  startYear: 2026,
+  overdraft: 50, // solde à −50 €
+  daysPerMonth: 10, // jours à découvert chaque mois
+  agiosRate: 0.16, // taux annuel du découvert (TAEG courant)
+  commission: 8, // commission d'intervention par paiement (plafond légal 8 €/opération)
+  paymentsPerMonth: 2, // paiements passés à découvert chaque mois
+  cushion: 100, // coussin de sécurité conseillé (€)
 } as const;
 
 const A = ASSUMPTIONS;
-const PHONES_EVERY_YEAR = A.years; // 10 téléphones
-const PHONES_KEEP = Math.ceil(A.years / A.keepYears); // 4 téléphones (années 0, 3, 6, 9)
-const SPENT_EVERY_YEAR = PHONES_EVERY_YEAR * A.phonePrice; // 12 000 €
-const SPENT_KEEP = PHONES_KEEP * A.phonePrice; // 4 800 €
-const GAP = SPENT_EVERY_YEAR - SPENT_KEEP; // 7 200 €
-const GAP_MONTHLY = GAP / A.years / 12; // 60 €/mois
-const INVESTED_GAP = Math.round(futureValue(GAP_MONTHLY, A.marketRate, A.years)); // ≈ 9 948 € → « près de 10 000 € »
+const AGIOS_MONTH = (A.overdraft * A.agiosRate * A.daysPerMonth) / 365; // ≈ 0,22 €
+const AGIOS_YEAR = AGIOS_MONTH * 12; // ≈ 2,63 €
+const COMMISSIONS_MONTH = A.commission * A.paymentsPerMonth; // 16 €
+const COMMISSIONS_YEAR = COMMISSIONS_MONTH * 12; // 192 €
+const TOTAL_YEAR = Math.round(AGIOS_YEAR + COMMISSIONS_YEAR); // ≈ 195 € → « près de 200 € »
 
-export const COMPUTED = {PHONES_EVERY_YEAR, PHONES_KEEP, SPENT_EVERY_YEAR, SPENT_KEEP, GAP, GAP_MONTHLY, INVESTED_GAP};
+export const COMPUTED = {AGIOS_MONTH, AGIOS_YEAR, COMMISSIONS_MONTH, COMMISSIONS_YEAR, TOTAL_YEAR};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -323,111 +322,97 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '12\u00A0000\u00A0€',
-  '4\u00A0800\u00A0€',
-  '7\u00A0200\u00A0€',
-  '60\u00A0€',
-  '10\u00A0000\u00A0€',
-  'Garde-le.',
+  'moins 50\u00A0€',
+  '200\u00A0€',
+  '3\u00A0€',
+  '8\u00A0€',
+  'alerte de solde',
+  '100\u00A0€',
+  'zéro frais',
   'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « Le téléphone neuf à chaque sortie » (~25 s, style pop + carte de fin)
+// Scénario : « Le découvert et les agios » (~22 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const YEARS = Array.from({length: A.years + 1}, (_, i) => A.startYear + i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: `Un téléphone neuf à chaque sortie\u00A0? C’est ${fmt(SPENT_EVERY_YEAR)}\u00A0€ en ${A.years}\u00A0ans.`,
+    durationInSeconds: 5,
+    subtitle: `Ta banque te fait payer d’être à moins ${A.overdraft}\u00A0€. Sur un an, près de 200\u00A0€ de frais.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: 'Le dernier modèle, chaque année',
-    caption: `${PHONES_EVERY_YEAR} téléphones × ${fmt(A.phonePrice)}\u00A0€`,
+    eyebrow: `Ton compte à −${A.overdraft} €`,
+    caption: 'de frais sur un an',
     from: 0,
-    to: SPENT_EVERY_YEAR,
-    animation: {delay: 0.2, duration: 1.6, endAtWord: `${fmt(SPENT_EVERY_YEAR)}\u00A0€`},
+    to: TOTAL_YEAR,
+    animation: {delay: 0.3, duration: 2.2, endAtWord: '200\u00A0€'},
     impactAtEnd: true,
     character: {pose: 'phone', holdsPhone: true, then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 5,
-    subtitle: `Garde le tien 2\u00A0ans de plus\u00A0: ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}, soit ${fmt(SPENT_KEEP)}\u00A0€.`,
-    // Le montant seul en fin de phrase était lu en anglais par la voix multilingue : on l'écrit en toutes lettres.
-    voiceText: `Garde le tien 2 ans de plus : ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}, soit quatre mille huit cents euros.`,
+    durationInSeconds: 6,
+    subtitle: `Les agios\u00A0? À peine 3\u00A0€ par an. Le vrai piège, c’est ${A.commission}\u00A0€ de commission à chaque paiement.`,
     accent: 'emerald',
     left: {
-      title: 'Chaque année',
-      detail: `${PHONES_EVERY_YEAR} téléphones · ${A.years} ans`,
+      title: 'Agios',
+      detail: `${Math.round(A.agiosRate * 100)} % · ${A.daysPerMonth} j/mois`,
       from: 0,
-      to: SPENT_EVERY_YEAR,
-      invested: A.phonePrice,
-      investedLabel: 'Le tél',
-      style: 'loser',
-    },
-    right: {
-      title: `Tous les ${A.keepYears} ans`,
-      detail: `${PHONES_KEEP} téléphones · ${A.years} ans`,
-      from: 0,
-      to: SPENT_KEEP,
-      invested: A.phonePrice,
-      investedLabel: 'Le tél',
+      to: Math.round(AGIOS_YEAR),
+      invested: A.overdraft,
+      investedLabel: 'Découvert',
       style: 'winner',
     },
-    gapLabel: 'Économie',
-    gapValue: GAP,
-    animation: {delay: 0.35, duration: 2.6},
-    character: {pose: 'think', then: 'happy'},
+    right: {
+      title: 'Commissions',
+      detail: `${A.paymentsPerMonth} paiements/mois`,
+      from: 0,
+      to: COMMISSIONS_YEAR,
+      invested: A.commission,
+      investedLabel: 'Par paiement',
+      style: 'loser',
+    },
+    gapLabel: 'Total sur 1 an',
+    gapValue: TOTAL_YEAR,
+    animation: {delay: 0.35, duration: 2.8},
+    character: {pose: 'think', then: 'shock'},
   },
   {
-    id: 'chart',
-    visual: 'chart',
-    durationInSeconds: 5,
-    subtitle: `Les ${fmt(GAP)}\u00A0€ d’écart, c’est ${fmt(GAP_MONTHLY)}\u00A0€ par mois. Placés, ils travaillent pour toi.`,
+    id: 'checklist',
+    visual: 'checklist',
+    durationInSeconds: 5.5,
+    subtitle: `La parade\u00A0: une alerte de solde, et ${A.cushion}\u00A0€ de côté. Tout ça disparaît.`,
     accent: 'emerald',
-    title: `${fmt(GAP_MONTHLY)}\u00A0€/mois placés à ${Math.round(A.marketRate * 100)}\u00A0%`,
-    xValues: YEARS,
-    xLabelSuffix: '',
-    xTicks: [YEARS[0], YEARS[5], YEARS[A.years]],
-    series: [
-      {label: 'Tél neuf chaque année · 0\u00A0€ de côté', style: 'muted', values: YEARS.map(() => 0)},
-      {label: `Tous les ${A.keepYears} ans · ${fmt(GAP_MONTHLY)}\u00A0€/mois placés`, style: 'neon', values: YEARS.map((_, y) => Math.round(futureValue(GAP_MONTHLY, A.marketRate, y)))},
+    title: 'Ton relevé du mois',
+    items: [
+      {label: 'Commission · 12/03', amount: A.commission, icon: 'euro'},
+      {label: 'Commission · 21/03', amount: A.commission, icon: 'euro'},
+      {label: 'Agios · mars', amount: Math.round(AGIOS_MONTH * 100) / 100, icon: 'euro'},
     ],
-    animation: {delay: 0.3, duration: 3.6},
+    amountSuffix: '',
+    stamp: 'Évité',
+    strikeAt: 1.2,
+    strikeGap: 0.5,
+    savedLabel: `+${fmt(TOTAL_YEAR)}\u00A0€/an gardés`,
     character: {pose: 'point', then: 'happy'},
-  },
-  {
-    id: 'final',
-    visual: 'counter',
-    durationInSeconds: 4,
-    subtitle: `Au bout de ${A.years}\u00A0ans\u00A0: près de 10\u00A0000\u00A0€ dans ta poche.`,
-    accent: 'gold',
-    eyebrow: `Après ${A.years} ans`,
-    caption: `${fmt(GAP)}\u00A0€ versés + les intérêts`,
-    from: 0,
-    to: INVESTED_GAP,
-    animation: {delay: 0.3, duration: 1.8, endAtWord: '10\u00A0000\u00A0€'},
-    impactAtEnd: true,
-    character: {pose: 'idle', then: 'happy'},
   },
   {
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 3.5,
-    subtitle: 'Ton téléphone marche encore\u00A0? Garde-le. Ta thune te dira merci.',
+    subtitle: 'Zéro découvert, zéro frais. Ta thune reste à toi.',
     accent: 'emerald',
-    lines: [{text: 'Il marche\u00A0?'}, {text: 'Garde-le.', highlight: true}],
-    caption: 'Ta thune te dira merci.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
-    impactAt: 1.6,
-    character: {pose: 'phone', holdsPhone: true, then: 'happy'},
+    lines: [{text: 'Zéro découvert,'}, {text: 'zéro frais.', highlight: true}],
+    caption: 'Ta thune reste à toi.',
+    disclaimer: 'Exemple illustratif · frais variables selon ta banque · pas un conseil financier',
+    impactAt: 1.2,
+    character: {pose: 'idle', then: 'happy'},
   },
   {
     id: 'endcard',

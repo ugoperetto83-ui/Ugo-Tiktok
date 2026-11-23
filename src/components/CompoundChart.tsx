@@ -270,7 +270,10 @@ export const CompoundChart: React.FC<Props> = ({
             const tagW = neon ? 250 : 200;
             const tagH = neon ? 62 : 50;
             const tagX = Math.min(width - pad.r - tagW / 2 + 10, Math.max(pad.l + tagW / 2, c.head.x));
-            const tagY = neon ? c.head.y - 58 - tagH / 2 : c.head.y + 40 + tagH / 2;
+            // Pastille « muted » sous la tête, sauf si elle mordrait sur les graduations X (courbe au plancher).
+            const mutedBelow = c.head.y + 40 + tagH / 2;
+            const mutedY = mutedBelow + tagH / 2 > height - pad.b ? c.head.y - 34 - tagH / 2 : mutedBelow;
+            const tagY = neon ? c.head.y - 58 - tagH / 2 : mutedY;
             const scale = 1 + 0.12 * endReveal * (neon ? 1 : 0);
             return (
               <g key={`head-${c.s.label}`}>

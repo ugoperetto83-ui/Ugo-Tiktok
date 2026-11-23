@@ -304,6 +304,38 @@ export const OrderSceneView: React.FC<{scene: OrderScene}> = ({scene}) => {
 // 2. Comparaison
 // ---------------------------------------------------------------------------
 
+/** Mégot écrasé + volutes de fumée (colonne vide « Fumé »). */
+const CigaretteButt: React.FC<{x: number; y: number}> = ({x, y}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const t = frame / fps;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      {[0, 1, 2].map((i) => {
+        const p = (t * 0.45 + i / 3) % 1;
+        return (
+          <circle
+            key={i}
+            cx={-14 + Math.sin((p + i) * 5) * 10}
+            cy={-30 - p * 170}
+            r={12 + p * 22}
+            fill={POP.grey}
+            stroke={POP.ink}
+            strokeWidth={4}
+            opacity={(1 - p) * 0.85}
+          />
+        );
+      })}
+      <g transform="rotate(-14)">
+        <rect x={-58} y={-14} width={74} height={28} rx={6} fill={POP.white} stroke={POP.ink} strokeWidth={OUTLINE} />
+        <rect x={16} y={-14} width={42} height={28} rx={6} fill="#E8A54B" stroke={POP.ink} strokeWidth={OUTLINE} />
+        <path d="M-58 -14 L-66 -4 L-58 4 L-66 14" fill="none" stroke={POP.ink} strokeWidth={4} strokeLinejoin="round" />
+        <rect x={-60} y={-12} width={8} height={24} fill="#6E6A64" />
+      </g>
+    </g>
+  );
+};
+
 const SplitCard: React.FC<{side: SplitSide; timing: SplitScene['animation']; maxValue: number; tilt: number}> = ({side, timing, maxValue, tilt}) => {
   const {value} = useCounter(side.from, side.to, timing);
   const winner = side.style === 'winner';
@@ -356,9 +388,13 @@ const SplitCard: React.FC<{side: SplitSide; timing: SplitScene['animation']; max
           />
         ) : (
           <svg width={158} height={barH - 12} style={{position: 'absolute', left: 0, top: 0}}>
-            <g transform={`translate(79 ${barH - 80}) rotate(-28)`}>
-              <Cup x={0} y={0} scale={0.9} />
-            </g>
+            {side.emptyIcon === 'cigarette' ? (
+              <CigaretteButt x={79} y={barH - 60} />
+            ) : (
+              <g transform={`translate(79 ${barH - 80}) rotate(-28)`}>
+                <Cup x={0} y={0} scale={0.9} />
+              </g>
+            )}
           </svg>
         )}
       </div>

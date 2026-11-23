@@ -55,23 +55,20 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  target: 1_000_000, // objectif (€)
+  packPrice: 13, // € le paquet (prix moyen France fin 2026)
+  packsPerDay: 1,
   marketRate: 0.08, // rendement annuel moyen supposé
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  years: 20,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
-const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
-const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
-const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
-const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
-const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
-const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
+const YEARLY = A.packPrice * A.packsPerDay * 365; // 4 745 €/an → « un voyage par an »
+const MONTHLY = YEARLY / 12; // ≈ 395 €/mois
+const SPENT = YEARLY * A.years; // 94 900 € partis en fumée
+const INVESTED_VALUE = Math.round(futureValue(MONTHLY, A.marketRate, A.years)); // ≈ 217 141 € → « plus de 215 000 € »
+const SPENT_SERIES = Array.from({length: A.years + 1}, (_, y) => YEARLY * y);
 
-export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
+export const COMPUTED = {YEARLY, MONTHLY, SPENT, INVESTED_VALUE};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -160,6 +157,8 @@ export type SplitSide = {
   invested: number;
   /** Libellé du montant `invested` (défaut : « Versé »). */
   investedLabel?: string;
+  /** Icône de la colonne vide (to = 0) en style pop : gobelet (défaut) ou mégot. */
+  emptyIcon?: 'cup' | 'cigarette';
   style: 'winner' | 'loser';
 };
 
@@ -323,107 +322,95 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '1\u00A0million',
-  '484\u00A0€',
-  '1\u00A0140\u00A0€',
+  'un voyage',
+  '4\u00A0745\u00A0€',
+  '94\u00A0900\u00A0€',
+  '215\u00A0000\u00A0€',
   'intérêts composés',
-  '140\u00A0000\u00A0€',
-  'commence tôt',
+  'le voyage',
   'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
+// Scénario : « Un paquet par jour, c'est un voyage par an » (~24 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+const YEARS = Array.from({length: A.years + 1}, (_, i) => i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    durationInSeconds: 5,
+    subtitle: `Un paquet par jour, c’est un voyage par an\u00A0: ${fmt(YEARLY)}\u00A0€ partis en fumée.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Objectif à ${A.endAge} ans`,
-    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
+    eyebrow: `1 paquet par jour à ${A.packPrice} €`,
+    caption: 'par an = un voyage',
     from: 0,
-    to: A.target,
-    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
+    to: YEARLY,
+    animation: {delay: 0.2, duration: 2.2, endAtWord: `${fmt(YEARLY)}\u00A0€`},
     impactAtEnd: true,
     character: {pose: 'think', then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
-    durationInSeconds: 5,
-    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    durationInSeconds: 5.5,
+    subtitle: `Sur ${A.years}\u00A0ans, ${fmt(SPENT)}\u00A0€ fumés. Investis à 8\u00A0%, plus de 215\u00A0000\u00A0€.`,
     accent: 'emerald',
     left: {
-      title: `Dès ${A.earlyStart} ans`,
-      detail: `par mois · ${EARLY_YEARS} ans`,
+      title: 'Fumé',
+      detail: `${A.years} ans · ${A.packPrice} €/jour`,
       from: 0,
-      to: EARLY_MONTHLY,
-      invested: EARLY_PAID,
-      style: 'winner',
-    },
-    right: {
-      title: `Dès ${A.lateStart} ans`,
-      detail: `par mois · ${LATE_YEARS} ans`,
-      from: 0,
-      to: LATE_MONTHLY,
-      invested: LATE_PAID,
+      to: 0,
+      invested: SPENT,
+      investedLabel: 'Dépensé',
+      emptyIcon: 'cigarette',
       style: 'loser',
     },
-    gapLabel: 'Effort en plus',
-    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
-    animation: {delay: 0.35, duration: 2.8},
+    right: {
+      title: 'Investi',
+      detail: `${A.years} ans · 8 %/an`,
+      from: 0,
+      to: INVESTED_VALUE,
+      invested: SPENT,
+      style: 'winner',
+    },
+    gapLabel: 'Il te reste',
+    gapValue: INVESTED_VALUE,
+    animation: {delay: 0.35, duration: 3.2, endAtWord: '215\u00A0000\u00A0€'},
     character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'chart',
     visual: 'chart',
     durationInSeconds: 5,
-    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
+    subtitle: 'Et chaque année, l’écart grossit\u00A0: ce sont les intérêts composés qui bossent.',
     accent: 'emerald',
-    title: `1\u00A0million à ${A.endAge} ans`,
-    xValues: AGES,
+    title: `${A.years} ans de paquets`,
+    xValues: YEARS,
     xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
+    xTicks: [0, 5, 10, 15, 20],
     series: [
-      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
-      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
+      {label: 'Fumé · parti en fumée', style: 'muted', values: SPENT_SERIES},
+      {label: `Investi à 8\u00A0%/an`, style: 'neon', values: growthSeries(MONTHLY, A.marketRate, 0, 0, A.years)},
     ],
     animation: {delay: 0.3, duration: 3.6},
     character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'extra',
-    visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
-    accent: 'gold',
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
-    from: 0,
-    to: EXTRA_PAID,
-    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
-    impactAtEnd: true,
-    character: {pose: 'idle', then: 'shock'},
-  },
-  {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 3.5,
-    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
+    durationInSeconds: 4,
+    subtitle: 'La vapoteuse\u00A0? Même calcul avec tes recharges. Alors, le voyage ou la clope\u00A0?',
     accent: 'emerald',
-    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
-    caption: 'Ton futur toi te dira merci.',
+    lines: [{text: 'Le voyage'}, {text: 'ou la clope\u00A0?', highlight: true}],
+    caption: 'Vape : même calcul, compte tes recharges.',
     disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
-    impactAt: 0.35,
-    character: {pose: 'idle', then: 'happy'},
+    impactAt: 2.6,
+    character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'endcard',

@@ -5,54 +5,74 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
-      "key": "d0086c5ad7918fff",
-      "duration": 5.592,
+      "text": "Un paquet par jour, c’est un voyage par an : 4 745 € partis en fumée.",
+      "key": "9a83c37e690328d6",
+      "duration": 4.872,
       "words": [
         {
-          "text": "1 million",
-          "start": 0.0487,
-          "end": 0.6402
+          "text": "Un",
+          "start": 0.0781,
+          "end": 0.1786
         },
         {
-          "text": "à",
-          "start": 0.6402,
-          "end": 0.7406
-        },
-        {
-          "text": "55 ans",
-          "start": 0.7406,
-          "end": 1.5442
-        },
-        {
-          "text": "C’est",
-          "start": 1.875,
-          "end": 2.0648
-        },
-        {
-          "text": "484 €",
-          "start": 2.0648,
-          "end": 3.2255
+          "text": "paquet",
+          "start": 0.1786,
+          "end": 0.4241
         },
         {
           "text": "par",
-          "start": 3.2255,
-          "end": 3.404
+          "start": 0.4241,
+          "end": 0.5915
         },
         {
-          "text": "mois",
-          "start": 3.404,
-          "end": 3.6495
+          "text": "jour",
+          "start": 0.5915,
+          "end": 0.9375
         },
         {
-          "text": "ou",
-          "start": 4.2411,
-          "end": 4.308
+          "text": "c’est",
+          "start": 1.2165,
+          "end": 1.3058
         },
         {
-          "text": "1 140 €",
-          "start": 4.308,
-          "end": 5.2679
+          "text": "un",
+          "start": 1.3058,
+          "end": 1.4397
+        },
+        {
+          "text": "voyage",
+          "start": 1.4398,
+          "end": 1.7634
+        },
+        {
+          "text": "par",
+          "start": 1.7634,
+          "end": 1.9754
+        },
+        {
+          "text": "an",
+          "start": 1.9755,
+          "end": 2.154
+        },
+        {
+          "text": "4 745 €",
+          "start": 2.4442,
+          "end": 3.7835
+        },
+        {
+          "text": "partis",
+          "start": 3.7835,
+          "end": 4.096
+        },
+        {
+          "text": "en",
+          "start": 4.096,
+          "end": 4.1406
+        },
+        {
+          "text": "fumée",
+          "start": 4.1406,
+          "end": 4.5648
         }
       ]
     },
@@ -60,64 +80,59 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
-      "key": "e65ad5201c379cca",
-      "duration": 6.024,
+      "text": "Sur 20 ans, 94 900 € fumés. Investis à 8 %, plus de 215 000 €.",
+      "key": "f98b86fac761a05f",
+      "duration": 6.432,
       "words": [
         {
-          "text": "Dès",
+          "text": "Sur",
           "start": 0.0781,
-          "end": 0.2455
+          "end": 0.346
         },
         {
           "text": "20 ans",
-          "start": 0.2455,
-          "end": 0.7143
+          "start": 0.346,
+          "end": 0.8147
         },
         {
-          "text": "484 €",
-          "start": 1.0156,
-          "end": 2.221
+          "text": "94 900 €",
+          "start": 1.1161,
+          "end": 2.5223
         },
         {
-          "text": "par",
-          "start": 2.221,
-          "end": 2.3773
+          "text": "fumés",
+          "start": 2.5223,
+          "end": 2.9911
         },
         {
-          "text": "mois",
-          "start": 2.3773,
-          "end": 2.4888
+          "text": "Investis",
+          "start": 3.3148,
+          "end": 3.817
         },
         {
-          "text": "suffisent",
-          "start": 2.4888,
-          "end": 3.125
+          "text": "à",
+          "start": 3.817,
+          "end": 3.9062
         },
         {
-          "text": "Dès",
-          "start": 3.4598,
-          "end": 3.6161
+          "text": "8 %",
+          "start": 3.9062,
+          "end": 4.5647
         },
         {
-          "text": "30 ans",
-          "start": 3.6161,
-          "end": 4.1072
+          "text": "plus",
+          "start": 4.8995,
+          "end": 5.067
         },
         {
-          "text": "il",
-          "start": 4.4643,
-          "end": 4.5759
+          "text": "de",
+          "start": 5.067,
+          "end": 5.1786
         },
         {
-          "text": "faut",
-          "start": 4.5759,
-          "end": 4.7321
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.7321,
-          "end": 5.7142
+          "text": "215 000 €",
+          "start": 5.1786,
+          "end": 6.1273
         }
       ]
     },
@@ -125,144 +140,69 @@
       "file": "voice/chart.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
-      "key": "bb1d740a32ac104d",
-      "duration": 4.464,
+      "text": "Et chaque année, l’écart grossit : ce sont les intérêts composés qui bossent.",
+      "key": "f41e9aa8bf485f84",
+      "duration": 4.008,
       "words": [
         {
-          "text": "Même",
+          "text": "Et",
           "start": 0.0781,
-          "end": 0.3125
+          "end": 0.1674
         },
         {
-          "text": "million",
-          "start": 0.3125,
-          "end": 0.6585
+          "text": "chaque",
+          "start": 0.1674,
+          "end": 0.3795
         },
         {
-          "text": "au",
-          "start": 0.6585,
-          "end": 0.7589
+          "text": "année",
+          "start": 0.3795,
+          "end": 0.7031
         },
         {
-          "text": "bout",
-          "start": 0.7589,
-          "end": 1.0491
+          "text": "l’écart",
+          "start": 0.9933,
+          "end": 1.2612
         },
         {
-          "text": "Commencer",
-          "start": 1.3727,
-          "end": 1.741
+          "text": "grossit",
+          "start": 1.2612,
+          "end": 1.7299
         },
         {
-          "text": "tôt",
-          "start": 1.7411,
-          "end": 2.0201
+          "text": "ce",
+          "start": 2.0312,
+          "end": 2.154
         },
         {
-          "text": "c’est",
-          "start": 2.4107,
-          "end": 2.5446
-        },
-        {
-          "text": "laisser",
-          "start": 2.5446,
-          "end": 2.8013
+          "text": "sont",
+          "start": 2.154,
+          "end": 2.2767
         },
         {
           "text": "les",
-          "start": 2.8013,
-          "end": 2.8906
+          "start": 2.2768,
+          "end": 2.3549
         },
         {
           "text": "intérêts",
-          "start": 2.8906,
-          "end": 3.2701
+          "start": 2.3549,
+          "end": 2.7009
         },
         {
           "text": "composés",
-          "start": 3.2701,
-          "end": 3.6719
+          "start": 2.7009,
+          "end": 3.0915
         },
         {
-          "text": "bosser",
-          "start": 3.6719,
-          "end": 4.1518
-        }
-      ]
-    },
-    "extra": {
-      "file": "voice/extra.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
-      "key": "bed107f5ec29328b",
-      "duration": 4.272,
-      "words": [
-        {
-          "text": "Attendre",
-          "start": 0.0893,
-          "end": 0.4911
+          "text": "qui",
+          "start": 3.0915,
+          "end": 3.2142
         },
         {
-          "text": "10 ans",
-          "start": 0.4911,
-          "end": 0.8929
-        },
-        {
-          "text": "c’est",
-          "start": 1.25,
-          "end": 1.3505
-        },
-        {
-          "text": "verser",
-          "start": 1.3505,
-          "end": 1.6183
-        },
-        {
-          "text": "près",
-          "start": 1.6183,
-          "end": 1.7857
-        },
-        {
-          "text": "de",
-          "start": 1.7857,
-          "end": 1.8973
-        },
-        {
-          "text": "140 000 €",
-          "start": 1.8973,
-          "end": 2.6227
-        },
-        {
-          "text": "de",
-          "start": 2.6227,
-          "end": 2.7232
-        },
-        {
-          "text": "plus",
-          "start": 2.7232,
-          "end": 3.0692
-        },
-        {
-          "text": "pour",
-          "start": 3.0692,
-          "end": 3.2031
-        },
-        {
-          "text": "le",
-          "start": 3.2031,
-          "end": 3.2701
-        },
-        {
-          "text": "même",
-          "start": 3.2701,
-          "end": 3.4152
-        },
-        {
-          "text": "résultat",
-          "start": 3.4152,
-          "end": 3.962
+          "text": "bossent",
+          "start": 3.2143,
+          "end": 3.683
         }
       ]
     },
@@ -270,64 +210,74 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
-      "key": "78e5495b49d42298",
-      "duration": 4.104,
+      "text": "La vapoteuse ? Même calcul avec tes recharges. Alors, le voyage ou la clope ?",
+      "key": "0c085883647979b4",
+      "duration": 5.544,
       "words": [
         {
+          "text": "La",
+          "start": 0.05,
+          "end": 0.2174
+        },
+        {
+          "text": "vapoteuse",
+          "start": 0.2174,
+          "end": 1.021
+        },
+        {
+          "text": "Même",
+          "start": 1.3616,
+          "end": 1.6071
+        },
+        {
+          "text": "calcul",
+          "start": 1.6071,
+          "end": 2.0759
+        },
+        {
+          "text": "avec",
+          "start": 2.087,
+          "end": 2.2545
+        },
+        {
+          "text": "tes",
+          "start": 2.2545,
+          "end": 2.3549
+        },
+        {
+          "text": "recharges",
+          "start": 2.3549,
+          "end": 3.0022
+        },
+        {
           "text": "Alors",
-          "start": 0.0893,
-          "end": 0.3237
+          "start": 3.3482,
+          "end": 3.7723
         },
         {
-          "text": "commence",
-          "start": 0.3237,
-          "end": 0.6696
+          "text": "le",
+          "start": 4.0402,
+          "end": 4.1183
         },
         {
-          "text": "tôt",
-          "start": 0.6696,
-          "end": 0.9263
+          "text": "voyage",
+          "start": 4.1183,
+          "end": 4.6205
         },
         {
-          "text": "même",
-          "start": 1.2165,
-          "end": 1.3839
+          "text": "ou",
+          "start": 4.6317,
+          "end": 4.6652
         },
         {
-          "text": "petit",
-          "start": 1.3839,
-          "end": 1.8192
+          "text": "la",
+          "start": 4.6652,
+          "end": 4.7656
         },
         {
-          "text": "Ton",
-          "start": 2.1245,
-          "end": 2.292
-        },
-        {
-          "text": "futur",
-          "start": 2.292,
-          "end": 2.7384
-        },
-        {
-          "text": "toi",
-          "start": 2.7384,
-          "end": 2.9616
-        },
-        {
-          "text": "te",
-          "start": 2.9616,
-          "end": 3.0732
-        },
-        {
-          "text": "dira",
-          "start": 3.0732,
-          "end": 3.2852
-        },
-        {
-          "text": "merci",
-          "start": 3.2853,
-          "end": 3.7875
+          "text": "clope",
+          "start": 4.7656,
+          "end": 5.2232
         }
       ]
     },

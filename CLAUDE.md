@@ -24,8 +24,8 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
   l'accroche) avec des options et une recommandation ; l'utilisateur aime être consulté.
 - Chaque nouvel épisode archive d'abord le précédent dans `scripts/videos/<slug>.ts`.
 - Épisodes réalisés (archives dans `scripts/videos/`, MP4 dans `out/`, non versionnés) :
-  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` (actuel
-  `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
+  `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` ·
+  `cigarettes-voyage` (actuel `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
 - Idées en réserve : crédit conso / paiement en 4 fois, règle de 72, livret vs inflation.
 - Logo / avatar : `brand/` (PNG finaux), `scripts/brand.ts` (nom, pseudo, couleur jaune).
 - Toujours finir par : planche de `remotion still`, `ffprobe`, `silencedetect`, commit + push,
@@ -238,6 +238,7 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
 - Identité du compte « Léo & la Thune » (`scripts/brand.ts`) : compositions `Avatar` (1080×1080)
   et `Wordmark` ; fichiers finaux dans `brand/`.
 - Helper `requiredMonthly(target, rate, years)` : versement mensuel pour atteindre un objectif.
+- `SplitSide.emptyIcon: 'cup' | 'cigarette'` : icône de la colonne vide (`to: 0`), gobelet par défaut.
 - `SplitSide.investedLabel` (défaut « Versé »), `CounterScene.trend: 'down'` (mini-courbe descendante).
 - Sous-titres pop : Fredoka 700, contour 13 % de la taille, mots-clés jaunes.
 - `KEYWORDS` : écrire les nombres avec `\u00A0` (ex. `'160\u00A0000\u00A0€'`).

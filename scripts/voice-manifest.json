@@ -5,54 +5,59 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
-      "key": "d0086c5ad7918fff",
-      "duration": 5.592,
+      "text": "Un téléphone neuf à chaque sortie ? C’est 12 000 € en 10 ans.",
+      "key": "1a7deee14f0a3a7f",
+      "duration": 3.912,
       "words": [
         {
-          "text": "1 million",
-          "start": 0.0487,
-          "end": 0.6402
+          "text": "Un",
+          "start": 0.0781,
+          "end": 0.2009
+        },
+        {
+          "text": "téléphone",
+          "start": 0.2009,
+          "end": 0.6696
+        },
+        {
+          "text": "neuf",
+          "start": 0.6696,
+          "end": 0.9821
         },
         {
           "text": "à",
-          "start": 0.6402,
-          "end": 0.7406
+          "start": 0.9933,
+          "end": 1.0602
         },
         {
-          "text": "55 ans",
-          "start": 0.7406,
-          "end": 1.5442
+          "text": "chaque",
+          "start": 1.0602,
+          "end": 1.2835
+        },
+        {
+          "text": "sortie",
+          "start": 1.2835,
+          "end": 1.7634
         },
         {
           "text": "C’est",
-          "start": 1.875,
-          "end": 2.0648
+          "start": 2.087,
+          "end": 2.2991
         },
         {
-          "text": "484 €",
-          "start": 2.0648,
-          "end": 3.2255
+          "text": "12 000 €",
+          "start": 2.2991,
+          "end": 2.9911
         },
         {
-          "text": "par",
-          "start": 3.2255,
-          "end": 3.404
+          "text": "en",
+          "start": 3.058,
+          "end": 3.1585
         },
         {
-          "text": "mois",
-          "start": 3.404,
-          "end": 3.6495
-        },
-        {
-          "text": "ou",
-          "start": 4.2411,
-          "end": 4.308
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.308,
-          "end": 5.2679
+          "text": "10 ans",
+          "start": 3.1585,
+          "end": 3.6049
         }
       ]
     },
@@ -60,64 +65,74 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
-      "key": "e65ad5201c379cca",
-      "duration": 6.024,
+      "text": "Garde le tien 2 ans de plus : 4 téléphones au lieu de 10. 4 800 €.",
+      "key": "914e2b46dc9fff40",
+      "duration": 5.568,
       "words": [
         {
-          "text": "Dès",
+          "text": "Garde",
           "start": 0.0781,
-          "end": 0.2455
+          "end": 0.4018
         },
         {
-          "text": "20 ans",
-          "start": 0.2455,
-          "end": 0.7143
+          "text": "le",
+          "start": 0.4018,
+          "end": 0.5134
         },
         {
-          "text": "484 €",
-          "start": 1.0156,
-          "end": 2.221
+          "text": "tien",
+          "start": 0.5134,
+          "end": 0.7366
         },
         {
-          "text": "par",
-          "start": 2.221,
-          "end": 2.3773
+          "text": "2 ans",
+          "start": 0.7366,
+          "end": 0.971
         },
         {
-          "text": "mois",
-          "start": 2.3773,
-          "end": 2.4888
+          "text": "de",
+          "start": 0.971,
+          "end": 1.0714
         },
         {
-          "text": "suffisent",
-          "start": 2.4888,
-          "end": 3.125
+          "text": "plus",
+          "start": 1.0714,
+          "end": 1.529
         },
         {
-          "text": "Dès",
-          "start": 3.4598,
-          "end": 3.6161
+          "text": "4 téléphones",
+          "start": 1.8304,
+          "end": 2.5558
         },
         {
-          "text": "30 ans",
-          "start": 3.6161,
-          "end": 4.1072
+          "text": "au",
+          "start": 2.5558,
+          "end": 2.6004
         },
         {
-          "text": "il",
-          "start": 4.4643,
-          "end": 4.5759
+          "text": "lieu",
+          "start": 2.6005,
+          "end": 2.7344
         },
         {
-          "text": "faut",
-          "start": 4.5759,
-          "end": 4.7321
+          "text": "de",
+          "start": 2.7344,
+          "end": 2.846
         },
         {
-          "text": "1 140 €",
-          "start": 4.7321,
-          "end": 5.7142
+          "text": "10",
+          "start": 2.846,
+          "end": 3.3148
+        },
+        {
+          "text": "4",
+          "start": 3.6214,
+          "end": 4.0567
+        },
+        {
+          "text": "800 €",
+          "start": 4.1237,
+          "end": 5.262
         }
       ]
     },
@@ -125,144 +140,129 @@
       "file": "voice/chart.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
-      "key": "bb1d740a32ac104d",
-      "duration": 4.464,
+      "text": "Les 7 200 € d’écart, c’est 60 € par mois. Placés, ils travaillent pour toi.",
+      "key": "f4a996bdc138999d",
+      "duration": 5.472,
       "words": [
         {
-          "text": "Même",
-          "start": 0.0781,
-          "end": 0.3125
-        },
-        {
-          "text": "million",
-          "start": 0.3125,
-          "end": 0.6585
-        },
-        {
-          "text": "au",
-          "start": 0.6585,
-          "end": 0.7589
-        },
-        {
-          "text": "bout",
-          "start": 0.7589,
-          "end": 1.0491
-        },
-        {
-          "text": "Commencer",
-          "start": 1.3727,
-          "end": 1.741
-        },
-        {
-          "text": "tôt",
-          "start": 1.7411,
-          "end": 2.0201
-        },
-        {
-          "text": "c’est",
-          "start": 2.4107,
-          "end": 2.5446
-        },
-        {
-          "text": "laisser",
-          "start": 2.5446,
-          "end": 2.8013
-        },
-        {
-          "text": "les",
-          "start": 2.8013,
-          "end": 2.8906
-        },
-        {
-          "text": "intérêts",
-          "start": 2.8906,
-          "end": 3.2701
-        },
-        {
-          "text": "composés",
-          "start": 3.2701,
-          "end": 3.6719
-        },
-        {
-          "text": "bosser",
-          "start": 3.6719,
-          "end": 4.1518
-        }
-      ]
-    },
-    "extra": {
-      "file": "voice/extra.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
-      "key": "bed107f5ec29328b",
-      "duration": 4.272,
-      "words": [
-        {
-          "text": "Attendre",
+          "text": "Les",
           "start": 0.0893,
-          "end": 0.4911
+          "end": 0.2344
         },
         {
-          "text": "10 ans",
-          "start": 0.4911,
-          "end": 0.8929
+          "text": "7 200 €",
+          "start": 0.2344,
+          "end": 1.1272
+        },
+        {
+          "text": "d’écart",
+          "start": 1.1273,
+          "end": 1.6295
         },
         {
           "text": "c’est",
-          "start": 1.25,
-          "end": 1.3505
+          "start": 2.0089,
+          "end": 2.1317
         },
         {
-          "text": "verser",
-          "start": 1.3505,
-          "end": 1.6183
+          "text": "60 €",
+          "start": 2.1317,
+          "end": 2.6562
         },
         {
-          "text": "près",
-          "start": 1.6183,
-          "end": 1.7857
+          "text": "par",
+          "start": 2.6562,
+          "end": 2.8237
         },
         {
-          "text": "de",
-          "start": 1.7857,
-          "end": 1.8973
+          "text": "mois",
+          "start": 2.8237,
+          "end": 3.125
         },
         {
-          "text": "140 000 €",
-          "start": 1.8973,
-          "end": 2.6227
+          "text": "Placés",
+          "start": 3.4317,
+          "end": 3.9786
         },
         {
-          "text": "de",
-          "start": 2.6227,
-          "end": 2.7232
+          "text": "ils",
+          "start": 4.2464,
+          "end": 4.3357
         },
         {
-          "text": "plus",
-          "start": 2.7232,
-          "end": 3.0692
+          "text": "travaillent",
+          "start": 4.3357,
+          "end": 4.6594
         },
         {
           "text": "pour",
-          "start": 3.0692,
-          "end": 3.2031
+          "start": 4.6594,
+          "end": 4.8268
         },
         {
-          "text": "le",
-          "start": 3.2031,
-          "end": 3.2701
+          "text": "toi",
+          "start": 4.8268,
+          "end": 5.1728
+        }
+      ]
+    },
+    "final": {
+      "file": "voice/final.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Au bout de 10 ans : près de 10 000 € dans ta poche.",
+      "key": "8e8c6000e074f551",
+      "duration": 2.928,
+      "words": [
+        {
+          "text": "Au",
+          "start": 0.0781,
+          "end": 0.1898
         },
         {
-          "text": "même",
-          "start": 3.2701,
-          "end": 3.4152
+          "text": "bout",
+          "start": 0.1898,
+          "end": 0.3348
         },
         {
-          "text": "résultat",
-          "start": 3.4152,
-          "end": 3.962
+          "text": "de",
+          "start": 0.3348,
+          "end": 0.4464
+        },
+        {
+          "text": "10 ans",
+          "start": 0.4464,
+          "end": 0.8705
+        },
+        {
+          "text": "près",
+          "start": 1.2054,
+          "end": 1.3616
+        },
+        {
+          "text": "de",
+          "start": 1.3616,
+          "end": 1.4732
+        },
+        {
+          "text": "10 000 €",
+          "start": 1.4732,
+          "end": 1.9196
+        },
+        {
+          "text": "dans",
+          "start": 1.9196,
+          "end": 2.0201
+        },
+        {
+          "text": "ta",
+          "start": 2.0201,
+          "end": 2.1317
+        },
+        {
+          "text": "poche",
+          "start": 2.1317,
+          "end": 2.6005
         }
       ]
     },
@@ -270,64 +270,59 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
-      "key": "78e5495b49d42298",
-      "duration": 4.104,
+      "text": "Ton téléphone marche encore ? Garde-le. Ta thune te dira merci.",
+      "key": "e2769cf0c2564e7d",
+      "duration": 4.248,
       "words": [
         {
-          "text": "Alors",
-          "start": 0.0893,
-          "end": 0.3237
-        },
-        {
-          "text": "commence",
-          "start": 0.3237,
-          "end": 0.6696
-        },
-        {
-          "text": "tôt",
-          "start": 0.6696,
-          "end": 0.9263
-        },
-        {
-          "text": "même",
-          "start": 1.2165,
-          "end": 1.3839
-        },
-        {
-          "text": "petit",
-          "start": 1.3839,
-          "end": 1.8192
-        },
-        {
           "text": "Ton",
-          "start": 2.1245,
-          "end": 2.292
+          "start": 0.0781,
+          "end": 0.2009
         },
         {
-          "text": "futur",
-          "start": 2.292,
-          "end": 2.7384
+          "text": "téléphone",
+          "start": 0.2009,
+          "end": 0.6473
         },
         {
-          "text": "toi",
-          "start": 2.7384,
-          "end": 2.9616
+          "text": "marche",
+          "start": 0.6473,
+          "end": 0.904
+        },
+        {
+          "text": "encore",
+          "start": 0.904,
+          "end": 1.4509
+        },
+        {
+          "text": "Garde-le",
+          "start": 1.7576,
+          "end": 2.4719
+        },
+        {
+          "text": "Ta",
+          "start": 2.8013,
+          "end": 2.8906
+        },
+        {
+          "text": "thune",
+          "start": 2.8906,
+          "end": 3.0804
         },
         {
           "text": "te",
-          "start": 2.9616,
-          "end": 3.0732
+          "start": 3.0804,
+          "end": 3.192
         },
         {
           "text": "dira",
-          "start": 3.0732,
-          "end": 3.2852
+          "start": 3.192,
+          "end": 3.404
         },
         {
           "text": "merci",
-          "start": 3.2853,
-          "end": 3.7875
+          "start": 3.404,
+          "end": 3.9397
         }
       ]
     },

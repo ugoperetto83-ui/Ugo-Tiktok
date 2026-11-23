@@ -359,7 +359,9 @@ export const SCENES: Scene[] = [
     id: 'split',
     visual: 'split',
     durationInSeconds: 5,
-    subtitle: `Garde le tien 2\u00A0ans de plus\u00A0: ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}. ${fmt(SPENT_KEEP)}\u00A0€.`,
+    subtitle: `Garde le tien 2\u00A0ans de plus\u00A0: ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}, soit ${fmt(SPENT_KEEP)}\u00A0€.`,
+    // Le montant seul en fin de phrase était lu en anglais par la voix multilingue : on l'écrit en toutes lettres.
+    voiceText: `Garde le tien 2 ans de plus : ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}, soit quatre mille huit cents euros.`,
     accent: 'emerald',
     left: {
       title: 'Chaque année',

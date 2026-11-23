@@ -65,74 +65,94 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Garde le tien 2 ans de plus : 4 téléphones au lieu de 10. 4 800 €.",
-      "key": "914e2b46dc9fff40",
-      "duration": 5.568,
+      "text": "Garde le tien 2 ans de plus : 4 téléphones au lieu de 10, soit quatre mille huit cents euros.",
+      "key": "d0edc1f69a7cd249",
+      "duration": 4.872,
       "words": [
         {
           "text": "Garde",
-          "start": 0.0781,
-          "end": 0.4018
+          "start": 0.067,
+          "end": 0.3906
         },
         {
           "text": "le",
-          "start": 0.4018,
-          "end": 0.5134
+          "start": 0.3906,
+          "end": 0.5022
         },
         {
           "text": "tien",
-          "start": 0.5134,
-          "end": 0.7366
+          "start": 0.5022,
+          "end": 0.7031
         },
         {
-          "text": "2 ans",
-          "start": 0.7366,
-          "end": 0.971
+          "text": "2 ans",
+          "start": 0.7031,
+          "end": 0.9263
         },
         {
           "text": "de",
-          "start": 0.971,
-          "end": 1.0714
+          "start": 0.9263,
+          "end": 1.0268
         },
         {
           "text": "plus",
-          "start": 1.0714,
-          "end": 1.529
+          "start": 1.0268,
+          "end": 1.462
         },
         {
           "text": "4 téléphones",
-          "start": 1.8304,
-          "end": 2.5558
+          "start": 1.7634,
+          "end": 2.4219
         },
         {
           "text": "au",
-          "start": 2.5558,
-          "end": 2.6004
+          "start": 2.4219,
+          "end": 2.4554
         },
         {
           "text": "lieu",
-          "start": 2.6005,
-          "end": 2.7344
+          "start": 2.4554,
+          "end": 2.5893
         },
         {
           "text": "de",
-          "start": 2.7344,
-          "end": 2.846
+          "start": 2.5893,
+          "end": 2.7009
         },
         {
           "text": "10",
-          "start": 2.846,
-          "end": 3.3148
+          "start": 2.7009,
+          "end": 3.0915
         },
         {
-          "text": "4",
-          "start": 3.6214,
-          "end": 4.0567
+          "text": "soit",
+          "start": 3.3482,
+          "end": 3.5491
         },
         {
-          "text": "800 €",
-          "start": 4.1237,
-          "end": 5.262
+          "text": "quatre",
+          "start": 3.5491,
+          "end": 3.8058
+        },
+        {
+          "text": "mille",
+          "start": 3.8058,
+          "end": 3.9285
+        },
+        {
+          "text": "huit",
+          "start": 3.9286,
+          "end": 4.0179
+        },
+        {
+          "text": "cents",
+          "start": 4.0179,
+          "end": 4.1406
+        },
+        {
+          "text": "euros",
+          "start": 4.1406,
+          "end": 4.5648
         }
       ]
     },

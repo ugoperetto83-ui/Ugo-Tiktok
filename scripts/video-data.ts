@@ -56,7 +56,7 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 
 export const ASSUMPTIONS = {
   classicPrice: 35, // forfait opérateur classique (€/mois)
-  cheapPrice: 10, // forfait low-cost équivalent (€/mois)
+  cheapPrice: 10, // forfait pas cher équivalent (€/mois)
   marketRate: 0.08, // rendement annuel moyen supposé si l'écart est placé
   years: 10,
 } as const;
@@ -323,8 +323,7 @@ export const KEYWORDS: string[] = [
   '300\u00A0€',
   '4\u00A0300\u00A0€',
   'même réseau',
-  'code RIO',
-  '3179',
+  'gratuit',
   'Léo & la Thune',
 ];
 
@@ -362,7 +361,7 @@ export const SCENES: Scene[] = [
     id: 'split',
     visual: 'split',
     durationInSeconds: 5,
-    subtitle: `Classique\u00A0: ${euros(A.classicPrice)}. Low-cost\u00A0: ${euros(A.cheapPrice)}. ${euros(YEARLY_GAP)} d’écart par an.`,
+    subtitle: `Classique\u00A0: ${euros(A.classicPrice)}. Pas cher\u00A0: ${euros(A.cheapPrice)}. ${euros(YEARLY_GAP)} d’écart par an.`,
     accent: 'emerald',
     left: {
       title: 'Classique',
@@ -374,7 +373,7 @@ export const SCENES: Scene[] = [
       style: 'loser',
     },
     right: {
-      title: 'Low-cost',
+      title: 'Pas cher',
       detail: 'par mois',
       from: 0,
       to: A.cheapPrice,
@@ -391,11 +390,10 @@ export const SCENES: Scene[] = [
     id: 'tip',
     visual: 'statement',
     durationInSeconds: 5,
-    subtitle: 'Souvent le même réseau, et tu gardes ton numéro\u00A0: code RIO au 3179.',
-    voiceText: 'Souvent le même réseau, et tu gardes ton numéro : code RIO au 31 79.',
+    subtitle: 'Souvent le même réseau, et tu gardes ton numéro. C’est gratuit.',
     accent: 'emerald',
     lines: [{text: 'Même réseau.'}, {text: 'Même numéro.', highlight: true}],
-    caption: 'Code RIO : appelle le 3179 (gratuit)',
+    caption: 'Garder son numéro : gratuit',
     impactAt: 1.2,
     character: {pose: 'point', then: 'happy'},
   },

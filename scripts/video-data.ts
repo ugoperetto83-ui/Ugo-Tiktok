@@ -306,7 +306,9 @@ export const VIDEO_CONFIG = {
   /** Fichier audio mixé généré par `npm run audio` (dans /public). */
   soundtrack: 'sfx/soundtrack.wav',
   /** Volume des bruitages sous la voix (0–1). */
-  sfxVolume: 0.55,
+  sfxVolume: 0.35,
+  /** Volume des impacts graves (« boom ») dans le mixage des bruitages (0–1). */
+  impactVolume: 0.3,
   voice: {
     /** Voix edge-tts principale + débit accéléré pour le rythme TikTok. */
     name: 'fr-FR-RemyMultilingualNeural',

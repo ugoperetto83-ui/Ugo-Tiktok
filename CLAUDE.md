@@ -164,7 +164,8 @@ Si l'entrée manque ou que le texte a changé depuis la génération → **repli
   sur le graphique, whoosh dont le pic tombe sur chaque coupe (anticipé de 0.22 s),
   impact grave en fin de compteur / badge du split / `impactAt` du statement.
 - Mixé en WAV 48 kHz stéréo, limiteur doux, normalisé à −1 dBFS ; joué à `VIDEO_CONFIG.sfxVolume`
-  (0.55) sous la voix.
+  (0.35) sous la voix. Impacts graves atténués par `VIDEO_CONFIG.impactVolume` (0.3, traîne 0,25 s) :
+  l'utilisateur trouvait les « boom » dérangeants à plein volume.
 - **Doit tourner après `npm run voice`** (dépend des durées résolues).
 
 ### 3.5 Rendu — Remotion

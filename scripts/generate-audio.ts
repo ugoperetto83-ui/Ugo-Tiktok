@@ -116,7 +116,7 @@ const synthImpact = (pitch = 1, seed = 13): Float32Array => {
     const f = (42 + 120 * Math.exp(-t / 0.045)) * pitch;
     phase += (2 * Math.PI * f) / SR;
     phase2 += (2 * Math.PI * f * 2.01) / SR;
-    const sub = Math.sin(phase) * Math.exp(-t / 0.6);
+    const sub = Math.sin(phase) * Math.exp(-t / 0.25);
     const harm = Math.sin(phase2) * Math.exp(-t / 0.12) * 0.25;
     const transient = svf((rand() * 2 - 1) * Math.exp(-t / 0.012), 1800, 0.8).low * 1.4;
     out[i] = Math.tanh((sub + harm + transient) * 1.9);
@@ -194,7 +194,7 @@ const mix = (events: SfxEvent[], durationSeconds: number, fps: number): Stereo =
       case 'impact': {
         const key = Math.round(e.pitch * 100);
         if (!impacts.has(key)) impacts.set(key, synthImpact(e.pitch));
-        add(impacts.get(key)!, e.frame, e.gain * 0.9);
+        add(impacts.get(key)!, e.frame, e.gain * 0.9 * (VIDEO_CONFIG.impactVolume ?? 1));
         break;
       }
     }

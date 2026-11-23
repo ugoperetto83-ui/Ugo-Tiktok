@@ -4,6 +4,7 @@ import {SCENES, VIDEO_CONFIG} from './video-data';
 process.stdout.write(
   JSON.stringify({
     voice: VIDEO_CONFIG.voice,
-    scenes: SCENES.map((s) => ({id: s.id, text: s.voiceText ?? s.subtitle})),
+    // Les scènes sans texte (ex. carte de fin muette) ne sont pas synthétisées : durée de secours.
+    scenes: SCENES.map((s) => ({id: s.id, text: s.voiceText ?? s.subtitle})).filter((s) => s.text.trim() !== ''),
   }),
 );

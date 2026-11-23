@@ -16,7 +16,12 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
 ## 0. Série en cours : « Léo & la Thune » (@leoetlathune) — à lire en premier
 
 - **Toutes les nouvelles vidéos** se font dans le style `pop` avec la mascotte **Léo**, voix
-  **Rémy** (+12 %), ~25 s + **carte de fin** (`visual: 'endcard'`, toujours en dernière scène).
+  **Rémy** (+20 %, padding 0,05 s), ~25 s + **carte de fin muette** (`visual: 'endcard'`,
+  `subtitle: ''`, toujours en dernière scène : pas de voix, Rémy Multilingual prononçait
+  « Léo & la Thune » avec un accent anglais).
+- Rythme : ouvrir sur le chiffre choc en 1re scène (`counter` 0 → valeur, `duration 0.5`,
+  `endAtWord`) + question au spectateur, puis « Rembobine » ; préférer les virgules aux points
+  (chaque point/question ajoute ~0,7 s de pause dans edge-tts).
 - Public : tout le monde, en particulier les jeunes. Ton : complice, argot léger (« thune », « sous »).
 - Léo : aucun pronom genré dans les scripts (2e personne « tu », ou tournures neutres :
   « Léo met… », « la règle de Léo », « il reste… » impersonnel).
@@ -234,7 +239,8 @@ npx remotion still src/index.ts FinanceViral /chemin/f.png --frame=300 --scale=0
   Notification entrante : `SubItem.incoming: true` + `icon: 'euro'` (« +1 600,00 € » en vert).
 - Scène `visual: 'endcard'` (à mettre en dernier) : avatar de Léo, nom, pseudo et bouton
   « S'abonner » lus dans `scripts/brand.ts` ; champs `cta`, `button`. Mettre le disclaimer sur la
-  scène précédente. Voix : `voiceText` avec « et » à la place de « & ».
+  scène précédente. Muette : `subtitle: ''` (les scènes sans texte ne sont pas synthétisées,
+  durée = `durationInSeconds`).
 - Identité du compte « Léo & la Thune » (`scripts/brand.ts`) : compositions `Avatar` (1080×1080)
   et `Wordmark` ; fichiers finaux dans `brand/`.
 - Scène `order` + `prop: 'delivery'` : comptoir violet, scooter, sac kraft + burger (défaut `'cup'` = café).

@@ -1,388 +1,363 @@
 {
   "generatedWith": "edge-tts 7.3.1",
   "scenes": {
-    "hook": {
-      "file": "voice/hook.mp3",
+    "punch": {
+      "file": "voice/punch.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Ton burger à 15 € en livraison ? En vrai, il te coûte 22 €.",
-      "key": "b9b7d158464d81dd",
-      "duration": 4.632,
+      "rate": "+20%",
+      "text": "22 € le burger, et t’en commandes combien par semaine ?",
+      "key": "535ecb5d95ad6820",
+      "duration": 3.264,
       "words": [
         {
-          "text": "Ton",
-          "start": 0.0781,
-          "end": 0.212
+          "text": "22 €",
+          "start": 0.0833,
+          "end": 0.6979
+        },
+        {
+          "text": "le",
+          "start": 0.6979,
+          "end": 0.7812
         },
         {
           "text": "burger",
-          "start": 0.212,
-          "end": 0.692
+          "start": 0.7812,
+          "end": 1.2812
         },
         {
-          "text": "à",
-          "start": 0.7031,
-          "end": 0.7589
+          "text": "et",
+          "start": 1.6667,
+          "end": 1.6979
         },
         {
-          "text": "15 €",
-          "start": 0.7589,
-          "end": 1.3281
+          "text": "t’en",
+          "start": 1.6979,
+          "end": 1.8333
         },
         {
-          "text": "en",
-          "start": 1.3951,
-          "end": 1.4732
+          "text": "commandes",
+          "start": 1.8333,
+          "end": 2.125
         },
         {
-          "text": "livraison",
-          "start": 1.4732,
-          "end": 2.0201
+          "text": "combien",
+          "start": 2.125,
+          "end": 2.3958
         },
         {
-          "text": "En",
-          "start": 2.3661,
-          "end": 2.4554
+          "text": "par",
+          "start": 2.3958,
+          "end": 2.5208
         },
         {
-          "text": "vrai",
-          "start": 2.4554,
-          "end": 2.7567
+          "text": "semaine",
+          "start": 2.5208,
+          "end": 2.9687
+        }
+      ]
+    },
+    "hook": {
+      "file": "voice/hook.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+20%",
+      "text": "Rembobine : au resto, il coûte 15 €, livré, 22 €.",
+      "key": "c6b02dd315860e2a",
+      "duration": 4.296,
+      "words": [
+        {
+          "text": "Rembobine",
+          "start": 0.0729,
+          "end": 0.6146
+        },
+        {
+          "text": "au",
+          "start": 0.875,
+          "end": 0.8958
+        },
+        {
+          "text": "resto",
+          "start": 0.8958,
+          "end": 1.3437
         },
         {
           "text": "il",
-          "start": 3.0692,
-          "end": 3.1696
-        },
-        {
-          "text": "te",
-          "start": 3.1696,
-          "end": 3.2812
+          "start": 1.6146,
+          "end": 1.7083
         },
         {
           "text": "coûte",
-          "start": 3.2812,
-          "end": 3.5491
+          "start": 1.7083,
+          "end": 1.9062
+        },
+        {
+          "text": "15 €",
+          "start": 1.9062,
+          "end": 2.4271
+        },
+        {
+          "text": "livré",
+          "start": 2.6875,
+          "end": 3.0833
         },
         {
           "text": "22 €",
-          "start": 3.5491,
-          "end": 4.3192
+          "start": 3.3438,
+          "end": 3.9896
         }
       ]
     },
     "ticket": {
       "file": "voice/ticket.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Sur l’appli, il passe à 17 €. Ajoute livraison et frais : 7 € de plus.",
-      "key": "0f316832a83f102e",
-      "duration": 5.376,
+      "rate": "+20%",
+      "text": "Sur l’appli il passe à 17 €, ajoute livraison et frais : 7 € de plus.",
+      "key": "2ad6969ebf0f3ec9",
+      "duration": 4.152,
       "words": [
         {
           "text": "Sur",
-          "start": 0.0487,
-          "end": 0.3388
+          "start": 0.0729,
+          "end": 0.2396
         },
         {
           "text": "l’appli",
-          "start": 0.3388,
-          "end": 0.7852
+          "start": 0.2396,
+          "end": 0.5417
         },
         {
           "text": "il",
-          "start": 1.0755,
-          "end": 1.187
+          "start": 0.5417,
+          "end": 0.6562
         },
         {
           "text": "passe",
-          "start": 1.187,
-          "end": 1.4214
+          "start": 0.6562,
+          "end": 0.8542
         },
         {
           "text": "à",
-          "start": 1.4214,
-          "end": 1.4772
+          "start": 0.8542,
+          "end": 0.8958
         },
         {
           "text": "17 €",
-          "start": 1.4772,
-          "end": 2.1692
+          "start": 0.8958,
+          "end": 1.4896
         },
         {
-          "text": "Ajoute",
-          "start": 2.5112,
-          "end": 2.846
+          "text": "ajoute",
+          "start": 1.7396,
+          "end": 2.0104
         },
         {
           "text": "livraison",
-          "start": 2.846,
-          "end": 3.3036
+          "start": 2.0104,
+          "end": 2.3854
         },
         {
           "text": "et",
-          "start": 3.3036,
-          "end": 3.4152
+          "start": 2.3854,
+          "end": 2.4687
         },
         {
           "text": "frais",
-          "start": 3.4152,
-          "end": 3.7612
+          "start": 2.4688,
+          "end": 2.75
         },
         {
           "text": "7 €",
-          "start": 4.096,
-          "end": 4.4531
+          "start": 3.0208,
+          "end": 3.3229
         },
         {
           "text": "de",
-          "start": 4.4531,
-          "end": 4.5424
+          "start": 3.3229,
+          "end": 3.3958
         },
         {
           "text": "plus",
-          "start": 4.5424,
-          "end": 5.0558
+          "start": 3.3958,
+          "end": 3.8437
         }
       ]
     },
     "year": {
       "file": "voice/year.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
+      "rate": "+20%",
       "text": "Deux commandes par semaine, ça fait près de 2 300 € par an.",
-      "key": "24897556e3447402",
-      "duration": 3.576,
+      "key": "d4140c07819f9925",
+      "duration": 3.36,
       "words": [
         {
           "text": "Deux",
-          "start": 0.0781,
-          "end": 0.2567
+          "start": 0.0729,
+          "end": 0.2396
         },
         {
           "text": "commandes",
-          "start": 0.2567,
-          "end": 0.5804
+          "start": 0.2396,
+          "end": 0.5417
         },
         {
           "text": "par",
-          "start": 0.5804,
-          "end": 0.7255
+          "start": 0.5417,
+          "end": 0.6771
         },
         {
           "text": "semaine",
-          "start": 0.7255,
-          "end": 1.2054
+          "start": 0.6771,
+          "end": 1.125
         },
         {
           "text": "ça",
-          "start": 1.596,
-          "end": 1.7299
+          "start": 1.4896,
+          "end": 1.6146
         },
         {
           "text": "fait",
-          "start": 1.7299,
-          "end": 1.8415
+          "start": 1.6146,
+          "end": 1.7187
         },
         {
           "text": "près",
-          "start": 1.8415,
-          "end": 2.0424
+          "start": 1.7188,
+          "end": 1.9062
         },
         {
           "text": "de",
-          "start": 2.0424,
-          "end": 2.154
+          "start": 1.9062,
+          "end": 2.0104
         },
         {
           "text": "2 300 €",
-          "start": 2.154,
-          "end": 2.8795
+          "start": 2.0104,
+          "end": 2.6875
         },
         {
           "text": "par",
-          "start": 2.8795,
-          "end": 3.0915
+          "start": 2.6875,
+          "end": 2.8854
         },
         {
           "text": "an",
-          "start": 3.0915,
-          "end": 3.2701
+          "start": 2.8854,
+          "end": 3.0521
         }
       ]
     },
     "fees": {
       "file": "voice/fees.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
+      "rate": "+20%",
       "text": "1 560 € de burgers… et plus de 700 € juste en frais.",
-      "key": "3f1bda446651c11a",
-      "duration": 4.152,
+      "key": "20a07112d8b83b1e",
+      "duration": 3.888,
       "words": [
         {
           "text": "1 560 €",
-          "start": 0.0781,
-          "end": 1.0714
+          "start": 0.0729,
+          "end": 1.0
         },
         {
           "text": "de",
-          "start": 1.0714,
-          "end": 1.1607
+          "start": 1.0,
+          "end": 1.0833
         },
         {
           "text": "burgers",
-          "start": 1.1607,
-          "end": 1.6964
+          "start": 1.0833,
+          "end": 1.5833
         },
         {
           "text": "et",
-          "start": 2.2768,
-          "end": 2.3102
+          "start": 2.125,
+          "end": 2.1562
         },
         {
           "text": "plus",
-          "start": 2.3102,
-          "end": 2.5335
+          "start": 2.1562,
+          "end": 2.3646
         },
         {
           "text": "de",
-          "start": 2.5335,
-          "end": 2.6451
+          "start": 2.3646,
+          "end": 2.4687
         },
         {
           "text": "700 €",
-          "start": 2.6451,
-          "end": 3.2031
+          "start": 2.4688,
+          "end": 2.9896
         },
         {
           "text": "juste",
-          "start": 3.2031,
-          "end": 3.4375
+          "start": 2.9896,
+          "end": 3.2083
         },
         {
           "text": "en",
-          "start": 3.4375,
-          "end": 3.5045
+          "start": 3.2083,
+          "end": 3.2708
         },
         {
           "text": "frais",
-          "start": 3.5045,
-          "end": 3.8393
+          "start": 3.2708,
+          "end": 3.5833
         }
       ]
     },
     "cta": {
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "L’astuce : commande à emporter et va le chercher. 700 € gardés.",
-      "key": "8dd35cfd94dc7333",
-      "duration": 5.136,
+      "rate": "+20%",
+      "text": "Commande à emporter, va le chercher, et garde 700 €.",
+      "key": "875596a5ef3ad221",
+      "duration": 3.384,
       "words": [
         {
-          "text": "L’astuce",
-          "start": 0.0893,
-          "end": 0.7478
-        },
-        {
-          "text": "commande",
-          "start": 1.038,
-          "end": 1.3393
+          "text": "Commande",
+          "start": 0.0729,
+          "end": 0.3229
         },
         {
           "text": "à",
-          "start": 1.3393,
-          "end": 1.3839
+          "start": 0.3229,
+          "end": 0.3646
         },
         {
           "text": "emporter",
-          "start": 1.3839,
-          "end": 1.9196
-        },
-        {
-          "text": "et",
-          "start": 1.9196,
-          "end": 2.0089
+          "start": 0.3646,
+          "end": 0.8646
         },
         {
           "text": "va",
-          "start": 2.0089,
-          "end": 2.0982
+          "start": 1.1042,
+          "end": 1.1771
         },
         {
           "text": "le",
-          "start": 2.0982,
-          "end": 2.1987
+          "start": 1.1771,
+          "end": 1.2708
         },
         {
           "text": "chercher",
-          "start": 2.1987,
-          "end": 2.712
-        },
-        {
-          "text": "700 €",
-          "start": 3.0187,
-          "end": 4.2464
-        },
-        {
-          "text": "gardés",
-          "start": 4.2464,
-          "end": 4.8156
-        }
-      ]
-    },
-    "endcard": {
-      "file": "voice/endcard.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Abonne-toi à Léo et la Thune pour la suite !",
-      "key": "ce695af86d2287ab",
-      "duration": 2.544,
-      "words": [
-        {
-          "text": "Abonne-toi",
-          "start": 0.0893,
-          "end": 0.558
-        },
-        {
-          "text": "à",
-          "start": 0.558,
-          "end": 0.625
-        },
-        {
-          "text": "Léo",
-          "start": 0.625,
-          "end": 1.038
+          "start": 1.2708,
+          "end": 1.75
         },
         {
           "text": "et",
-          "start": 1.1273,
-          "end": 1.183
+          "start": 2.0833,
+          "end": 2.1667
         },
         {
-          "text": "la",
-          "start": 1.183,
-          "end": 1.2946
+          "text": "garde",
+          "start": 2.1667,
+          "end": 2.4271
         },
         {
-          "text": "Thune",
-          "start": 1.2946,
-          "end": 1.5402
-        },
-        {
-          "text": "pour",
-          "start": 1.5402,
-          "end": 1.6518
-        },
-        {
-          "text": "la",
-          "start": 1.6518,
-          "end": 1.7299
-        },
-        {
-          "text": "suite",
-          "start": 1.7299,
-          "end": 2.221
+          "text": "700 €",
+          "start": 2.4271,
+          "end": 3.0833
         }
       ]
     }

@@ -404,7 +404,7 @@ export const SCENES: Scene[] = [
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 4,
-    subtitle: 'La vapoteuse\u00A0? Même calcul avec tes recharges. Alors, le voyage ou la clope\u00A0?',
+    subtitle: 'Et la vapoteuse\u00A0? Même calcul avec tes recharges. Alors, le voyage ou la clope\u00A0?',
     accent: 'emerald',
     lines: [{text: 'Le voyage'}, {text: 'ou la clope\u00A0?', highlight: true}],
     caption: 'Vape : même calcul, compte tes recharges.',

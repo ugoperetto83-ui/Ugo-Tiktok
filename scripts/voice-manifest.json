@@ -210,74 +210,79 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "La vapoteuse ? Même calcul avec tes recharges. Alors, le voyage ou la clope ?",
-      "key": "0c085883647979b4",
-      "duration": 5.544,
+      "text": "Et la vapoteuse ? Même calcul avec tes recharges. Alors, le voyage ou la clope ?",
+      "key": "4875fa3d882885ad",
+      "duration": 5.568,
       "words": [
         {
-          "text": "La",
-          "start": 0.05,
-          "end": 0.2174
-        },
-        {
-          "text": "vapoteuse",
-          "start": 0.2174,
-          "end": 1.021
-        },
-        {
-          "text": "Même",
-          "start": 1.3616,
-          "end": 1.6071
-        },
-        {
-          "text": "calcul",
-          "start": 1.6071,
-          "end": 2.0759
-        },
-        {
-          "text": "avec",
-          "start": 2.087,
-          "end": 2.2545
-        },
-        {
-          "text": "tes",
-          "start": 2.2545,
-          "end": 2.3549
-        },
-        {
-          "text": "recharges",
-          "start": 2.3549,
-          "end": 3.0022
-        },
-        {
-          "text": "Alors",
-          "start": 3.3482,
-          "end": 3.7723
-        },
-        {
-          "text": "le",
-          "start": 4.0402,
-          "end": 4.1183
-        },
-        {
-          "text": "voyage",
-          "start": 4.1183,
-          "end": 4.6205
-        },
-        {
-          "text": "ou",
-          "start": 4.6317,
-          "end": 4.6652
+          "text": "Et",
+          "start": 0.0893,
+          "end": 0.1562
         },
         {
           "text": "la",
-          "start": 4.6652,
-          "end": 4.7656
+          "start": 0.1562,
+          "end": 0.2679
+        },
+        {
+          "text": "vapoteuse",
+          "start": 0.2679,
+          "end": 1.038
+        },
+        {
+          "text": "Même",
+          "start": 1.3839,
+          "end": 1.6295
+        },
+        {
+          "text": "calcul",
+          "start": 1.6295,
+          "end": 2.0982
+        },
+        {
+          "text": "avec",
+          "start": 2.1094,
+          "end": 2.2768
+        },
+        {
+          "text": "tes",
+          "start": 2.2768,
+          "end": 2.3772
+        },
+        {
+          "text": "recharges",
+          "start": 2.3773,
+          "end": 3.0246
+        },
+        {
+          "text": "Alors",
+          "start": 3.3705,
+          "end": 3.7947
+        },
+        {
+          "text": "le",
+          "start": 4.0625,
+          "end": 4.1406
+        },
+        {
+          "text": "voyage",
+          "start": 4.1406,
+          "end": 4.6429
+        },
+        {
+          "text": "ou",
+          "start": 4.654,
+          "end": 4.6875
+        },
+        {
+          "text": "la",
+          "start": 4.6875,
+          "end": 4.788
         },
         {
           "text": "clope",
-          "start": 4.7656,
-          "end": 5.2232
+          "start": 4.788,
+          "end": 5.2455
         }
       ]
     },

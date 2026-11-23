@@ -354,6 +354,10 @@ const SplitCard: React.FC<{side: SplitSide; timing: SplitScene['animation']; max
               borderTop: h > 2 ? `${OUTLINE}px solid ${POP.ink}` : undefined,
             }}
           />
+        ) : side.emptyIcon ? (
+          <div style={{position: 'absolute', left: 24, bottom: 30, transform: 'rotate(-18deg)'}}>
+            <SubIcon icon={side.emptyIcon} size={110} />
+          </div>
         ) : (
           <svg width={158} height={barH - 12} style={{position: 'absolute', left: 0, top: 0}}>
             <g transform={`translate(79 ${barH - 80}) rotate(-28)`}>
@@ -604,7 +608,7 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
 // Abonnements : icônes, notifications, liste à barrer
 // ---------------------------------------------------------------------------
 
-const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint};
+const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint, gamepad: POP.violet, gem: POP.coral};
 
 const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
   <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
@@ -628,6 +632,21 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
       <text x={32} y={45} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={38} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
         €
       </text>
+    )}
+    {icon === 'gamepad' && (
+      <g stroke={POP.ink} strokeWidth={4} strokeLinejoin="round" strokeLinecap="round">
+        <path d="M18,24 L46,24 Q55,24 55,36 Q55,47 48,47 Q43,47 40,40 L24,40 Q21,47 16,47 Q9,47 9,36 Q9,24 18,24 Z" fill={POP.white} />
+        <line x1={20} y1={28} x2={20} y2={36} />
+        <line x1={16} y1={32} x2={24} y2={32} />
+        <circle cx={41} cy={30} r={2.6} fill={POP.ink} strokeWidth={0} />
+        <circle cx={46} cy={35} r={2.6} fill={POP.ink} strokeWidth={0} />
+      </g>
+    )}
+    {icon === 'gem' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <path d="M22,17 L42,17 L52,28 L32,50 L12,28 Z" />
+        <path d="M12,28 L52,28 M26,17 L32,28 L38,17 M32,28 L32,50" fill="none" strokeWidth={3} />
+      </g>
     )}
     {icon === 'star' && (
       <path

@@ -55,23 +55,11 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  target: 1_000_000, // objectif (€)
-  marketRate: 0.08, // rendement annuel moyen supposé
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  gameBudget: 10, // budget jeu mensuel proposé par Léo (€)
+  months: 12,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
-const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
-const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
-const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
-const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
-const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
-const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
-
-export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -160,6 +148,8 @@ export type SplitSide = {
   invested: number;
   /** Libellé du montant `invested` (défaut : « Versé »). */
   investedLabel?: string;
+  /** Icône posée dans la barre vide (to = 0) à la place du gobelet de café. */
+  emptyIcon?: SubItem['icon'];
   style: 'winner' | 'loser';
 };
 
@@ -204,7 +194,7 @@ export type SubItem = {
   label: string;
   /** Montant mensuel (€, centimes acceptés). */
   amount: number;
-  icon: 'play' | 'music' | 'gym' | 'star' | 'euro';
+  icon: 'play' | 'music' | 'gym' | 'star' | 'euro' | 'gamepad' | 'gem';
   /** Argent reçu (affiché « +… € » en vert) plutôt que prélevé. */
   incoming?: boolean;
 };
@@ -321,115 +311,120 @@ export const VIDEO_CONFIG = {
   },
 } as const;
 
-/** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
-export const KEYWORDS: string[] = [
-  '1\u00A0million',
-  '484\u00A0€',
-  '1\u00A0140\u00A0€',
-  'intérêts composés',
-  '140\u00A0000\u00A0€',
-  'commence tôt',
-  'Léo & la Thune',
+// ---------------------------------------------------------------------------
+// Scénario : « Micro-achats : ton skin vaut 400 € » (~24 s, style pop, Léo + carte de fin)
+// ---------------------------------------------------------------------------
+
+/** Achats in-app d'un mois type (noms génériques, prix indicatifs). */
+export const PURCHASES: SubItem[] = [
+  {label: 'Passe de combat', amount: 9.99, icon: 'gamepad'},
+  {label: 'Pack de gemmes', amount: 4.99, icon: 'gem'},
+  {label: 'Skin légendaire', amount: 14.99, icon: 'gamepad'},
+  {label: 'Coffre mystère', amount: 3.49, icon: 'star'},
 ];
 
-// ---------------------------------------------------------------------------
-// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
-// ---------------------------------------------------------------------------
+const MONTHLY = PURCHASES.reduce((s, p) => s + p.amount, 0); // 33,46 €
+const YEARLY = MONTHLY * A.months; // 401,52 € → « 400 € »
+const YEARLY_SHOWN = Math.round(YEARLY / 10) * 10; // 400
+const KEPT = Math.round((MONTHLY - A.gameBudget) * A.months); // 282 € → « près de 280 € »
+const KEPT_SAID = Math.round(KEPT / 10) * 10; // 280
 
-const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+export const COMPUTED = {MONTHLY, YEARLY, YEARLY_SHOWN, KEPT, KEPT_SAID};
+
+const NAME = VIDEO_CONFIG.mascot.name;
+const eur = (n: number) => `${n} €`;
+
+/** Mots-clés mis en valeur dans les sous-titres (insensible à la casse). */
+export const KEYWORDS: string[] = [
+  eur(YEARLY_SHOWN),
+  eur(A.gameBudget),
+  eur(KEPT_SAID),
+  'revendre',
+  '48 heures',
+  'Léo & la Thune',
+];
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'counter',
+    visual: 'notify',
     durationInSeconds: 4.5,
-    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `5 € par-ci, 10 € par-là… En un an, ton skin vaut ${eur(YEARLY_SHOWN)}.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Objectif à ${A.endAge} ans`,
-    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
+    eyebrow: `Les achats in-app de ${NAME}`,
+    notifLabel: 'Achat in-app',
+    items: PURCHASES,
+    itemsAt: 0.15,
+    itemGap: 0.6,
     from: 0,
-    to: A.target,
-    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
+    to: YEARLY_SHOWN,
+    suffix: '/an',
+    animation: {delay: 2.6, duration: 1.6, endAtWord: eur(YEARLY_SHOWN)},
     impactAtEnd: true,
-    character: {pose: 'think', then: 'shock'},
+    character: {pose: 'phone', then: 'shock', holdsPhone: true},
   },
   {
     id: 'split',
     visual: 'split',
     durationInSeconds: 5,
-    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `Le souci : ton skin, tu ne pourras jamais le revendre. Tes ${eur(YEARLY_SHOWN)}, eux, seraient encore là.`,
     accent: 'emerald',
     left: {
-      title: `Dès ${A.earlyStart} ans`,
-      detail: `par mois · ${EARLY_YEARS} ans`,
+      title: 'Le skin',
+      detail: 'valeur de revente',
       from: 0,
-      to: EARLY_MONTHLY,
-      invested: EARLY_PAID,
-      style: 'winner',
-    },
-    right: {
-      title: `Dès ${A.lateStart} ans`,
-      detail: `par mois · ${LATE_YEARS} ans`,
-      from: 0,
-      to: LATE_MONTHLY,
-      invested: LATE_PAID,
+      to: 0,
+      invested: YEARLY_SHOWN,
+      investedLabel: 'Dépensé',
+      emptyIcon: 'gamepad',
       style: 'loser',
     },
-    gapLabel: 'Effort en plus',
-    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
+    right: {
+      title: 'La thune',
+      detail: 'gardée sur ton compte',
+      from: 0,
+      to: YEARLY_SHOWN,
+      invested: YEARLY_SHOWN,
+      investedLabel: 'Mis de côté',
+      style: 'winner',
+    },
+    gapLabel: 'Différence',
+    gapValue: YEARLY_SHOWN,
     animation: {delay: 0.35, duration: 2.8},
-    character: {pose: 'think', then: 'happy'},
+    character: {pose: 'think', then: 'point'},
   },
   {
-    id: 'chart',
-    visual: 'chart',
-    durationInSeconds: 5,
-    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
-    accent: 'emerald',
-    title: `1\u00A0million à ${A.endAge} ans`,
-    xValues: AGES,
-    xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
-    series: [
-      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
-      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
-    ],
-    animation: {delay: 0.3, duration: 3.6},
-    character: {pose: 'point', then: 'happy'},
-  },
-  {
-    id: 'extra',
+    id: 'budget',
     visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    durationInSeconds: 5,
+    subtitle: `La règle de ${NAME} : un budget jeu de ${eur(A.gameBudget)} par mois. Tu gardes près de ${eur(KEPT_SAID)} par an.`,
     accent: 'gold',
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
+    eyebrow: `Budget jeu : ${eur(A.gameBudget)}/mois`,
+    caption: `${eur(YEARLY_SHOWN)} − ${eur(A.gameBudget * A.months)} de jeu`,
     from: 0,
-    to: EXTRA_PAID,
-    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
+    to: KEPT,
+    animation: {delay: 1.4, duration: 2.2, endAtWord: eur(KEPT_SAID)},
     impactAtEnd: true,
-    character: {pose: 'idle', then: 'shock'},
+    character: {pose: 'idle', then: 'happy'},
   },
   {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 3.5,
-    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
+    durationInSeconds: 4,
+    subtitle: 'Et avant chaque achat, attends 48 heures. Si tu le veux encore, vas-y.',
     accent: 'emerald',
-    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
-    caption: 'Ton futur toi te dira merci.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
+    lines: [{text: 'Attends'}, {text: '48 h.', highlight: true}],
+    caption: 'Si tu le veux encore, vas-y.',
+    disclaimer: 'Exemple illustratif · prix indicatifs · pas un conseil financier',
     impactAt: 0.35,
-    character: {pose: 'idle', then: 'happy'},
+    character: {pose: 'point', then: 'happy'},
   },
   {
     id: 'endcard',
     visual: 'endcard',
     durationInSeconds: 2.5,
-    subtitle: 'Abonne-toi à Léo & la Thune pour la suite\u00A0!',
+    subtitle: 'Abonne-toi à Léo & la Thune pour la suite !',
     voiceText: 'Abonne-toi à Léo et la Thune pour la suite !',
     accent: 'gold',
     cta: 'Abonne-toi pour la suite',

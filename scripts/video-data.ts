@@ -55,23 +55,23 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  target: 1_000_000, // objectif (€)
-  marketRate: 0.08, // rendement annuel moyen supposé
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  phonePrice: 1200, // prix du dernier modèle (€)
+  years: 10, // horizon
+  keepYears: 3, // « garder le tien 2 ans de plus » : un téléphone tous les 3 ans
+  marketRate: 0.07, // rendement annuel moyen supposé de l'écart placé
+  startYear: 2026,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
-const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
-const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
-const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
-const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
-const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
-const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
+const PHONES_EVERY_YEAR = A.years; // 10 téléphones
+const PHONES_KEEP = Math.ceil(A.years / A.keepYears); // 4 téléphones (années 0, 3, 6, 9)
+const SPENT_EVERY_YEAR = PHONES_EVERY_YEAR * A.phonePrice; // 12 000 €
+const SPENT_KEEP = PHONES_KEEP * A.phonePrice; // 4 800 €
+const GAP = SPENT_EVERY_YEAR - SPENT_KEEP; // 7 200 €
+const GAP_MONTHLY = GAP / A.years / 12; // 60 €/mois
+const INVESTED_GAP = Math.round(futureValue(GAP_MONTHLY, A.marketRate, A.years)); // ≈ 9 948 € → « près de 10 000 € »
 
-export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
+export const COMPUTED = {PHONES_EVERY_YEAR, PHONES_KEEP, SPENT_EVERY_YEAR, SPENT_KEEP, GAP, GAP_MONTHLY, INVESTED_GAP};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -323,107 +323,109 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '1\u00A0million',
-  '484\u00A0€',
-  '1\u00A0140\u00A0€',
-  'intérêts composés',
-  '140\u00A0000\u00A0€',
-  'commence tôt',
+  '12\u00A0000\u00A0€',
+  '4\u00A0800\u00A0€',
+  '7\u00A0200\u00A0€',
+  '60\u00A0€',
+  '10\u00A0000\u00A0€',
+  'Garde-le.',
   'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
+// Scénario : « Le téléphone neuf à chaque sortie » (~25 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+const YEARS = Array.from({length: A.years + 1}, (_, i) => A.startYear + i);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
     visual: 'counter',
     durationInSeconds: 4.5,
-    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `Un téléphone neuf à chaque sortie\u00A0? C’est ${fmt(SPENT_EVERY_YEAR)}\u00A0€ en ${A.years}\u00A0ans.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Objectif à ${A.endAge} ans`,
-    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
+    eyebrow: 'Le dernier modèle, chaque année',
+    caption: `${PHONES_EVERY_YEAR} téléphones × ${fmt(A.phonePrice)}\u00A0€`,
     from: 0,
-    to: A.target,
-    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
+    to: SPENT_EVERY_YEAR,
+    animation: {delay: 0.2, duration: 1.6, endAtWord: `${fmt(SPENT_EVERY_YEAR)}\u00A0€`},
     impactAtEnd: true,
-    character: {pose: 'think', then: 'shock'},
+    character: {pose: 'phone', holdsPhone: true, then: 'shock'},
   },
   {
     id: 'split',
     visual: 'split',
     durationInSeconds: 5,
-    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `Garde le tien 2\u00A0ans de plus\u00A0: ${PHONES_KEEP} téléphones au lieu de ${PHONES_EVERY_YEAR}. ${fmt(SPENT_KEEP)}\u00A0€.`,
     accent: 'emerald',
     left: {
-      title: `Dès ${A.earlyStart} ans`,
-      detail: `par mois · ${EARLY_YEARS} ans`,
+      title: 'Chaque année',
+      detail: `${PHONES_EVERY_YEAR} téléphones · ${A.years} ans`,
       from: 0,
-      to: EARLY_MONTHLY,
-      invested: EARLY_PAID,
-      style: 'winner',
-    },
-    right: {
-      title: `Dès ${A.lateStart} ans`,
-      detail: `par mois · ${LATE_YEARS} ans`,
-      from: 0,
-      to: LATE_MONTHLY,
-      invested: LATE_PAID,
+      to: SPENT_EVERY_YEAR,
+      invested: A.phonePrice,
+      investedLabel: 'Le tél',
       style: 'loser',
     },
-    gapLabel: 'Effort en plus',
-    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
-    animation: {delay: 0.35, duration: 2.8},
+    right: {
+      title: `Tous les ${A.keepYears} ans`,
+      detail: `${PHONES_KEEP} téléphones · ${A.years} ans`,
+      from: 0,
+      to: SPENT_KEEP,
+      invested: A.phonePrice,
+      investedLabel: 'Le tél',
+      style: 'winner',
+    },
+    gapLabel: 'Économie',
+    gapValue: GAP,
+    animation: {delay: 0.35, duration: 2.6},
     character: {pose: 'think', then: 'happy'},
   },
   {
     id: 'chart',
     visual: 'chart',
     durationInSeconds: 5,
-    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
+    subtitle: `Les ${fmt(GAP)}\u00A0€ d’écart, c’est ${fmt(GAP_MONTHLY)}\u00A0€ par mois. Placés, ils travaillent pour toi.`,
     accent: 'emerald',
-    title: `1\u00A0million à ${A.endAge} ans`,
-    xValues: AGES,
-    xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
+    title: `${fmt(GAP_MONTHLY)}\u00A0€/mois placés à ${Math.round(A.marketRate * 100)}\u00A0%`,
+    xValues: YEARS,
+    xLabelSuffix: '',
+    xTicks: [YEARS[0], YEARS[5], YEARS[A.years]],
     series: [
-      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
-      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
+      {label: 'Tél neuf chaque année · 0\u00A0€ de côté', style: 'muted', values: YEARS.map(() => 0)},
+      {label: `Tous les ${A.keepYears} ans · ${fmt(GAP_MONTHLY)}\u00A0€/mois placés`, style: 'neon', values: YEARS.map((_, y) => Math.round(futureValue(GAP_MONTHLY, A.marketRate, y)))},
     ],
     animation: {delay: 0.3, duration: 3.6},
     character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'extra',
+    id: 'final',
     visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    durationInSeconds: 4,
+    subtitle: `Au bout de ${A.years}\u00A0ans\u00A0: près de 10\u00A0000\u00A0€ dans ta poche.`,
     accent: 'gold',
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
+    eyebrow: `Après ${A.years} ans`,
+    caption: `${fmt(GAP)}\u00A0€ versés + les intérêts`,
     from: 0,
-    to: EXTRA_PAID,
-    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
+    to: INVESTED_GAP,
+    animation: {delay: 0.3, duration: 1.8, endAtWord: '10\u00A0000\u00A0€'},
     impactAtEnd: true,
-    character: {pose: 'idle', then: 'shock'},
+    character: {pose: 'idle', then: 'happy'},
   },
   {
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 3.5,
-    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
+    subtitle: 'Ton téléphone marche encore\u00A0? Garde-le. Ta thune te dira merci.',
     accent: 'emerald',
-    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
-    caption: 'Ton futur toi te dira merci.',
+    lines: [{text: 'Il marche\u00A0?'}, {text: 'Garde-le.', highlight: true}],
+    caption: 'Ta thune te dira merci.',
     disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
-    impactAt: 0.35,
-    character: {pose: 'idle', then: 'happy'},
+    impactAt: 1.6,
+    character: {pose: 'phone', holdsPhone: true, then: 'happy'},
   },
   {
     id: 'endcard',

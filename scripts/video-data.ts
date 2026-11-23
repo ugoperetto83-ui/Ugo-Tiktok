@@ -370,8 +370,8 @@ export const SCENES: Scene[] = [
       style: 'winner',
     },
     right: {
-      title: 'Commissions',
-      detail: `${A.paymentsPerMonth} paiements/mois`,
+      title: 'Frais',
+      detail: `commission · ${A.paymentsPerMonth}/mois`,
       from: 0,
       to: COMMISSIONS_YEAR,
       invested: A.commission,

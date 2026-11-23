@@ -25,8 +25,11 @@ Cette commande enchaîne : voix off edge-tts → bruitages procéduraux → rend
 - Chaque nouvel épisode archive d'abord le précédent dans `scripts/videos/<slug>.ts`.
 - Épisodes réalisés (archives dans `scripts/videos/`, MP4 dans `out/`, non versionnés) :
   `cafe-4-euros` · `abonnements-oublies` · `premier-salaire-leo` · `1-million-leo` ·
-  `telephone-neuf-leo` (actuel `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
+  `telephone-neuf-leo` · `decouvert-agios-leo` (actuel `video-data.ts`). Avant la série (style sombre) : `attendre-10-ans`, `inflation-24-ans`.
 - Idées en réserve : crédit conso / paiement en 4 fois, règle de 72, livret vs inflation.
+- Voix multilingue : un montant seul en fin de phrase (« …au lieu de 10. 4 800 €. ») peut être lu
+  en anglais. Garder le montant dans une phrase française (« soit 4 800 € », « 200 € de frais »)
+  ou passer par `voiceText` en toutes lettres.
 - Logo / avatar : `brand/` (PNG finaux), `scripts/brand.ts` (nom, pseudo, couleur jaune).
 - Toujours finir par : planche de `remotion still`, `ffprobe`, `silencedetect`, commit + push,
   envoi du MP4.

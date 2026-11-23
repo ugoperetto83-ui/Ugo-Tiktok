@@ -5,59 +5,94 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Un téléphone neuf à chaque sortie ? C’est 12 000 € en 10 ans.",
-      "key": "1a7deee14f0a3a7f",
-      "duration": 3.912,
+      "text": "Ta banque te fait payer d’être à moins 50 €. Sur un an, près de 200 € de frais.",
+      "key": "3e35c0151d873e0c",
+      "duration": 5.112,
       "words": [
         {
-          "text": "Un",
+          "text": "Ta",
           "start": 0.0781,
-          "end": 0.2009
+          "end": 0.1786
         },
         {
-          "text": "téléphone",
-          "start": 0.2009,
-          "end": 0.6696
+          "text": "banque",
+          "start": 0.1786,
+          "end": 0.5469
         },
         {
-          "text": "neuf",
-          "start": 0.6696,
-          "end": 0.9821
+          "text": "te",
+          "start": 0.558,
+          "end": 0.6808
+        },
+        {
+          "text": "fait",
+          "start": 0.6808,
+          "end": 0.7924
+        },
+        {
+          "text": "payer",
+          "start": 0.7924,
+          "end": 1.1049
+        },
+        {
+          "text": "d’être",
+          "start": 1.1049,
+          "end": 1.3505
         },
         {
           "text": "à",
-          "start": 0.9933,
-          "end": 1.0602
+          "start": 1.3505,
+          "end": 1.3839
         },
         {
-          "text": "chaque",
-          "start": 1.0602,
-          "end": 1.2835
+          "text": "moins",
+          "start": 1.3839,
+          "end": 1.5513
         },
         {
-          "text": "sortie",
-          "start": 1.2835,
-          "end": 1.7634
+          "text": "50 €",
+          "start": 1.5513,
+          "end": 2.2656
         },
         {
-          "text": "C’est",
-          "start": 2.087,
-          "end": 2.2991
+          "text": "Sur",
+          "start": 2.6005,
+          "end": 2.8683
         },
         {
-          "text": "12 000 €",
-          "start": 2.2991,
-          "end": 2.9911
+          "text": "un",
+          "start": 2.8683,
+          "end": 2.9352
         },
         {
-          "text": "en",
-          "start": 3.058,
-          "end": 3.1585
+          "text": "an",
+          "start": 2.9352,
+          "end": 3.192
         },
         {
-          "text": "10 ans",
-          "start": 3.1585,
-          "end": 3.6049
+          "text": "près",
+          "start": 3.5714,
+          "end": 3.75
+        },
+        {
+          "text": "de",
+          "start": 3.75,
+          "end": 3.8727
+        },
+        {
+          "text": "200 €",
+          "start": 3.8727,
+          "end": 4.3415
+        },
+        {
+          "text": "de",
+          "start": 4.3415,
+          "end": 4.442
+        },
+        {
+          "text": "frais",
+          "start": 4.442,
+          "end": 4.788
         }
       ]
     },
@@ -65,224 +100,169 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Garde le tien 2 ans de plus : 4 téléphones au lieu de 10, soit quatre mille huit cents euros.",
-      "key": "d0edc1f69a7cd249",
-      "duration": 4.872,
-      "words": [
-        {
-          "text": "Garde",
-          "start": 0.067,
-          "end": 0.3906
-        },
-        {
-          "text": "le",
-          "start": 0.3906,
-          "end": 0.5022
-        },
-        {
-          "text": "tien",
-          "start": 0.5022,
-          "end": 0.7031
-        },
-        {
-          "text": "2 ans",
-          "start": 0.7031,
-          "end": 0.9263
-        },
-        {
-          "text": "de",
-          "start": 0.9263,
-          "end": 1.0268
-        },
-        {
-          "text": "plus",
-          "start": 1.0268,
-          "end": 1.462
-        },
-        {
-          "text": "4 téléphones",
-          "start": 1.7634,
-          "end": 2.4219
-        },
-        {
-          "text": "au",
-          "start": 2.4219,
-          "end": 2.4554
-        },
-        {
-          "text": "lieu",
-          "start": 2.4554,
-          "end": 2.5893
-        },
-        {
-          "text": "de",
-          "start": 2.5893,
-          "end": 2.7009
-        },
-        {
-          "text": "10",
-          "start": 2.7009,
-          "end": 3.0915
-        },
-        {
-          "text": "soit",
-          "start": 3.3482,
-          "end": 3.5491
-        },
-        {
-          "text": "quatre",
-          "start": 3.5491,
-          "end": 3.8058
-        },
-        {
-          "text": "mille",
-          "start": 3.8058,
-          "end": 3.9285
-        },
-        {
-          "text": "huit",
-          "start": 3.9286,
-          "end": 4.0179
-        },
-        {
-          "text": "cents",
-          "start": 4.0179,
-          "end": 4.1406
-        },
-        {
-          "text": "euros",
-          "start": 4.1406,
-          "end": 4.5648
-        }
-      ]
-    },
-    "chart": {
-      "file": "voice/chart.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Les 7 200 € d’écart, c’est 60 € par mois. Placés, ils travaillent pour toi.",
-      "key": "f4a996bdc138999d",
-      "duration": 5.472,
+      "text": "Les agios ? À peine 3 € par an. Le vrai piège, c’est 8 € de commission à chaque paiement.",
+      "key": "7347b2450b94eb43",
+      "duration": 5.784,
       "words": [
         {
           "text": "Les",
-          "start": 0.0893,
-          "end": 0.2344
+          "start": 0.0781,
+          "end": 0.2232
         },
         {
-          "text": "7 200 €",
-          "start": 0.2344,
-          "end": 1.1272
+          "text": "agios",
+          "start": 0.2232,
+          "end": 0.7477
         },
         {
-          "text": "d’écart",
-          "start": 1.1273,
-          "end": 1.6295
+          "text": "À",
+          "start": 1.0826,
+          "end": 1.1719
         },
         {
-          "text": "c’est",
-          "start": 2.0089,
-          "end": 2.1317
+          "text": "peine",
+          "start": 1.1719,
+          "end": 1.4509
         },
         {
-          "text": "60 €",
-          "start": 2.1317,
-          "end": 2.6562
+          "text": "3 €",
+          "start": 1.4509,
+          "end": 1.875
         },
         {
           "text": "par",
+          "start": 1.875,
+          "end": 2.0982
+        },
+        {
+          "text": "an",
+          "start": 2.0982,
+          "end": 2.3102
+        },
+        {
+          "text": "Le",
           "start": 2.6562,
-          "end": 2.8237
+          "end": 2.779
         },
         {
-          "text": "mois",
-          "start": 2.8237,
-          "end": 3.125
+          "text": "vrai",
+          "start": 2.779,
+          "end": 2.9241
         },
         {
-          "text": "Placés",
-          "start": 3.4317,
-          "end": 3.9786
+          "text": "piège",
+          "start": 2.9241,
+          "end": 3.404
         },
         {
-          "text": "ils",
-          "start": 4.2464,
-          "end": 4.3357
+          "text": "c’est",
+          "start": 3.7277,
+          "end": 3.8727
         },
         {
-          "text": "travaillent",
-          "start": 4.3357,
-          "end": 4.6594
+          "text": "8 €",
+          "start": 3.8727,
+          "end": 4.2522
         },
         {
-          "text": "pour",
-          "start": 4.6594,
-          "end": 4.8268
+          "text": "de",
+          "start": 4.2523,
+          "end": 4.3304
         },
         {
-          "text": "toi",
-          "start": 4.8268,
-          "end": 5.1728
+          "text": "commission",
+          "start": 4.3304,
+          "end": 4.7991
+        },
+        {
+          "text": "à",
+          "start": 4.7991,
+          "end": 4.8884
+        },
+        {
+          "text": "chaque",
+          "start": 4.8884,
+          "end": 5.0892
+        },
+        {
+          "text": "paiement",
+          "start": 5.0893,
+          "end": 5.4799
         }
       ]
     },
-    "final": {
-      "file": "voice/final.mp3",
+    "checklist": {
+      "file": "voice/checklist.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Au bout de 10 ans : près de 10 000 € dans ta poche.",
-      "key": "8e8c6000e074f551",
-      "duration": 2.928,
+      "text": "La parade : une alerte de solde, et 100 € de côté. Tout ça disparaît.",
+      "key": "7d610d96394c903f",
+      "duration": 4.728,
       "words": [
         {
-          "text": "Au",
-          "start": 0.0781,
-          "end": 0.1898
+          "text": "La",
+          "start": 0.0893,
+          "end": 0.2232
         },
         {
-          "text": "bout",
-          "start": 0.1898,
-          "end": 0.3348
+          "text": "parade",
+          "start": 0.2232,
+          "end": 0.6696
         },
         {
-          "text": "de",
-          "start": 0.3348,
-          "end": 0.4464
+          "text": "une",
+          "start": 1.0156,
+          "end": 1.1049
         },
         {
-          "text": "10 ans",
-          "start": 0.4464,
-          "end": 0.8705
-        },
-        {
-          "text": "près",
-          "start": 1.2054,
-          "end": 1.3616
+          "text": "alerte",
+          "start": 1.1049,
+          "end": 1.3951
         },
         {
           "text": "de",
-          "start": 1.3616,
-          "end": 1.4732
+          "start": 1.3951,
+          "end": 1.5067
         },
         {
-          "text": "10 000 €",
-          "start": 1.4732,
-          "end": 1.9196
+          "text": "solde",
+          "start": 1.5067,
+          "end": 1.8973
         },
         {
-          "text": "dans",
-          "start": 1.9196,
-          "end": 2.0201
+          "text": "et",
+          "start": 2.2098,
+          "end": 2.2545
         },
         {
-          "text": "ta",
-          "start": 2.0201,
-          "end": 2.1317
+          "text": "100 €",
+          "start": 2.2545,
+          "end": 2.6451
         },
         {
-          "text": "poche",
-          "start": 2.1317,
-          "end": 2.6005
+          "text": "de",
+          "start": 2.6451,
+          "end": 2.712
+        },
+        {
+          "text": "côté",
+          "start": 2.712,
+          "end": 3.1696
+        },
+        {
+          "text": "Tout",
+          "start": 3.4763,
+          "end": 3.6661
+        },
+        {
+          "text": "ça",
+          "start": 3.6661,
+          "end": 3.8
+        },
+        {
+          "text": "disparaît",
+          "start": 3.8,
+          "end": 4.425
         }
       ]
     },
@@ -290,59 +270,54 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Ton téléphone marche encore ? Garde-le. Ta thune te dira merci.",
-      "key": "e2769cf0c2564e7d",
-      "duration": 4.248,
+      "text": "Zéro découvert, zéro frais. Ta thune reste à toi.",
+      "key": "77e98124f94e74d9",
+      "duration": 3.696,
       "words": [
         {
-          "text": "Ton",
+          "text": "Zéro",
           "start": 0.0781,
-          "end": 0.2009
+          "end": 0.4018
         },
         {
-          "text": "téléphone",
-          "start": 0.2009,
-          "end": 0.6473
+          "text": "découvert",
+          "start": 0.4018,
+          "end": 1.0603
         },
         {
-          "text": "marche",
-          "start": 0.6473,
-          "end": 0.904
+          "text": "zéro",
+          "start": 1.4062,
+          "end": 1.6518
         },
         {
-          "text": "encore",
-          "start": 0.904,
-          "end": 1.4509
-        },
-        {
-          "text": "Garde-le",
-          "start": 1.7576,
-          "end": 2.4719
+          "text": "frais",
+          "start": 1.6518,
+          "end": 2.0424
         },
         {
           "text": "Ta",
-          "start": 2.8013,
-          "end": 2.8906
+          "start": 2.3773,
+          "end": 2.4665
         },
         {
           "text": "thune",
-          "start": 2.8906,
-          "end": 3.0804
+          "start": 2.4665,
+          "end": 2.6674
         },
         {
-          "text": "te",
-          "start": 3.0804,
-          "end": 3.192
+          "text": "reste",
+          "start": 2.6674,
+          "end": 2.9352
         },
         {
-          "text": "dira",
-          "start": 3.192,
-          "end": 3.404
+          "text": "à",
+          "start": 2.9352,
+          "end": 2.991
         },
         {
-          "text": "merci",
-          "start": 3.404,
-          "end": 3.9397
+          "text": "toi",
+          "start": 2.9911,
+          "end": 3.3817
         }
       ]
     },

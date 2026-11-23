@@ -5,264 +5,269 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
-      "key": "d0086c5ad7918fff",
-      "duration": 5.592,
+      "text": "Ton burger à 15 € en livraison ? En vrai, il te coûte 22 €.",
+      "key": "b9b7d158464d81dd",
+      "duration": 4.632,
       "words": [
         {
-          "text": "1 million",
-          "start": 0.0487,
-          "end": 0.6402
+          "text": "Ton",
+          "start": 0.0781,
+          "end": 0.212
+        },
+        {
+          "text": "burger",
+          "start": 0.212,
+          "end": 0.692
         },
         {
           "text": "à",
-          "start": 0.6402,
-          "end": 0.7406
-        },
-        {
-          "text": "55 ans",
-          "start": 0.7406,
-          "end": 1.5442
-        },
-        {
-          "text": "C’est",
-          "start": 1.875,
-          "end": 2.0648
-        },
-        {
-          "text": "484 €",
-          "start": 2.0648,
-          "end": 3.2255
-        },
-        {
-          "text": "par",
-          "start": 3.2255,
-          "end": 3.404
-        },
-        {
-          "text": "mois",
-          "start": 3.404,
-          "end": 3.6495
-        },
-        {
-          "text": "ou",
-          "start": 4.2411,
-          "end": 4.308
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.308,
-          "end": 5.2679
-        }
-      ]
-    },
-    "split": {
-      "file": "voice/split.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
-      "key": "e65ad5201c379cca",
-      "duration": 6.024,
-      "words": [
-        {
-          "text": "Dès",
-          "start": 0.0781,
-          "end": 0.2455
-        },
-        {
-          "text": "20 ans",
-          "start": 0.2455,
-          "end": 0.7143
-        },
-        {
-          "text": "484 €",
-          "start": 1.0156,
-          "end": 2.221
-        },
-        {
-          "text": "par",
-          "start": 2.221,
-          "end": 2.3773
-        },
-        {
-          "text": "mois",
-          "start": 2.3773,
-          "end": 2.4888
-        },
-        {
-          "text": "suffisent",
-          "start": 2.4888,
-          "end": 3.125
-        },
-        {
-          "text": "Dès",
-          "start": 3.4598,
-          "end": 3.6161
-        },
-        {
-          "text": "30 ans",
-          "start": 3.6161,
-          "end": 4.1072
-        },
-        {
-          "text": "il",
-          "start": 4.4643,
-          "end": 4.5759
-        },
-        {
-          "text": "faut",
-          "start": 4.5759,
-          "end": 4.7321
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.7321,
-          "end": 5.7142
-        }
-      ]
-    },
-    "chart": {
-      "file": "voice/chart.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
-      "key": "bb1d740a32ac104d",
-      "duration": 4.464,
-      "words": [
-        {
-          "text": "Même",
-          "start": 0.0781,
-          "end": 0.3125
-        },
-        {
-          "text": "million",
-          "start": 0.3125,
-          "end": 0.6585
-        },
-        {
-          "text": "au",
-          "start": 0.6585,
+          "start": 0.7031,
           "end": 0.7589
         },
         {
-          "text": "bout",
+          "text": "15 €",
           "start": 0.7589,
-          "end": 1.0491
+          "end": 1.3281
         },
         {
-          "text": "Commencer",
-          "start": 1.3727,
-          "end": 1.741
+          "text": "en",
+          "start": 1.3951,
+          "end": 1.4732
         },
         {
-          "text": "tôt",
-          "start": 1.7411,
+          "text": "livraison",
+          "start": 1.4732,
           "end": 2.0201
         },
         {
-          "text": "c’est",
-          "start": 2.4107,
-          "end": 2.5446
+          "text": "En",
+          "start": 2.3661,
+          "end": 2.4554
         },
         {
-          "text": "laisser",
-          "start": 2.5446,
-          "end": 2.8013
+          "text": "vrai",
+          "start": 2.4554,
+          "end": 2.7567
         },
         {
-          "text": "les",
-          "start": 2.8013,
-          "end": 2.8906
+          "text": "il",
+          "start": 3.0692,
+          "end": 3.1696
         },
         {
-          "text": "intérêts",
-          "start": 2.8906,
-          "end": 3.2701
+          "text": "te",
+          "start": 3.1696,
+          "end": 3.2812
         },
         {
-          "text": "composés",
-          "start": 3.2701,
-          "end": 3.6719
+          "text": "coûte",
+          "start": 3.2812,
+          "end": 3.5491
         },
         {
-          "text": "bosser",
-          "start": 3.6719,
-          "end": 4.1518
+          "text": "22 €",
+          "start": 3.5491,
+          "end": 4.3192
         }
       ]
     },
-    "extra": {
-      "file": "voice/extra.mp3",
+    "ticket": {
+      "file": "voice/ticket.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
-      "key": "bed107f5ec29328b",
-      "duration": 4.272,
+      "text": "Sur l’appli, il passe à 17 €. Ajoute livraison et frais : 7 € de plus.",
+      "key": "0f316832a83f102e",
+      "duration": 5.376,
       "words": [
         {
-          "text": "Attendre",
-          "start": 0.0893,
-          "end": 0.4911
+          "text": "Sur",
+          "start": 0.0487,
+          "end": 0.3388
         },
         {
-          "text": "10 ans",
-          "start": 0.4911,
-          "end": 0.8929
+          "text": "l’appli",
+          "start": 0.3388,
+          "end": 0.7852
         },
         {
-          "text": "c’est",
-          "start": 1.25,
-          "end": 1.3505
+          "text": "il",
+          "start": 1.0755,
+          "end": 1.187
         },
         {
-          "text": "verser",
-          "start": 1.3505,
-          "end": 1.6183
+          "text": "passe",
+          "start": 1.187,
+          "end": 1.4214
         },
         {
-          "text": "près",
-          "start": 1.6183,
-          "end": 1.7857
+          "text": "à",
+          "start": 1.4214,
+          "end": 1.4772
         },
         {
-          "text": "de",
-          "start": 1.7857,
-          "end": 1.8973
+          "text": "17 €",
+          "start": 1.4772,
+          "end": 2.1692
         },
         {
-          "text": "140 000 €",
-          "start": 1.8973,
-          "end": 2.6227
+          "text": "Ajoute",
+          "start": 2.5112,
+          "end": 2.846
         },
         {
-          "text": "de",
-          "start": 2.6227,
-          "end": 2.7232
+          "text": "livraison",
+          "start": 2.846,
+          "end": 3.3036
         },
         {
-          "text": "plus",
-          "start": 2.7232,
-          "end": 3.0692
-        },
-        {
-          "text": "pour",
-          "start": 3.0692,
-          "end": 3.2031
-        },
-        {
-          "text": "le",
-          "start": 3.2031,
-          "end": 3.2701
-        },
-        {
-          "text": "même",
-          "start": 3.2701,
+          "text": "et",
+          "start": 3.3036,
           "end": 3.4152
         },
         {
-          "text": "résultat",
+          "text": "frais",
           "start": 3.4152,
-          "end": 3.962
+          "end": 3.7612
+        },
+        {
+          "text": "7 €",
+          "start": 4.096,
+          "end": 4.4531
+        },
+        {
+          "text": "de",
+          "start": 4.4531,
+          "end": 4.5424
+        },
+        {
+          "text": "plus",
+          "start": 4.5424,
+          "end": 5.0558
+        }
+      ]
+    },
+    "year": {
+      "file": "voice/year.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Deux commandes par semaine, ça fait près de 2 300 € par an.",
+      "key": "24897556e3447402",
+      "duration": 3.576,
+      "words": [
+        {
+          "text": "Deux",
+          "start": 0.0781,
+          "end": 0.2567
+        },
+        {
+          "text": "commandes",
+          "start": 0.2567,
+          "end": 0.5804
+        },
+        {
+          "text": "par",
+          "start": 0.5804,
+          "end": 0.7255
+        },
+        {
+          "text": "semaine",
+          "start": 0.7255,
+          "end": 1.2054
+        },
+        {
+          "text": "ça",
+          "start": 1.596,
+          "end": 1.7299
+        },
+        {
+          "text": "fait",
+          "start": 1.7299,
+          "end": 1.8415
+        },
+        {
+          "text": "près",
+          "start": 1.8415,
+          "end": 2.0424
+        },
+        {
+          "text": "de",
+          "start": 2.0424,
+          "end": 2.154
+        },
+        {
+          "text": "2 300 €",
+          "start": 2.154,
+          "end": 2.8795
+        },
+        {
+          "text": "par",
+          "start": 2.8795,
+          "end": 3.0915
+        },
+        {
+          "text": "an",
+          "start": 3.0915,
+          "end": 3.2701
+        }
+      ]
+    },
+    "fees": {
+      "file": "voice/fees.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "1 560 € de burgers… et plus de 700 € juste en frais.",
+      "key": "3f1bda446651c11a",
+      "duration": 4.152,
+      "words": [
+        {
+          "text": "1 560 €",
+          "start": 0.0781,
+          "end": 1.0714
+        },
+        {
+          "text": "de",
+          "start": 1.0714,
+          "end": 1.1607
+        },
+        {
+          "text": "burgers",
+          "start": 1.1607,
+          "end": 1.6964
+        },
+        {
+          "text": "et",
+          "start": 2.2768,
+          "end": 2.3102
+        },
+        {
+          "text": "plus",
+          "start": 2.3102,
+          "end": 2.5335
+        },
+        {
+          "text": "de",
+          "start": 2.5335,
+          "end": 2.6451
+        },
+        {
+          "text": "700 €",
+          "start": 2.6451,
+          "end": 3.2031
+        },
+        {
+          "text": "juste",
+          "start": 3.2031,
+          "end": 3.4375
+        },
+        {
+          "text": "en",
+          "start": 3.4375,
+          "end": 3.5045
+        },
+        {
+          "text": "frais",
+          "start": 3.5045,
+          "end": 3.8393
         }
       ]
     },
@@ -270,64 +275,59 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
-      "key": "78e5495b49d42298",
-      "duration": 4.104,
+      "text": "L’astuce : commande à emporter et va le chercher. 700 € gardés.",
+      "key": "8dd35cfd94dc7333",
+      "duration": 5.136,
       "words": [
         {
-          "text": "Alors",
+          "text": "L’astuce",
           "start": 0.0893,
-          "end": 0.3237
+          "end": 0.7478
         },
         {
-          "text": "commence",
-          "start": 0.3237,
-          "end": 0.6696
+          "text": "commande",
+          "start": 1.038,
+          "end": 1.3393
         },
         {
-          "text": "tôt",
-          "start": 0.6696,
-          "end": 0.9263
-        },
-        {
-          "text": "même",
-          "start": 1.2165,
+          "text": "à",
+          "start": 1.3393,
           "end": 1.3839
         },
         {
-          "text": "petit",
+          "text": "emporter",
           "start": 1.3839,
-          "end": 1.8192
+          "end": 1.9196
         },
         {
-          "text": "Ton",
-          "start": 2.1245,
-          "end": 2.292
+          "text": "et",
+          "start": 1.9196,
+          "end": 2.0089
         },
         {
-          "text": "futur",
-          "start": 2.292,
-          "end": 2.7384
+          "text": "va",
+          "start": 2.0089,
+          "end": 2.0982
         },
         {
-          "text": "toi",
-          "start": 2.7384,
-          "end": 2.9616
+          "text": "le",
+          "start": 2.0982,
+          "end": 2.1987
         },
         {
-          "text": "te",
-          "start": 2.9616,
-          "end": 3.0732
+          "text": "chercher",
+          "start": 2.1987,
+          "end": 2.712
         },
         {
-          "text": "dira",
-          "start": 3.0732,
-          "end": 3.2852
+          "text": "700 €",
+          "start": 3.0187,
+          "end": 4.2464
         },
         {
-          "text": "merci",
-          "start": 3.2853,
-          "end": 3.7875
+          "text": "gardés",
+          "start": 4.2464,
+          "end": 4.8156
         }
       ]
     },

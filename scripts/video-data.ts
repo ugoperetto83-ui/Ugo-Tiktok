@@ -55,23 +55,23 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  target: 1_000_000, // objectif (€)
-  marketRate: 0.08, // rendement annuel moyen supposé
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  restaurantPrice: 15, // prix du burger au resto / à emporter (€)
+  appPrice: 17, // même burger sur l'appli de livraison (prix majorés ≈ +13 %)
+  deliveryFee: 2.99, // frais de livraison (€)
+  serviceFee: 1.99, // frais de service (€)
+  ordersPerWeek: 2,
+  weeksPerYear: 52,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
-const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
-const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
-const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
-const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
-const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
-const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
+const DELIVERED_PRICE = Math.round((A.appPrice + A.deliveryFee + A.serviceFee) * 100) / 100; // 21,98 € → « 22 € »
+const EXTRA_PER_ORDER = Math.round((DELIVERED_PRICE - A.restaurantPrice) * 100) / 100; // 6,98 € → « 7 € de plus »
+const ORDERS_PER_YEAR = A.ordersPerWeek * A.weeksPerYear; // 104 commandes
+const YEAR_TOTAL = Math.round(DELIVERED_PRICE * ORDERS_PER_YEAR); // ≈ 2 286 € → « près de 2 300 € »
+const YEAR_BURGERS = A.restaurantPrice * ORDERS_PER_YEAR; // 1 560 €
+const YEAR_EXTRA = YEAR_TOTAL - YEAR_BURGERS; // ≈ 726 € → « plus de 700 € »
 
-export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
+export const COMPUTED = {DELIVERED_PRICE, EXTRA_PER_ORDER, ORDERS_PER_YEAR, YEAR_TOTAL, YEAR_BURGERS, YEAR_EXTRA};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -192,6 +192,8 @@ export type OrderScene = SceneBase & {
   priceLabel: string;
   /** Arrivée du gobelet sur le comptoir (s). */
   cupAt: number;
+  /** Décor : café au comptoir (défaut) ou livraison (scooter + sac + burger). */
+  prop?: 'cup' | 'delivery';
   from: number;
   to: number;
   caption?: string;
@@ -204,7 +206,7 @@ export type SubItem = {
   label: string;
   /** Montant mensuel (€, centimes acceptés). */
   amount: number;
-  icon: 'play' | 'music' | 'gym' | 'star' | 'euro';
+  icon: 'play' | 'music' | 'gym' | 'star' | 'euro' | 'burger' | 'scooter' | 'fee';
   /** Argent reçu (affiché « +… € » en vert) plutôt que prélevé. */
   incoming?: boolean;
 };
@@ -221,6 +223,8 @@ export type NotifyScene = SceneBase & {
   itemGap: number;
   from: number;
   to: number;
+  /** Préfixe affiché avant le compteur (ex : « + »). */
+  prefix?: string;
   /** Suffixe affiché après le compteur (ex : « /an »). */
   suffix?: string;
   caption?: string;
@@ -323,107 +327,107 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '1\u00A0million',
-  '484\u00A0€',
-  '1\u00A0140\u00A0€',
-  'intérêts composés',
-  '140\u00A0000\u00A0€',
-  'commence tôt',
+  '15\u00A0€',
+  '22\u00A0€',
+  '7\u00A0€',
+  '2\u00A0300\u00A0€',
+  '700\u00A0€',
+  'à emporter',
   'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
+// Scénario : « Ton burger à 15 € t'en coûte 22 en vrai » (~25 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+const cents = (n: number) =>
+  new Intl.NumberFormat('fr-FR', {minimumFractionDigits: 2, maximumFractionDigits: 2}).format(n).replace(/\s/g, '\u00A0');
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'counter',
-    durationInSeconds: 4.5,
-    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    visual: 'order',
+    prop: 'delivery',
+    durationInSeconds: 5,
+    subtitle: `Ton burger à ${A.restaurantPrice}\u00A0€ en livraison\u00A0? En vrai, il te coûte ${Math.round(DELIVERED_PRICE)}\u00A0€.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Objectif à ${A.endAge} ans`,
-    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
+    eyebrow: 'Ta livraison du soir',
+    bubble: 'Un burger, livré\u00A0!',
+    priceLabel: `${A.restaurantPrice}\u00A0€`,
+    cupAt: 0.7,
+    caption: `${A.appPrice}\u00A0€ + ${cents(A.deliveryFee)}\u00A0€ + ${cents(A.serviceFee)}\u00A0€`,
+    from: A.restaurantPrice,
+    to: Math.round(DELIVERED_PRICE),
+    animation: {delay: 2.0, duration: 1.6, endAtWord: `${Math.round(DELIVERED_PRICE)}\u00A0€`},
+    impactAtEnd: true,
+    character: {pose: 'phone', then: 'shock', holdsPhone: true},
+  },
+  {
+    id: 'ticket',
+    visual: 'notify',
+    durationInSeconds: 6,
+    subtitle: `Sur l’appli, il passe à ${A.appPrice}\u00A0€. Ajoute livraison et frais\u00A0: ${Math.round(EXTRA_PER_ORDER)}\u00A0€ de plus.`,
+    accent: 'gold',
+    eyebrow: 'Ton ticket',
+    notifLabel: 'Commande',
+    items: [
+      {label: 'Burger (prix appli)', amount: A.appPrice, icon: 'burger'},
+      {label: 'Livraison', amount: A.deliveryFee, icon: 'scooter'},
+      {label: 'Frais de service', amount: A.serviceFee, icon: 'fee'},
+    ],
+    itemsAt: 1.55,
+    itemGap: 0.95,
     from: 0,
-    to: A.target,
-    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
+    to: Math.round(EXTRA_PER_ORDER),
+    prefix: '+',
+    animation: {delay: 3.6, duration: 0.9, endAtWord: `${Math.round(EXTRA_PER_ORDER)}\u00A0€`},
     impactAtEnd: true,
     character: {pose: 'think', then: 'shock'},
   },
   {
-    id: 'split',
-    visual: 'split',
-    durationInSeconds: 5,
-    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
-    accent: 'emerald',
-    left: {
-      title: `Dès ${A.earlyStart} ans`,
-      detail: `par mois · ${EARLY_YEARS} ans`,
-      from: 0,
-      to: EARLY_MONTHLY,
-      invested: EARLY_PAID,
-      style: 'winner',
-    },
-    right: {
-      title: `Dès ${A.lateStart} ans`,
-      detail: `par mois · ${LATE_YEARS} ans`,
-      from: 0,
-      to: LATE_MONTHLY,
-      invested: LATE_PAID,
-      style: 'loser',
-    },
-    gapLabel: 'Effort en plus',
-    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
-    animation: {delay: 0.35, duration: 2.8},
-    character: {pose: 'think', then: 'happy'},
-  },
-  {
-    id: 'chart',
-    visual: 'chart',
-    durationInSeconds: 5,
-    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
-    accent: 'emerald',
-    title: `1\u00A0million à ${A.endAge} ans`,
-    xValues: AGES,
-    xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
-    series: [
-      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
-      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
-    ],
-    animation: {delay: 0.3, duration: 3.6},
-    character: {pose: 'point', then: 'happy'},
-  },
-  {
-    id: 'extra',
+    id: 'year',
     visual: 'counter',
     durationInSeconds: 4.5,
-    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    subtitle: 'Deux commandes par semaine, ça fait près de 2\u00A0300\u00A0€ par an.',
     accent: 'gold',
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
+    eyebrow: 'En un an',
+    caption: `${ORDERS_PER_YEAR} commandes × ${cents(DELIVERED_PRICE)}\u00A0€`,
     from: 0,
-    to: EXTRA_PAID,
-    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
+    to: YEAR_TOTAL,
+    animation: {delay: 0.5, duration: 2.6, endAtWord: '2\u00A0300\u00A0€'},
     impactAtEnd: true,
     character: {pose: 'idle', then: 'shock'},
   },
   {
+    id: 'fees',
+    visual: 'jars',
+    durationInSeconds: 5,
+    subtitle: '1\u00A0560\u00A0€ de burgers… et plus de 700\u00A0€ juste en frais.',
+    accent: 'gold',
+    title: 'Où part la thune',
+    total: YEAR_TOTAL,
+    totalLabel: 'Livraison sur 1 an',
+    jars: [
+      {label: 'Burgers', share: YEAR_BURGERS / YEAR_TOTAL, color: 'mint'},
+      {label: 'Frais', share: YEAR_EXTRA / YEAR_TOTAL, color: 'coral'},
+    ],
+    fillAt: [0.1, 2.5],
+    fillDuration: 1.0,
+    character: {pose: 'think', then: 'shock'},
+  },
+  {
     id: 'cta',
     visual: 'statement',
-    durationInSeconds: 3.5,
-    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
+    durationInSeconds: 4.5,
+    subtitle: 'L’astuce\u00A0: commande à emporter et va le chercher. 700\u00A0€ gardés.',
     accent: 'emerald',
-    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
-    caption: 'Ton futur toi te dira merci.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
-    impactAt: 0.35,
-    character: {pose: 'idle', then: 'happy'},
+    lines: [{text: 'Va le chercher,'}, {text: 'garde 700\u00A0€.', highlight: true}],
+    caption: 'Même burger, commandé à emporter.',
+    disclaimer: 'Exemple illustratif · prix et frais variables selon l’appli et le resto · pas un conseil financier',
+    impactAt: 0.4,
+    character: {pose: 'point', then: 'happy'},
   },
   {
     id: 'endcard',

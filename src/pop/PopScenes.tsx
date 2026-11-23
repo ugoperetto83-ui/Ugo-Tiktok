@@ -232,6 +232,49 @@ const EspressoMachine: React.FC = () => (
   </svg>
 );
 
+/** Scooter de livraison (décor « delivery » de la scène order), à la place de la machine à café. */
+const DeliveryScooter: React.FC = () => (
+  <svg width={260} height={230} style={{position: 'absolute', left: 700, top: COUNTER_TOP - 222, overflow: 'visible'}}>
+    <g stroke={POP.ink} strokeWidth={OUTLINE} strokeLinejoin="round" strokeLinecap="round">
+      {/* Caisson isotherme */}
+      <rect x={20} y={30} width={120} height={100} rx={16} fill={POP.mint} />
+      <rect x={44} y={58} width={72} height={18} rx={9} fill={POP.white} />
+      {/* Carrosserie */}
+      <path d="M30,150 L150,150 Q170,150 180,128 L200,70 L226,70" fill="none" />
+      <path d="M40,130 L150,130 L160,170 L36,170 Q26,150 40,130 Z" fill={POP.coral} />
+      <line x1={200} y1={70} x2={214} y2={170} />
+      <circle cx={60} cy={182} r={30} fill={POP.white} />
+      <circle cx={60} cy={182} r={9} fill={POP.ink} />
+      <circle cx={210} cy={182} r={30} fill={POP.white} />
+      <circle cx={210} cy={182} r={9} fill={POP.ink} />
+    </g>
+  </svg>
+);
+
+/** Sac kraft de livraison + burger posé devant, centrés sur `x`, base à `y`. */
+const DeliveryBag: React.FC<{x: number; y: number; scale?: number}> = ({x, y, scale = 1}) => (
+  <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={POP.ink} strokeWidth={OUTLINE} strokeLinejoin="round">
+    {/* Sac */}
+    <path d="M-20,-150 L100,-150 L108,0 L-28,0 Z" fill={POP.coffeeLight} />
+    <path d="M-20,-150 L100,-150 L96,-128 L-16,-128 Z" fill="#B97A4E" />
+    <path d="M18,-150 Q40,-190 62,-150" fill="none" strokeLinecap="round" />
+    <circle cx={40} cy={-80} r={24} fill={POP.yellow} />
+    {/* Burger devant le sac */}
+    <g transform="translate(-40 0)">
+      <path d="M-62,-58 Q-62,-118 0,-118 Q62,-118 62,-58 Z" fill="#E7A45F" />
+      <g stroke="none" fill={POP.white}>
+        <ellipse cx={-24} cy={-96} rx={5} ry={3} />
+        <ellipse cx={6} cy={-104} rx={5} ry={3} />
+        <ellipse cx={30} cy={-90} rx={5} ry={3} />
+      </g>
+      <path d="M-68,-58 L68,-58 L60,-44 L44,-52 L28,-42 L10,-52 L-8,-42 L-26,-52 L-44,-42 L-60,-50 Z" fill={POP.mint} />
+      <path d="M-62,-48 L62,-48 L58,-38 L-58,-38 Z" fill={POP.yellow} />
+      <rect x={-64} y={-40} width={128} height={22} rx={11} fill={POP.coffee} />
+      <path d="M-62,-18 L62,-18 Q62,0 44,0 L-44,0 Q-62,0 -62,-18 Z" fill="#E7A45F" />
+    </g>
+  </g>
+);
+
 export const OrderSceneView: React.FC<{scene: OrderScene}> = ({scene}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -246,6 +289,7 @@ export const OrderSceneView: React.FC<{scene: OrderScene}> = ({scene}) => {
   const cupIn = spring({frame: frame - cupFrame + 10, fps, config: {damping: 13, stiffness: 160}});
   const cupX = interpolate(cupIn, [0, 1], [1200, 560]);
   const tag = spring({frame: frame - cupFrame - 4, fps, config: {damping: 9, stiffness: 220, mass: 0.6}});
+  const delivery = scene.prop === 'delivery';
 
   return (
     <AbsoluteFill style={{transform: `translate(${shake}px, ${shake * 0.4}px)`}}>
@@ -262,8 +306,8 @@ export const OrderSceneView: React.FC<{scene: OrderScene}> = ({scene}) => {
         </Abs>
       )}
 
-      {/* Le comptoir du café */}
-      <EspressoMachine />
+      {/* Le comptoir du café (ou le scooter de livraison) */}
+      {delivery ? <DeliveryScooter /> : <EspressoMachine />}
       <div style={{position: 'absolute', left: 150, top: COUNTER_TOP - 488 + 80}}>
         <Character
           cue={scene.character ?? {pose: 'order', then: 'shock'}}
@@ -280,15 +324,17 @@ export const OrderSceneView: React.FC<{scene: OrderScene}> = ({scene}) => {
           right: 30,
           top: COUNTER_TOP,
           height: 190,
-          ...sticker(POP.coffeeLight, 12, 30),
-          background: `repeating-linear-gradient(90deg, ${POP.coffeeLight} 0 120px, #BE8155 120px 124px)`,
+          ...sticker(delivery ? POP.violetLight : POP.coffeeLight, 12, 30),
+          background: delivery
+            ? `repeating-linear-gradient(90deg, ${POP.violetLight} 0 120px, #C4B8FF 120px 124px)`
+            : `repeating-linear-gradient(90deg, ${POP.coffeeLight} 0 120px, #BE8155 120px 124px)`,
         }}
       >
-        <div style={{height: 34, background: POP.coffee, borderBottom: `${OUTLINE}px solid ${POP.ink}`, borderRadius: '24px 24px 0 0'}} />
+        <div style={{height: 34, background: delivery ? POP.violet : POP.coffee, borderBottom: `${OUTLINE}px solid ${POP.ink}`, borderRadius: '24px 24px 0 0'}} />
       </div>
       <svg width={1080} height={300} style={{position: 'absolute', left: 0, top: COUNTER_TOP - 150, overflow: 'visible'}}>
-        <Cup x={cupX} y={96} scale={1.35} steam={(frame / fps) * 0.6} />
-        <g transform={`translate(${cupX + 70} 40) rotate(14) scale(${tag})`} opacity={Math.min(1, tag * 2)}>
+        {delivery ? <DeliveryBag x={cupX} y={164} scale={0.95} /> : <Cup x={cupX} y={96} scale={1.35} steam={(frame / fps) * 0.6} />}
+        <g transform={`translate(${cupX + (delivery ? 30 : 70)} ${delivery ? -72 : 40}) rotate(14) scale(${tag})`} opacity={Math.min(1, tag * 2)}>
           <circle r={52} fill={POP.coral} stroke={POP.ink} strokeWidth={OUTLINE} />
           <text y={15} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={42} fill={POP.white}>
             {scene.priceLabel}
@@ -604,7 +650,16 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
 // Abonnements : icônes, notifications, liste à barrer
 // ---------------------------------------------------------------------------
 
-const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint};
+const ICON_BG: Record<SubItem['icon'], string> = {
+  play: POP.coral,
+  music: POP.mint,
+  gym: POP.yellow,
+  star: POP.violet,
+  euro: POP.mint,
+  burger: POP.yellow,
+  scooter: POP.mint,
+  fee: POP.violet,
+};
 
 const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
   <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
@@ -627,6 +682,27 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
     {icon === 'euro' && (
       <text x={32} y={45} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={38} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
         €
+      </text>
+    )}
+    {icon === 'burger' && (
+      <g stroke={POP.ink} strokeWidth={3.5} strokeLinejoin="round">
+        <path d="M15,30 Q15,16 32,16 Q49,16 49,30 Z" fill={POP.coffeeLight} />
+        <rect x={13} y={31} width={38} height={6} rx={3} fill={POP.mint} />
+        <rect x={14} y={37} width={36} height={7} rx={3.5} fill={POP.coffee} />
+        <path d="M15,45 L49,45 Q49,51 43,51 L21,51 Q15,51 15,45 Z" fill={POP.coffeeLight} />
+      </g>
+    )}
+    {icon === 'scooter' && (
+      <g stroke={POP.ink} strokeWidth={3.5} strokeLinejoin="round" strokeLinecap="round">
+        <rect x={13} y={17} width={18} height={15} rx={3} fill={POP.coral} />
+        <path d="M16,38 L40,38 L44,26 L49,26" fill="none" />
+        <circle cx={20} cy={44} r={6} fill={POP.white} />
+        <circle cx={45} cy={44} r={6} fill={POP.white} />
+      </g>
+    )}
+    {icon === 'fee' && (
+      <text x={32} y={44} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={34} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
+        %
       </text>
     )}
     {icon === 'star' && (
@@ -727,7 +803,7 @@ export const NotifySceneView: React.FC<{scene: NotifyScene}> = ({scene}) => {
         }}
       >
         <BigNumber
-          value={`${formatEuro(value)}${scene.suffix ?? ''}`}
+          value={`${scene.prefix ?? ''}${formatEuro(value)}${scene.suffix ?? ''}`}
           fontSize={120}
           bg={progress >= 1 ? accent : POP.white}
           endFrame={endFrame}

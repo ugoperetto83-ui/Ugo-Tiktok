@@ -55,23 +55,19 @@ export const realSeries = (amount: number, rate: number, inflation: number, year
 // ---------------------------------------------------------------------------
 
 export const ASSUMPTIONS = {
-  target: 1_000_000, // objectif (€)
-  marketRate: 0.08, // rendement annuel moyen supposé
-  earlyStart: 20,
-  lateStart: 30,
-  endAge: 55,
+  classicPrice: 35, // forfait opérateur classique (€/mois)
+  cheapPrice: 10, // forfait low-cost équivalent (€/mois)
+  marketRate: 0.08, // rendement annuel moyen supposé si l'écart est placé
+  years: 10,
 } as const;
 
 const A = ASSUMPTIONS;
-const EARLY_YEARS = A.endAge - A.earlyStart; // 35 ans
-const LATE_YEARS = A.endAge - A.lateStart; // 25 ans
-const EARLY_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, EARLY_YEARS)); // ≈ 484 €
-const LATE_MONTHLY = Math.round(requiredMonthly(A.target, A.marketRate, LATE_YEARS)); // ≈ 1 140 €
-const EARLY_PAID = EARLY_MONTHLY * 12 * EARLY_YEARS; // ≈ 203 280 €
-const LATE_PAID = LATE_MONTHLY * 12 * LATE_YEARS; // ≈ 342 000 €
-const EXTRA_PAID = LATE_PAID - EARLY_PAID; // ≈ 138 720 € → « près de 140 000 € »
+const MONTHLY_GAP = A.classicPrice - A.cheapPrice; // 25 €
+const YEARLY_GAP = MONTHLY_GAP * 12; // 300 €
+const INVESTED_VALUE = Math.round(futureValue(MONTHLY_GAP, A.marketRate, A.years)); // ≈ 4 346 € → « plus de 4 300 € »
+const PAID = YEARLY_GAP * A.years; // 3 000 €
 
-export const COMPUTED = {EARLY_MONTHLY, LATE_MONTHLY, EARLY_PAID, LATE_PAID, EXTRA_PAID};
+export const COMPUTED = {MONTHLY_GAP, YEARLY_GAP, INVESTED_VALUE, PAID};
 
 // ---------------------------------------------------------------------------
 // Types de scènes
@@ -204,7 +200,7 @@ export type SubItem = {
   label: string;
   /** Montant mensuel (€, centimes acceptés). */
   amount: number;
-  icon: 'play' | 'music' | 'gym' | 'star' | 'euro';
+  icon: 'play' | 'music' | 'gym' | 'star' | 'euro' | 'signal';
   /** Argent reçu (affiché « +… € » en vert) plutôt que prélevé. */
   incoming?: boolean;
 };
@@ -323,93 +319,97 @@ export const VIDEO_CONFIG = {
 
 /** Mots-clés mis en valeur en vert émeraude dans les sous-titres (insensible à la casse). */
 export const KEYWORDS: string[] = [
-  '1\u00A0million',
-  '484\u00A0€',
-  '1\u00A0140\u00A0€',
-  'intérêts composés',
-  '140\u00A0000\u00A0€',
-  'commence tôt',
+  '25\u00A0€',
+  '300\u00A0€',
+  '4\u00A0300\u00A0€',
+  'même réseau',
+  'code RIO',
+  '3179',
   'Léo & la Thune',
 ];
 
 // ---------------------------------------------------------------------------
-// Scénario : « 1 million : 484 € ou 1 140 € par mois ? » (~27 s, style pop + carte de fin)
+// Scénario : « Ton forfait mobile : 25 € de trop chaque mois » (~25 s, style pop + carte de fin)
 // ---------------------------------------------------------------------------
 
 const fmt = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '\u00A0');
-const AGES = Array.from({length: A.endAge - A.earlyStart + 1}, (_, i) => A.earlyStart + i);
+const euros = (n: number) => `${fmt(n)}\u00A0€`;
+// Arrondi « parlé » du montant placé, au centaine inférieure (4 346 → 4 300).
+const SPOKEN_VALUE = euros(Math.floor(INVESTED_VALUE / 100) * 100);
 
 export const SCENES: Scene[] = [
   {
     id: 'hook',
-    visual: 'counter',
+    visual: 'notify',
     durationInSeconds: 4.5,
-    subtitle: `1\u00A0million à ${A.endAge}\u00A0ans\u00A0? C’est ${fmt(EARLY_MONTHLY)}\u00A0€ par mois… ou ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `Ton forfait à ${euros(A.classicPrice)}\u00A0? Tu paies ${euros(MONTHLY_GAP)} de trop chaque mois.`,
     accent: 'gold',
     whooshIn: false,
-    eyebrow: `Objectif à ${A.endAge} ans`,
-    caption: `${fmt(EARLY_MONTHLY)}\u00A0€/mois ou ${fmt(LATE_MONTHLY)}\u00A0€/mois\u00A0?`,
+    eyebrow: 'Le forfait de Léo',
+    notifLabel: 'Prélèvement',
+    items: [{label: 'Forfait mobile', amount: A.classicPrice, icon: 'signal'}],
+    itemsAt: 0.5,
+    itemGap: 0.8,
     from: 0,
-    to: A.target,
-    animation: {delay: 0.2, duration: 1.4, endAtWord: `${A.endAge}\u00A0ans`},
+    to: MONTHLY_GAP,
+    suffix: '/mois',
+    caption: 'payés pour rien',
+    animation: {delay: 1.6, duration: 1.5, endAtWord: euros(MONTHLY_GAP)},
     impactAtEnd: true,
-    character: {pose: 'think', then: 'shock'},
+    character: {pose: 'phone', then: 'shock', holdsPhone: true},
   },
   {
     id: 'split',
     visual: 'split',
     durationInSeconds: 5,
-    subtitle: `Dès ${A.earlyStart}\u00A0ans, ${fmt(EARLY_MONTHLY)}\u00A0€ par mois suffisent. Dès ${A.lateStart}\u00A0ans, il faut ${fmt(LATE_MONTHLY)}\u00A0€.`,
+    subtitle: `Classique\u00A0: ${euros(A.classicPrice)}. Low-cost\u00A0: ${euros(A.cheapPrice)}. ${euros(YEARLY_GAP)} d’écart par an.`,
     accent: 'emerald',
     left: {
-      title: `Dès ${A.earlyStart} ans`,
-      detail: `par mois · ${EARLY_YEARS} ans`,
+      title: 'Classique',
+      detail: 'par mois',
       from: 0,
-      to: EARLY_MONTHLY,
-      invested: EARLY_PAID,
-      style: 'winner',
-    },
-    right: {
-      title: `Dès ${A.lateStart} ans`,
-      detail: `par mois · ${LATE_YEARS} ans`,
-      from: 0,
-      to: LATE_MONTHLY,
-      invested: LATE_PAID,
+      to: A.classicPrice,
+      invested: A.classicPrice * 12,
+      investedLabel: 'Par an',
       style: 'loser',
     },
-    gapLabel: 'Effort en plus',
-    gapValue: LATE_MONTHLY - EARLY_MONTHLY,
-    animation: {delay: 0.35, duration: 2.8},
+    right: {
+      title: 'Low-cost',
+      detail: 'par mois',
+      from: 0,
+      to: A.cheapPrice,
+      invested: A.cheapPrice * 12,
+      investedLabel: 'Par an',
+      style: 'winner',
+    },
+    gapLabel: 'En trop par an',
+    gapValue: YEARLY_GAP,
+    animation: {delay: 0.35, duration: 2.6},
     character: {pose: 'think', then: 'happy'},
   },
   {
-    id: 'chart',
-    visual: 'chart',
+    id: 'tip',
+    visual: 'statement',
     durationInSeconds: 5,
-    subtitle: 'Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.',
+    subtitle: 'Souvent le même réseau, et tu gardes ton numéro\u00A0: code RIO au 3179.',
+    voiceText: 'Souvent le même réseau, et tu gardes ton numéro : code RIO au 31 79.',
     accent: 'emerald',
-    title: `1\u00A0million à ${A.endAge} ans`,
-    xValues: AGES,
-    xLabelSuffix: ' ans',
-    xTicks: [20, 30, 40, 55],
-    series: [
-      {label: `Dès ${A.lateStart} ans · ${fmt(LATE_MONTHLY)}\u00A0€/mois`, style: 'muted', values: growthSeries(LATE_MONTHLY, A.marketRate, A.lateStart, A.earlyStart, A.endAge)},
-      {label: `Dès ${A.earlyStart} ans · ${fmt(EARLY_MONTHLY)}\u00A0€/mois`, style: 'neon', values: growthSeries(EARLY_MONTHLY, A.marketRate, A.earlyStart, A.earlyStart, A.endAge)},
-    ],
-    animation: {delay: 0.3, duration: 3.6},
+    lines: [{text: 'Même réseau.'}, {text: 'Même numéro.', highlight: true}],
+    caption: 'Code RIO : appelle le 3179 (gratuit)',
+    impactAt: 1.2,
     character: {pose: 'point', then: 'happy'},
   },
   {
-    id: 'extra',
+    id: 'invest',
     visual: 'counter',
     durationInSeconds: 4.5,
-    subtitle: 'Attendre 10\u00A0ans, c’est verser près de 140\u00A0000\u00A0€ de plus pour le même résultat.',
+    subtitle: `Et ces ${euros(MONTHLY_GAP)} placés à 8\u00A0% par an\u00A0? Plus de ${SPOKEN_VALUE} en ${A.years}\u00A0ans.`,
     accent: 'gold',
-    eyebrow: 'Le prix de 10 ans d’attente',
-    caption: `${fmt(LATE_PAID)}\u00A0€ versés contre ${fmt(EARLY_PAID)}\u00A0€`,
+    eyebrow: `${euros(MONTHLY_GAP)}/mois placés ${A.years} ans`,
+    caption: `${euros(PAID)} versés · 8\u00A0%/an`,
     from: 0,
-    to: EXTRA_PAID,
-    animation: {delay: 0.4, duration: 2.0, endAtWord: '140\u00A0000\u00A0€'},
+    to: INVESTED_VALUE,
+    animation: {delay: 0.5, duration: 2.2, endAtWord: SPOKEN_VALUE},
     impactAtEnd: true,
     character: {pose: 'idle', then: 'shock'},
   },
@@ -417,11 +417,11 @@ export const SCENES: Scene[] = [
     id: 'cta',
     visual: 'statement',
     durationInSeconds: 3.5,
-    subtitle: 'Alors commence tôt, même petit. Ton futur toi te dira merci.',
+    subtitle: `Compare ton forfait ce soir. Cinq minutes pour ${euros(YEARLY_GAP)} par an.`,
     accent: 'emerald',
-    lines: [{text: 'Commence tôt,'}, {text: 'même petit.', highlight: true}],
-    caption: 'Ton futur toi te dira merci.',
-    disclaimer: 'Exemple illustratif · rendement moyen non garanti · pas un conseil en investissement',
+    lines: [{text: 'Compare ton'}, {text: 'forfait.', highlight: true}],
+    caption: `5 minutes = ${euros(YEARLY_GAP)}/an`,
+    disclaimer: 'Prix indicatifs · rendement moyen non garanti · pas un conseil en investissement',
     impactAt: 0.35,
     character: {pose: 'idle', then: 'happy'},
   },

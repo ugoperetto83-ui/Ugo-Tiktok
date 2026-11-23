@@ -604,7 +604,7 @@ export const StatementSceneView: React.FC<{scene: StatementScene}> = ({scene}) =
 // Abonnements : icônes, notifications, liste à barrer
 // ---------------------------------------------------------------------------
 
-const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint};
+const ICON_BG: Record<SubItem['icon'], string> = {play: POP.coral, music: POP.mint, gym: POP.yellow, star: POP.violet, euro: POP.mint, signal: POP.coral};
 
 const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size = 64}) => (
   <svg width={size} height={size} viewBox="0 0 64 64" style={{flexShrink: 0}}>
@@ -628,6 +628,14 @@ const SubIcon: React.FC<{icon: SubItem['icon']; size?: number}> = ({icon, size =
       <text x={32} y={45} textAnchor="middle" fontFamily="Fredoka" fontWeight={700} fontSize={38} fill={POP.white} stroke={POP.ink} strokeWidth={3} paintOrder="stroke">
         €
       </text>
+    )}
+    {icon === 'signal' && (
+      <g fill={POP.white} stroke={POP.ink} strokeWidth={4} strokeLinejoin="round">
+        <rect x={14} y={38} width={8} height={10} rx={2} />
+        <rect x={25} y={31} width={8} height={17} rx={2} />
+        <rect x={36} y={23} width={8} height={25} rx={2} />
+        <rect x={47} y={15} width={8} height={33} rx={2} />
+      </g>
     )}
     {icon === 'star' && (
       <path

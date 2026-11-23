@@ -5,54 +5,64 @@
       "file": "voice/hook.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "1 million à 55 ans ? C’est 484 € par mois… ou 1 140 €.",
-      "key": "d0086c5ad7918fff",
-      "duration": 5.592,
+      "text": "Ton forfait à 35 € ? Tu paies 25 € de trop chaque mois.",
+      "key": "05ccf5d4f56b6336",
+      "duration": 4.056,
       "words": [
         {
-          "text": "1 million",
-          "start": 0.0487,
-          "end": 0.6402
+          "text": "Ton",
+          "start": 0.0781,
+          "end": 0.1898
+        },
+        {
+          "text": "forfait",
+          "start": 0.1898,
+          "end": 0.6027
         },
         {
           "text": "à",
-          "start": 0.6402,
-          "end": 0.7406
+          "start": 0.6027,
+          "end": 0.7254
         },
         {
-          "text": "55 ans",
-          "start": 0.7406,
-          "end": 1.5442
+          "text": "35 €",
+          "start": 0.7255,
+          "end": 1.5178
         },
         {
-          "text": "C’est",
-          "start": 1.875,
-          "end": 2.0648
+          "text": "Tu",
+          "start": 1.8527,
+          "end": 1.9754
         },
         {
-          "text": "484 €",
-          "start": 2.0648,
-          "end": 3.2255
+          "text": "paies",
+          "start": 1.9755,
+          "end": 2.1875
         },
         {
-          "text": "par",
-          "start": 3.2255,
-          "end": 3.404
+          "text": "25 €",
+          "start": 2.1875,
+          "end": 2.9241
+        },
+        {
+          "text": "de",
+          "start": 2.9241,
+          "end": 3.0357
+        },
+        {
+          "text": "trop",
+          "start": 3.0357,
+          "end": 3.2143
+        },
+        {
+          "text": "chaque",
+          "start": 3.2143,
+          "end": 3.4375
         },
         {
           "text": "mois",
-          "start": 3.404,
-          "end": 3.6495
-        },
-        {
-          "text": "ou",
-          "start": 4.2411,
-          "end": 4.308
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.308,
-          "end": 5.2679
+          "start": 3.4375,
+          "end": 3.75
         }
       ]
     },
@@ -60,209 +70,204 @@
       "file": "voice/split.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Dès 20 ans, 484 € par mois suffisent. Dès 30 ans, il faut 1 140 €.",
-      "key": "e65ad5201c379cca",
-      "duration": 6.024,
+      "text": "Classique : 35 €. Low-cost : 10 €. 300 € d’écart par an.",
+      "key": "4b816182ced16c43",
+      "duration": 5.976,
       "words": [
         {
-          "text": "Dès",
+          "text": "Classique",
           "start": 0.0781,
-          "end": 0.2455
+          "end": 0.6808
         },
         {
-          "text": "20 ans",
-          "start": 0.2455,
-          "end": 0.7143
+          "text": "35 €",
+          "start": 0.971,
+          "end": 1.808
         },
         {
-          "text": "484 €",
-          "start": 1.0156,
-          "end": 2.221
+          "text": "Low-cost",
+          "start": 2.1147,
+          "end": 2.8179
+        },
+        {
+          "text": "10 €",
+          "start": 3.0745,
+          "end": 3.9674
+        },
+        {
+          "text": "300 €",
+          "start": 4.2687,
+          "end": 4.9384
+        },
+        {
+          "text": "d’écart",
+          "start": 4.9384,
+          "end": 5.2397
         },
         {
           "text": "par",
-          "start": 2.221,
-          "end": 2.3773
+          "start": 5.2397,
+          "end": 5.463
         },
         {
-          "text": "mois",
-          "start": 2.3773,
-          "end": 2.4888
-        },
-        {
-          "text": "suffisent",
-          "start": 2.4888,
-          "end": 3.125
-        },
-        {
-          "text": "Dès",
-          "start": 3.4598,
-          "end": 3.6161
-        },
-        {
-          "text": "30 ans",
-          "start": 3.6161,
-          "end": 4.1072
-        },
-        {
-          "text": "il",
-          "start": 4.4643,
-          "end": 4.5759
-        },
-        {
-          "text": "faut",
-          "start": 4.5759,
-          "end": 4.7321
-        },
-        {
-          "text": "1 140 €",
-          "start": 4.7321,
-          "end": 5.7142
+          "text": "an",
+          "start": 5.463,
+          "end": 5.675
         }
       ]
     },
-    "chart": {
-      "file": "voice/chart.mp3",
+    "tip": {
+      "file": "voice/tip.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Même million au bout. Commencer tôt, c’est laisser les intérêts composés bosser.",
-      "key": "bb1d740a32ac104d",
-      "duration": 4.464,
+      "text": "Souvent le même réseau, et tu gardes ton numéro : code RIO au 31 79.",
+      "key": "a98c857ef97daaf6",
+      "duration": 5.04,
       "words": [
         {
-          "text": "Même",
+          "text": "Souvent",
           "start": 0.0781,
-          "end": 0.3125
-        },
-        {
-          "text": "million",
-          "start": 0.3125,
-          "end": 0.6585
-        },
-        {
-          "text": "au",
-          "start": 0.6585,
-          "end": 0.7589
-        },
-        {
-          "text": "bout",
-          "start": 0.7589,
-          "end": 1.0491
-        },
-        {
-          "text": "Commencer",
-          "start": 1.3727,
-          "end": 1.741
-        },
-        {
-          "text": "tôt",
-          "start": 1.7411,
-          "end": 2.0201
-        },
-        {
-          "text": "c’est",
-          "start": 2.4107,
-          "end": 2.5446
-        },
-        {
-          "text": "laisser",
-          "start": 2.5446,
-          "end": 2.8013
-        },
-        {
-          "text": "les",
-          "start": 2.8013,
-          "end": 2.8906
-        },
-        {
-          "text": "intérêts",
-          "start": 2.8906,
-          "end": 3.2701
-        },
-        {
-          "text": "composés",
-          "start": 3.2701,
-          "end": 3.6719
-        },
-        {
-          "text": "bosser",
-          "start": 3.6719,
-          "end": 4.1518
-        }
-      ]
-    },
-    "extra": {
-      "file": "voice/extra.mp3",
-      "voice": "fr-FR-RemyMultilingualNeural",
-      "rate": "+12%",
-      "text": "Attendre 10 ans, c’est verser près de 140 000 € de plus pour le même résultat.",
-      "key": "bed107f5ec29328b",
-      "duration": 4.272,
-      "words": [
-        {
-          "text": "Attendre",
-          "start": 0.0893,
-          "end": 0.4911
-        },
-        {
-          "text": "10 ans",
-          "start": 0.4911,
-          "end": 0.8929
-        },
-        {
-          "text": "c’est",
-          "start": 1.25,
-          "end": 1.3505
-        },
-        {
-          "text": "verser",
-          "start": 1.3505,
-          "end": 1.6183
-        },
-        {
-          "text": "près",
-          "start": 1.6183,
-          "end": 1.7857
-        },
-        {
-          "text": "de",
-          "start": 1.7857,
-          "end": 1.8973
-        },
-        {
-          "text": "140 000 €",
-          "start": 1.8973,
-          "end": 2.6227
-        },
-        {
-          "text": "de",
-          "start": 2.6227,
-          "end": 2.7232
-        },
-        {
-          "text": "plus",
-          "start": 2.7232,
-          "end": 3.0692
-        },
-        {
-          "text": "pour",
-          "start": 3.0692,
-          "end": 3.2031
+          "end": 0.4241
         },
         {
           "text": "le",
-          "start": 3.2031,
-          "end": 3.2701
+          "start": 0.4241,
+          "end": 0.5134
         },
         {
           "text": "même",
-          "start": 3.2701,
-          "end": 3.4152
+          "start": 0.5134,
+          "end": 0.6696
         },
         {
-          "text": "résultat",
-          "start": 3.4152,
-          "end": 3.962
+          "text": "réseau",
+          "start": 0.6696,
+          "end": 1.116
+        },
+        {
+          "text": "et",
+          "start": 1.4509,
+          "end": 1.5067
+        },
+        {
+          "text": "tu",
+          "start": 1.5067,
+          "end": 1.6295
+        },
+        {
+          "text": "gardes",
+          "start": 1.6295,
+          "end": 1.8527
+        },
+        {
+          "text": "ton",
+          "start": 1.8527,
+          "end": 1.9643
+        },
+        {
+          "text": "numéro",
+          "start": 1.9643,
+          "end": 2.4442
+        },
+        {
+          "text": "code",
+          "start": 2.712,
+          "end": 2.8795
+        },
+        {
+          "text": "RIO",
+          "start": 2.8795,
+          "end": 3.2812
+        },
+        {
+          "text": "au",
+          "start": 3.3705,
+          "end": 3.4487
+        },
+        {
+          "text": "31",
+          "start": 3.4487,
+          "end": 3.8616
+        },
+        {
+          "text": "79",
+          "start": 3.8616,
+          "end": 4.721
+        }
+      ]
+    },
+    "invest": {
+      "file": "voice/invest.mp3",
+      "voice": "fr-FR-RemyMultilingualNeural",
+      "rate": "+12%",
+      "text": "Et ces 25 € placés à 8 % par an ? Plus de 4 300 € en 10 ans.",
+      "key": "f730f40489b881e8",
+      "duration": 5.16,
+      "words": [
+        {
+          "text": "Et",
+          "start": 0.0487,
+          "end": 0.2049
+        },
+        {
+          "text": "ces",
+          "start": 0.2049,
+          "end": 0.3388
+        },
+        {
+          "text": "25 €",
+          "start": 0.3388,
+          "end": 1.0643
+        },
+        {
+          "text": "placés",
+          "start": 1.0643,
+          "end": 1.4772
+        },
+        {
+          "text": "à",
+          "start": 1.4772,
+          "end": 1.5554
+        },
+        {
+          "text": "8 %",
+          "start": 1.5554,
+          "end": 2.0017
+        },
+        {
+          "text": "par",
+          "start": 2.0018,
+          "end": 2.2027
+        },
+        {
+          "text": "an",
+          "start": 2.2027,
+          "end": 2.3924
+        },
+        {
+          "text": "Plus",
+          "start": 2.6938,
+          "end": 2.9505
+        },
+        {
+          "text": "de",
+          "start": 2.9505,
+          "end": 3.062
+        },
+        {
+          "text": "4 300 €",
+          "start": 3.062,
+          "end": 4.2339
+        },
+        {
+          "text": "en",
+          "start": 4.312,
+          "end": 4.4125
+        },
+        {
+          "text": "10 ans",
+          "start": 4.4125,
+          "end": 4.8589
         }
       ]
     },
@@ -270,64 +275,64 @@
       "file": "voice/cta.mp3",
       "voice": "fr-FR-RemyMultilingualNeural",
       "rate": "+12%",
-      "text": "Alors commence tôt, même petit. Ton futur toi te dira merci.",
-      "key": "78e5495b49d42298",
-      "duration": 4.104,
+      "text": "Compare ton forfait ce soir. Cinq minutes pour 300 € par an.",
+      "key": "812c6ffb8380c4d9",
+      "duration": 4.08,
       "words": [
         {
-          "text": "Alors",
-          "start": 0.0893,
-          "end": 0.3237
+          "text": "Compare",
+          "start": 0.0781,
+          "end": 0.4464
         },
         {
-          "text": "commence",
-          "start": 0.3237,
-          "end": 0.6696
+          "text": "ton",
+          "start": 0.4464,
+          "end": 0.5803
         },
         {
-          "text": "tôt",
-          "start": 0.6696,
-          "end": 0.9263
+          "text": "forfait",
+          "start": 0.5804,
+          "end": 0.8929
         },
         {
-          "text": "même",
-          "start": 1.2165,
-          "end": 1.3839
+          "text": "ce",
+          "start": 0.8929,
+          "end": 1.0268
         },
         {
-          "text": "petit",
-          "start": 1.3839,
-          "end": 1.8192
+          "text": "soir",
+          "start": 1.0268,
+          "end": 1.5737
         },
         {
-          "text": "Ton",
-          "start": 2.1245,
-          "end": 2.292
+          "text": "Cinq",
+          "start": 1.9085,
+          "end": 2.2098
         },
         {
-          "text": "futur",
-          "start": 2.292,
-          "end": 2.7384
+          "text": "minutes",
+          "start": 2.2098,
+          "end": 2.6674
         },
         {
-          "text": "toi",
-          "start": 2.7384,
-          "end": 2.9616
+          "text": "pour",
+          "start": 2.6674,
+          "end": 2.8348
         },
         {
-          "text": "te",
-          "start": 2.9616,
-          "end": 3.0732
+          "text": "300 €",
+          "start": 2.8348,
+          "end": 3.3482
         },
         {
-          "text": "dira",
-          "start": 3.0732,
-          "end": 3.2852
+          "text": "par",
+          "start": 3.3482,
+          "end": 3.5602
         },
         {
-          "text": "merci",
-          "start": 3.2853,
-          "end": 3.7875
+          "text": "an",
+          "start": 3.5602,
+          "end": 3.7611
         }
       ]
     },
